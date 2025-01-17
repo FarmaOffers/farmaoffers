@@ -45,7 +45,8 @@
         'views/website_top_slider_views.xml',
         'views/sales_report_view.xml',
         'views/pos_config_view.xml',
-        'views/point_of_sale_view.xml'
+        'views/point_of_sale_view.xml',
+        'views/stock_picking_view.xml'
 
     ],
     # only loaded in demonstration mode
