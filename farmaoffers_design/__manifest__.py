@@ -20,7 +20,7 @@
     'version': '14.0.12',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'multi_branch'],
+    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'multi_branch', 'account'],
 
     # always loaded
     'data': [
@@ -46,7 +46,8 @@
         'views/sales_report_view.xml',
         'views/pos_config_view.xml',
         'views/point_of_sale_view.xml',
-        'views/stock_picking_view.xml'
+        'views/stock_picking_view.xml',
+        'views/account_move_view.xml',
 
     ],
     # only loaded in demonstration mode
