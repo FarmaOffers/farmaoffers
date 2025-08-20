@@ -141,6 +141,7 @@ odoo.define('farmaoffers_design.script', function (require) {
             $("#branch_office_id").val($(this).val());
         }
     });
+    $('#branch_office_select').trigger('change');
 
     $('#byBranchOffice').on('click', function (e) {
         e.preventDefault();
@@ -206,8 +207,8 @@ odoo.define('farmaoffers_design.script', function (require) {
             var form = this.el;
             var checked_radio = this.$('input[type="radio"]:checked');
             var self = this;
-            var is_branch_office = this.$('#is_branch_office').val();
-            var branch_office_id = this.$('#branch_office_id').val();
+            var is_branch_office = $('#is_branch_office').val();
+            var branch_office_id = $('#branch_office_id').val();
             $('#branch_office_error').addClass("d-none")
             if (ev.type === 'submit') {
                 var button = $(ev.target).find('*[type="submit"]')[0]

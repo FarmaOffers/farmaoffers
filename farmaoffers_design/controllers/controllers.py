@@ -410,14 +410,15 @@ class website_sale_extend(WebsiteSale):
     @http.route(['/shop/payment/transaction/',
                  '/shop/payment/transaction/<int:so_id>',
                  '/shop/payment/transaction/<int:so_id>/<string:access_token>'], type='json', auth="public", website=True)
+    @http.route(['/shop/payment/transaction/',
+                 '/shop/payment/transaction/<int:so_id>',
+                 '/shop/payment/transaction/<int:so_id>/<string:access_token>'],
+                type='json', auth="public", website=True)
     def payment_transaction(self, acquirer_id, save_token=False, so_id=None, access_token=None, token=None, **kwargs):
         """ Json method that creates a payment.transaction, used to create a
         transaction when the user clicks on 'pay now' button. After having
         created the transaction, the event continues and the user is redirected
         to the acquirer website.
-
-        :param int acquirer_id: id of a payment.acquirer record. If not set the
-                                user is redirected to the checkout page
         """
         # Ensure a payment acquirer is selected
         if not acquirer_id:
@@ -425,7 +426,7 @@ class website_sale_extend(WebsiteSale):
 
         try:
             acquirer_id = int(acquirer_id)
-        except:
+        except Exception:
             return False
 
         # Retrieve the sale order
@@ -440,13 +441,29 @@ class website_sale_extend(WebsiteSale):
             order = request.website.sale_get_order()
 
         # Ensure there is something to proceed
-        if not order or (order and not order.order_line):
+        if not order or not order.order_line:
             return False
 
         assert order.partner_id.id != request.website.partner_id.id
 
-        if kwargs['is_branch_office'] == "True" and kwargs['branch_office_id'] != "0":
-            order.branch_office_id = kwargs['branch_office_id']
+        # 🔹 Cambio simple: asignar sucursal al order si viene en kwargs
+        # justo antes de la condición
+        _logger.info("KWARGS crudos en payment_transaction: %s", kwargs)
+        _logger.info("kwargs.get('is_branch_office')=%r", kwargs.get('is_branch_office'))
+        _logger.info("kwargs.get('branch_office_id')=%r", kwargs.get('branch_office_id'))
+
+        if kwargs.get('is_branch_office') == "True" and kwargs.get('branch_office_id') not in (None, "0", ""):
+            _logger.info("Condición cumplida: is_branch_office=True y branch_office_id válido")
+            try:
+                branch_id_int = int(kwargs['branch_office_id'])
+                _logger.info("Convertido a int branch_office_id=%s", branch_id_int)
+                order.sudo().write({'branch_id': branch_id_int})
+                _logger.info("Se escribió branch_id=%s en la orden %s", branch_id_int, order.id)
+            except Exception as e:
+                _logger.warning("No se pudo asignar branch_id=%s, error=%s", kwargs.get('branch_office_id'), e)
+        else:
+            _logger.warning("Condición NO cumplida -> is_branch_office=%r branch_office_id=%r",
+                            kwargs.get('is_branch_office'), kwargs.get('branch_office_id'))
 
         # Create transaction
         vals = {'acquirer_id': acquirer_id,
@@ -459,15 +476,14 @@ class website_sale_extend(WebsiteSale):
 
         transaction = order._create_payment_transaction(vals)
 
-        # store the new transaction into the transaction list and if there's an old one, we remove it
-        # until the day the ecommerce supports multiple orders at the same time
+        # store the new transaction into the transaction list
         last_tx_id = request.session.get('__website_sale_last_tx_id')
-        last_tx = request.env['payment.transaction'].browse(
-            last_tx_id).sudo().exists()
+        last_tx = request.env['payment.transaction'].browse(last_tx_id).sudo().exists()
         if last_tx:
             PaymentProcessing.remove_payment_transaction(last_tx)
         PaymentProcessing.add_payment_transaction(transaction)
         request.session['__website_sale_last_tx_id'] = transaction.id
+
         return transaction.render_sale_button(order, render_values={
             "amount_tax": order.amount_tax,
             "amount_delivery": order.amount_delivery,
