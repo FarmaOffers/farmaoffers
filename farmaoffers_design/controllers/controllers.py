@@ -409,9 +409,6 @@ class website_sale_extend(WebsiteSale):
 
     @http.route(['/shop/payment/transaction/',
                  '/shop/payment/transaction/<int:so_id>',
-                 '/shop/payment/transaction/<int:so_id>/<string:access_token>'], type='json', auth="public", website=True)
-    @http.route(['/shop/payment/transaction/',
-                 '/shop/payment/transaction/<int:so_id>',
                  '/shop/payment/transaction/<int:so_id>/<string:access_token>'],
                 type='json', auth="public", website=True)
     def payment_transaction(self, acquirer_id, save_token=False, so_id=None, access_token=None, token=None, **kwargs):
