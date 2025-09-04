@@ -2,22 +2,22 @@
 
 {
     'name': 'Yappy Payment Acquirer',
-    'category': 'Accounting/Payment Acquirers',
-    'sequence': 365,
-    'summary': 'Yappy Acquirer: Paypal Implementation',
     'version': '1.0',
-    'description': """Yappy Payment Acquirer""",
-    'depends': ['payment'],
+    'category': 'Payment',
+    'summary': 'Integration with Yappy Payment Gateway',
+    'description': 'Yappy Payment Acquirer for Odoo',
+    'author': 'Farmaoffers',
+    'website': 'https://www.farmaoffers.com',
+    'depends': ['payment', 'website_sale'],
     'data': [
-        'views/payment_views.xml',
-        'views/payment_yappy_templates.xml',
-        'data/payment_acquirer_data.xml',
+
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'payment_yappy/static/src/js/payment_form.js',
+        ],
+    },
     'installable': True,
-    'application': True,
-    'post_init_hook': '_post_init_hook',
-    'uninstall_hook': 'uninstall_hook',
-    'external_dependencies': {
-        'python': ['pynpm'],
-    }
+    'application': False,
+    'license': 'LGPL-3',
 }

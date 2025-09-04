@@ -699,8 +699,8 @@
                         <t t-set="tp_is_attribute_filtered" t-value="bool(request.httprequest.args.get('min_price') or request.httprequest.args.get('max_price') or request.httprequest.args.get('under_10') or request.httprequest.args.get('over_20') or request.httprequest.args.get('ten_to_tweenty'))"/>
                         <t t-set="tp_selected_min_price" t-value="request.httprequest.args.get('min_price')"/>
                         <t t-set="tp_selected_max_price" t-value="request.httprequest.args.get('max_price')"/>
-                        <t t-set="price_filter" t-value="website.get_price_filter()"/>
-                        <t t-set="max_price" t-value="price_filter.price_range"/>
+                        <t t-set="price_filter" t-value="website.get_price_filter() if getattr(website, 'get_price_filter', None) else request.env['price.filter'].sudo().search([], limit=1)"/>
+                        <t t-set="max_price" t-value="price_filter.price_range if price_filter else 0"/>
                         <t t-set="min_price" value="0"/>
 
                         <div t-attf-class="tp-filter-attribute-title collapsible">
@@ -709,7 +709,8 @@
                             </h3>
                         </div>
                         <div t-attf-class="tp-filter-attribute-collapsible-area pt-2 collapsible">
-                            <t t-set="current_pricelist_symbol" t-value="website.get_current_pricelist().currency_id.symbol" />
+                            <t t-set="current_pricelist" t-value="website.get_current_pricelist() if getattr(website, 'get_current_pricelist', None) else request.env['product.pricelist'].sudo().search([], limit=1)"/>
+                            <t t-set="current_pricelist_symbol" t-value="current_pricelist.currency_id.symbol if current_pricelist and current_pricelist.currency_id else ''"/>
                             <ul class="nav nav-pills flex-column ml-0 flex-nowrap tp-filter-attribute-scrollbar kz-custom-price-filter px-0">
                                 <li t-attf-class="nav-item #{'d-none' if request.httprequest.args.get('ten_to_tweenty') or request.httprequest.args.get('over_20') or tp_selected_min_price or tp_selected_max_price else None}" data-search-term="m·a·c">
                                     <div class="custom-control custom-checkbox mb-2 ml-1">
@@ -789,7 +790,7 @@
                                     <li t-if="tp_selected_min_price or tp_selected_max_price" class="list-inline-item my-1">
                                         <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price">
                                             <span>Price : </span>
-                                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
+                                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
                                             <span class="tp-attribute-value" t-esc="'%s - %s' % (tp_selected_min_price or min_price or 0, tp_selected_max_price or max_price)"/>
                                             <i class="text-secondary fa fa-times ml-1 tp-attribute-remove"/>
                                         </span>
@@ -804,7 +805,7 @@
                                     <li t-if="ten_to_tweenty" class="list-inline-item my-1">
                                         <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price" data-id="ten_to_tweenty">
                                             <span>Precio : </span>
-                                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
+                                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
                                             <span class="tp-attribute-value" t-esc="'%s - %s' % (from_price, max_price)"/>
                                             <i class="text-secondary fa fa-times ml-1 tp-attribute-remove"/>
                                         </span>

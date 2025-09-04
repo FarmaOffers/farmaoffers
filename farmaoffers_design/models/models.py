@@ -67,6 +67,12 @@ class website(models.Model):
         sliders = self.env['fo.top.slider'].sudo().search([('active', '=', True)])
         return sliders
 
+    def get_homepage_sliders(self):
+        # Backwards compatibility: some templates call website.get_homepage_sliders()
+        # Return the active top sliders used on the homepage.
+        sliders = self.env['fo.top.slider'].sudo().search([('active', '=', True)])
+        return sliders
+
 class PriceFilter(models.Model):
     _name = 'price.filter'
     _description = "shows the values for price filter on product list page."

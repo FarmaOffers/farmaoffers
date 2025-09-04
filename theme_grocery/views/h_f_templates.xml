@@ -117,14 +117,14 @@
                 <form method="get" action="/shop" class="pagination form-inline o_website_sale_search">
                   <div class="input-group"> 
                     <div class="oe_search">
-                      <select class="form-control" name="category">
-                        <option value="" t-att-selected="not search">All Products</option>
-                        <t t-foreach="website.get_categories()" t-as="category_item">
-                          <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
-                              <t t-esc="category_item.name"/>
-                          </option>
-                        </t>
-                      </select>
+                        <select class="form-control" name="category">
+                          <option value="" t-att-selected="not search">All Products</option>
+                          <t t-foreach="website.get_categories() if getattr(website, 'get_categories', None) else request.env['product.public.category'].sudo().search([])" t-as="category_item">
+                            <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
+                                <t t-esc="category_item.name"/>
+                            </option>
+                          </t>
+                        </select>
                       <input type="text" name="search" class="search-query form-control oe_search_box" placeholder="Enter keywords to search..." t-att-value="search"/>
                     </div>
                     <span class="input-group-btn">

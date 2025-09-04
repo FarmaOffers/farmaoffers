@@ -714,7 +714,7 @@
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div[hasclass('card')]" position="before">
                 <div t-attf-class="row col-8 col-lg-12 p-0 m-0 div_branch_office">
-                    <t t-set="offices" t-value="website.get_branch_offices()"/>
+                    <t t-set="offices" t-value="website.get_branch_offices() if getattr(website, 'get_branch_offices', None) else []"/>
                     <select id="branch_office_select" name="branch_office_select" class="px-2 w-100 col-12 col-lg-6 font-montserrat">
                         <option value="">-SUCURSALES-</option>
                         <t t-foreach="offices" t-as="bo">
@@ -785,7 +785,7 @@
             </xpath>
         </template>
 
-        <template id="cart_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale_delivery.cart_delivery">
+        <template id="cart_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale.cart_delivery">
             <xpath expr="//tr[@id='order_delivery']" position="replace">
             </xpath>
 
@@ -818,7 +818,7 @@
 
         </template>
 
-        <template id="payment_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale_delivery.payment_delivery">
+        <template id="payment_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale.payment_delivery">
             <xpath expr="//div[@id='delivery_carrier']" position="replace">
             </xpath>
         </template>
@@ -866,7 +866,7 @@
                         </div>
                     </div>
                     <!-- <div t-attf-class="form-group col-8 col-lg-4 p-0 div_branch_office">
-                    <t t-set="offices" t-value="website.get_branch_offices()"/>
+                    <t t-set="offices" t-value="website.get_branch_offices() if getattr(website, 'get_branch_offices', None) else []"/>
                     <select id="branch_office_id" name="branch_office_id" class="px-2 w-1">
                         <option value="">-SUCURSALES-</option>
                         <t t-foreach="offices" t-as="bo">
@@ -1460,7 +1460,7 @@
                             </a>
                         </div>
                         <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
-                        <t t-foreach="website.get_main_categories()" t-as="c">
+                        <t t-foreach="website.get_main_categories() if getattr(website, 'get_main_categories', None) else request.env['product.public.category'].sudo().search([])" t-as="c">
                             <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
                         </t>
                         </ul>

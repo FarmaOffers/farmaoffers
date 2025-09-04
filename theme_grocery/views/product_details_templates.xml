@@ -35,7 +35,7 @@
       <attribute name="class">col-md-12 col-lg-5 font-montserrat</attribute>
     </xpath>
     <xpath expr="//div[@id='product_details']/span" position="after">
-      <t t-set="product_avg_rating" t-value="website.get_product_avg_rating(product)"/>
+      <t t-set="product_avg_rating" t-value="website.get_product_avg_rating(product) if getattr(website, 'get_product_avg_rating', None) else 0"/>
       <div class="star-rating" t-att-title="'Average Rating: %s' % product_avg_rating">
         <span class="fa fa-star-o" data-rating="1"></span>
         <span class="fa fa-star-o" data-rating="2"></span>

@@ -96,7 +96,7 @@
       <t t-set="whatsapp" t-value="website.whatsapp_number"/>
       <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"><i class="fa fa-whatsapp whatsapp-icon"></i></a>
 
-      <t t-set="top_sliders" t-value="website.get_top_sliders()" />
+      <t t-set="top_sliders" t-value="request.env['fo.top.slider'].sudo().search([('active','=',True)])" />
 
       <section id="top-slider-carousel" class="splide" aria-label="Top Slider" t-if="top_sliders">
           <div class="container">
@@ -142,7 +142,7 @@
                       <div class="oe_search w-100">
                         <!-- <select class="form-control" name="category">
                           <option value="" t-att-selected="not search">All Products</option>
-                          <t t-foreach="website.get_categories()" t-as="category_item">
+                          <t t-foreach="website.get_categories() if getattr(website, 'get_categories', None) else request.env['product.public.category'].sudo().search([])" t-as="category_item">
                             <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
                                 <t t-esc="category_item.name"/>
                             </option>
@@ -296,7 +296,7 @@
                       <div class="oe_search w-100">
                         <!-- <select class="form-control" name="category">
                           <option value="" t-att-selected="not search">All Products</option>
-                          <t t-foreach="website.get_categories()" t-as="category_item">
+                          <t t-foreach="website.get_categories() if getattr(website, 'get_categories', None) else request.env['product.public.category'].sudo().search([])" t-as="category_item">
                             <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
                                 <t t-esc="category_item.name"/>
                             </option>
@@ -336,7 +336,7 @@
             <span style="cursor:pointer; font-size:0.7em;" class="mobile-categ-menu-close">X</span>
           </h3>
           <ul class="border category-nav category-nav-mobile nav nav-pills" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:100vh;">
-            <t t-foreach="website.get_main_categories()" t-as="c">
+            <t t-foreach="website.get_main_categories() if getattr(website, 'get_main_categories', None) else request.env['product.public.category'].sudo().search([])" t-as="c">
               <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
             </t>
           </ul>
@@ -347,7 +347,7 @@
       </header>
       <div class="homepage-categ-mobile container">
         <ul class="navbar-nav d-flex flex-row flex-nowrap align-items-center" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
-          <t t-foreach="website.get_homepage_categories()" t-as="category">
+          <t t-foreach="website.get_homepage_categories() if getattr(website, 'get_homepage_categories', None) else request.env['product.public.category'].sudo().search([], order='sequence')" t-as="category">
               <li class="nav-item homepage-categ-item-mob">
                 <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
                   <div class="d-flex flex-row gap-1 align-items-center">

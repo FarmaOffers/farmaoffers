@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                       <div class="home-slider">
                         <div class="owl-carousel">
-                          <t t-foreach="website.get_homepage_sliders()" t-as="slider">
+                          <t t-foreach="request.env['fo.top.slider'].sudo().search([('active','=',True)])" t-as="slider">
                             <div class="item">
                               <a t-att-href="slider.link" t-att-title="slider.name">
                                 <img t-attf-src="/website/image/homepage.slider/{{slider.id}}/image" t-att-alt="slider.name" t-if="direction == 'ltr'"/>

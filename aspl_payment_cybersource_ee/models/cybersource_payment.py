@@ -14,11 +14,11 @@ import hashlib
 import base64
 import uuid
 import json
-import logging, base64, requests, json
+import logging
+import requests
 
 from werkzeug import urls
 from datetime import datetime
-from suds.sudsobject import asdict
 from odoo import api, fields, models, _
 from odoo.http import request
 from odoo.tools.float_utils import float_compare

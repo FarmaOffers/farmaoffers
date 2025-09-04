@@ -24,7 +24,7 @@
                           </div>
                           <div class="navbar-collapse sidebar-navbar-collapse collapse show">
                             <ul class="nav navbar-nav">
-                              <t t-foreach="website.get_homepage_categories()" t-as="category">
+                              <t t-foreach="website.get_homepage_categories() if getattr(website, 'get_homepage_categories', None) else []" t-as="category">
                                 <li><a t-att-href="'/shop/category/' + slug(category)"><t t-esc="category.name"/></a></li>
                               </t>
                             </ul>
@@ -35,7 +35,7 @@
                     <div class="col-md-9">
                       <div class="home-slider">
                         <div class="owl-carousel">
-                          <t t-foreach="website.get_homepage_sliders()" t-as="slider">
+                          <t t-foreach="request.env['homepage.slider'].sudo().search([], order='sequence')" t-as="slider">
                             <div class="item">
                               <a t-att-href="slider.link" t-att-title="slider.name">
                                 <img t-attf-src="/website/image/homepage.slider/{{slider.id}}/image" t-att-alt="slider.name" t-if="direction == 'ltr'"/>
@@ -53,7 +53,7 @@
               <section class="mt16 mb32">
                 <div class="container">
                   <div class="row">
-                    <t t-foreach="website.get_homepage_horizontal_banner()" t-as="banner">
+                          <t t-foreach="website.get_homepage_horizontal_banner() if getattr(website, 'get_homepage_horizontal_banner', None) else []" t-as="banner">
                       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="horizontal-banner">
                           <div class="bg-image">
@@ -89,7 +89,7 @@
                           <div class="container">
                             <div class="row">
                               <div class="col-md-12">
-                                <t t-foreach="website.get_homepage_vertical_banner()" t-as="banner">
+                                <t t-foreach="website.get_homepage_vertical_banner() if getattr(website, 'get_homepage_vertical_banner', None) else []" t-as="banner">
                                   <a t-att-href="banner.link">
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -105,7 +105,7 @@
 
                         <section class="list-slider best-seller mb32">
                           <div class="block-title"><span>Best Sellers</span></div>
-                          <t t-set="products" t-value="website.get_bestseller_products()"/>
+                          <t t-set="products" t-value="website.get_bestseller_products() if getattr(website, 'get_bestseller_products', None) else []"/>
                           <div class="owl-carousel">
                             <t t-foreach="range(0, len(products), 5)" t-as="step">
                               <div class="item">
@@ -147,7 +147,7 @@
                         <section class="list-slider review-slider mb32">
                           <div class="block-title"><span>Testimonials</span></div>
                           <div class="owl-carousel">
-                            <t t-foreach="website.get_testimonials()" t-as="testimonial">
+                            <t t-foreach="website.get_testimonials() if getattr(website, 'get_testimonials', None) else []" t-as="testimonial">
                               <div class="item">
                                 <div class="reviewer-image">
                                   <img t-attf-src="/website/image/customer.testimonial/{{testimonial.id}}/image" alt="testimonial.id"/>
@@ -191,7 +191,7 @@
                         <div class="tab-content">
                           <div role="tabpanel" class="tab-pane" id="featured">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_featured_products()"/>
+                              <t t-set="products" t-value="website.get_featured_products() if getattr(website, 'get_featured_products', None) else []"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -209,7 +209,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane" id="latest">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_latest_products()"/>
+                              <t t-set="products" t-value="website.get_latest_products() if getattr(website, 'get_latest_products', None) else []"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -227,7 +227,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane show active" id="bestseller">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_bestseller_products()"/>
+                              <t t-set="products" t-value="website.get_bestseller_products() if getattr(website, 'get_bestseller_products', None) else []"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -253,7 +253,7 @@
                         <div>
                           <div class="row">
                             <div class="col-md-12 homepage_banner_2">
-                              <t t-foreach="website.get_homepage_horizontal_full_banner()" t-as="banner">
+                              <t t-foreach="website.get_homepage_horizontal_full_banner() if getattr(website, 'get_homepage_horizontal_full_banner', None) else []" t-as="banner">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -270,7 +270,7 @@
                       <section class="s_text_image homepage_banner_2 mb16">
                         <div>
                           <div class="row">
-                            <t t-foreach="website.get_homepage_horizontal_half_banner()" t-as="banner">
+                            <t t-foreach="website.get_homepage_horizontal_half_banner() if getattr(website, 'get_homepage_horizontal_half_banner', None) else []" t-as="banner">
                               <div class="col-md-6">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.half.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
@@ -288,13 +288,13 @@
                       <div class="homepage-blogs mb32">
                         <div class="title">Latest Blog</div>
                         <div class="owl-carousel mt16">
-                          <t t-foreach="website.get_latest_blog_posts()" t-as="blog_post">
+                          <t t-foreach="website.get_latest_blog_posts() if getattr(website, 'get_latest_blog_posts', None) else []" t-as="blog_post">
                             <div class="item col-md-12">
                               <div class="row">
                                 <div class="latest-posts-body">
                                   <div class="latest-posts-image">
                                     <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
-                                      <t t-set="img_path" t-value='website.get_cover_image(blog_post)'/>
+                                      <t t-set="img_path" t-value='website.get_cover_image(blog_post) if getattr(website, "get_cover_image", None) else ""'/>
                                       <img t-att-src="img_path and len(img_path)> 2 and img_path[1:-1]" t-att-title="blog_post.name" t-att-alt="blog_post.name" class="img img-responsive"/>
                                     </a>
                                   </div>
