@@ -35,7 +35,7 @@
       <attribute name="class">col-md-12 col-lg-5 font-montserrat</attribute>
     </xpath>
     <xpath expr="//div[@id='product_details']/span" position="after">
-      <t t-set="product_avg_rating" t-value="website.get_product_avg_rating(product) if getattr(website, 'get_product_avg_rating', None) else 0"/>
+      <t t-set="product_avg_rating" t-value="website.get_product_avg_rating(product)"/>
       <div class="star-rating" t-att-title="'Average Rating: %s' % product_avg_rating">
         <span class="fa fa-star-o" data-rating="1"></span>
         <span class="fa fa-star-o" data-rating="2"></span>
@@ -94,7 +94,7 @@
     </xpath>
   </template>
 
-  <template id="product_page_variant" inherit_id="sale.variants" name="Grocery Product Variants">
+  <template id="product_page_variant" inherit_id="website_sale.variants" name="Grocery Product Variants">
     <xpath expr="//li[hasclass('js_attribute_value')]" position="replace">
       <li class="form-group js_attribute_value radio" style="margin: 0;">
           <label class="col-form-label">

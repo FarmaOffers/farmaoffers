@@ -36,7 +36,9 @@
 
               <section class="mt16 mb16">
                 <div class="container">
-                  <t t-call="farmaoffers_design.s_top_offers"/>
+                  <t t-if="request.env['ir.ui.view'].sudo().search([('key', '=', 'farmaoffers_design.s_top_offers'), ('website_id', 'in', [False, request.website.id])])">
+                    <t t-call="farmaoffers_design.s_top_offers"/>
+                  </t>
                 </div>
               </section>
 
@@ -45,7 +47,9 @@
 
               <section class="mt16 mb16">
                 <div class="container">
-                  <t t-call="farmaoffers_design.t_top_products"/>
+                  <t t-if="request.env['ir.ui.view'].sudo().search([('key', '=', 'farmaoffers_design.t_top_products'), ('website_id', 'in', [False, request.website.id])])">
+                    <t t-call="farmaoffers_design.t_top_products"/>
+                  </t>
                 </div>
               </section>
 

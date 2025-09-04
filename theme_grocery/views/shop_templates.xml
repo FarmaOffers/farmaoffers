@@ -60,7 +60,7 @@
                                                     <t t-placeholder="select">
                                                         <input type="hidden" class="product_id" name="product_id" t-att-value="product_variant.id" />
                                                         <input type="hidden" class="product_template_id" name="product_template_id" t-att-value="product.id" />
-                                                        <t t-if="combination" t-call="sale.variants">
+                                                        <t t-if="combination" t-call="website_sale.variants">
                                                             <t t-set="ul_class" t-value="'flex-column'" />
                                                             <t t-set="parent_combination" t-value="None" />
                                                         </t>
@@ -259,7 +259,7 @@
                     <li t-if="tp_selected_min_price or tp_selected_max_price" class="list-inline-item my-1">
                         <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price">
                             <span>Price : </span>
-                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol if getattr(website, 'get_current_pricelist', None) else (request.env['product.pricelist'].sudo().search([], limit=1).currency_id.symbol if request.env['product.pricelist'].sudo().search([], limit=1).currency_id else '')"/>
+                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                             <span class="tp-attribute-value" t-esc="'%s - %s' % (tp_selected_min_price or min_price, tp_selected_max_price or max_price)"/>
                             <i class="fa fa-times ml-1 tp-attribute-remove"/>
                         </span>
@@ -267,7 +267,7 @@
                     <li t-if="under_10" class="list-inline-item my-1">
                         <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price" data-id="under_10">
                             <span>Price : </span>
-                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol if getattr(website, 'get_current_pricelist', None) else (request.env['product.pricelist'].sudo().search([], limit=1).currency_id.symbol if request.env['product.pricelist'].sudo().search([], limit=1).currency_id else '')"/>
+                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                             <span class="tp-attribute-value" t-esc="'%s - %s' % (tp_selected_min_price or min_price, 10)"/>
                             <i class="fa fa-times ml-1 tp-attribute-remove"/>
                         </span>
@@ -275,7 +275,7 @@
                     <li t-if="ten_to_tweenty" class="list-inline-item my-1">
                         <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price" data-id="ten_to_tweenty">
                             <span>Price : </span>
-                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol if getattr(website, 'get_current_pricelist', None) else (request.env['product.pricelist'].sudo().search([], limit=1).currency_id.symbol if request.env['product.pricelist'].sudo().search([], limit=1).currency_id else '')"/>
+                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                             <span class="tp-attribute-value" t-esc="'%s - %s' % (10, 20)"/>
                             <i class="fa fa-times ml-1 tp-attribute-remove"/>
                         </span>
@@ -283,7 +283,7 @@
                     <li t-if="over_20" class="list-inline-item my-1">
                          <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price"  data-id="over_20">
                             <span>Price : </span>
-                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol if getattr(website, 'get_current_pricelist', None) else (request.env['product.pricelist'].sudo().search([], limit=1).currency_id.symbol if request.env['product.pricelist'].sudo().search([], limit=1).currency_id else '')"/>
+                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                             <span class="tp-attribute-value" t-esc="'%s - %s' % (20, tp_selected_max_price or max_price)"/>
                             <i class="fa fa-times ml-1 tp-attribute-remove"/>
                         </span>
@@ -324,8 +324,7 @@
                     </span> -->
                 </div>
                 <div t-attf-class="tp-filter-attribute-collapsible-area pt-3 collapsible">
-                    <t t-set="current_pricelist" t-value="website.get_current_pricelist() if getattr(website, 'get_current_pricelist', None) else request.env['product.pricelist'].sudo().search([], limit=1)"/>
-                    <t t-set="current_pricelist_symbol" t-value="current_pricelist.currency_id.symbol" />
+                    <t t-set="current_pricelist_symbol" t-value="website.get_current_pricelist().currency_id.symbol" />
                     <ul class="nav nav-pills flex-column ml-0 flex-nowrap tp-filter-attribute-scrollbar kz-custom-price-filter">
                         <li t-attf-class="nav-item #{'d-none' if request.httprequest.args.get('ten_to_tweenty') or request.httprequest.args.get('over_20') or tp_selected_min_price or tp_selected_max_price else None}" data-search-term="m·a·c">
                             <div class="custom-control custom-checkbox mb-2 ml-1">
@@ -406,9 +405,7 @@
                             <li t-if="tp_selected_min_price or tp_selected_max_price" class="list-inline-item my-1">
                                 <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price">
                                     <span>Price : </span>
-                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
-                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
-                            <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
+                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                                     <span class="tp-attribute-value" t-esc="'%s - %s' % (tp_selected_min_price or min_price, tp_selected_max_price or max_price)"/>
                                     <i class="fa fa-times ml-1 tp-attribute-remove"/>
                                 </span>
@@ -416,7 +413,7 @@
                             <li t-if="under_10" class="list-inline-item my-1">
                                 <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price" data-id="under_10">
                                     <span>Price : </span>
-                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
+                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                                     <span class="tp-attribute-value" t-esc="'%s - %s' % (tp_selected_min_price or min_price, 10)"/>
                                     <i class="fa fa-times ml-1 tp-attribute-remove"/>
                                 </span>
@@ -424,7 +421,7 @@
                             <li t-if="ten_to_tweenty" class="list-inline-item my-1">
                                 <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price" data-id="ten_to_tweenty">
                                     <span>Price : </span>
-                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
+                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                                     <span class="tp-attribute-value" t-esc="'%s - %s' % (10, 20)"/>
                                     <i class="fa fa-times ml-1 tp-attribute-remove"/>
                                 </span>
@@ -432,7 +429,7 @@
                             <li t-if="over_20" class="list-inline-item my-1">
                                  <span class="tp-attribute tp-cursor-pointer rounded d-flex align-items-center" data-type="price"  data-id="over_20">
                                     <span>Price : </span>
-                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="current_pricelist.currency_id.symbol"/>
+                                    <span class="d-inline-block mx-1 tp-attribute-value" t-esc="website.get_current_pricelist().currency_id.symbol"/>
                                     <span class="tp-attribute-value" t-esc="'%s - %s' % (20, tp_selected_max_price or max_price)"/>
                                     <i class="fa fa-times ml-1 tp-attribute-remove"/>
                                 </span>
