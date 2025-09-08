@@ -96,7 +96,6 @@ class PriceFilter(models.Model):
 
 
 class ProductTemplate(models.Model):
-    _name = 'product.template'
     _inherit = "product.template"
 
     laboratory = fields.Char(string="Laboratorio", size=60)
@@ -117,7 +116,6 @@ class ProductTemplate(models.Model):
 
 
 class ResCompany(models.Model):
-    _name = 'res.company'
     _inherit = "res.company"
 
     disclaimer = fields.Text(string="Disclaimer")

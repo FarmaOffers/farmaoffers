@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================================================
+         Extracto bancario (FORM) - hereda la vista de Odoo 18
+         ========================================================= -->
+    <record id="view_bank_statement_form_branch_inherit" model="ir.ui.view">
+        <field name="name">account.bank.statement.form.branch.inherit</field>
+        <field name="model">account.bank.statement</field>
+        <!-- En Odoo 18, el form con el widget de conciliación está en account_accountant -->
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_form_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <!-- Insertar branch justo después del diario -->
+            <xpath expr="//form//field[@name='journal_id']" position="after">
+                <field
+                    name="branch_id"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- =========================================================
+         Líneas del extracto (LIST) - en Odoo 18 es una vista aparte
+         ========================================================= -->
+    <record id="view_bank_statement_line_tree_branch_inherit" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.list.branch.inherit</field>
+        <field name="model">account.bank.statement.line</field>
+        <!-- Lista usada por el widget de conciliación en Odoo 18 -->
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <!-- Anclamos a un campo estable y añadimos después branch + company -->
+            <xpath expr="//list//field[@name='statement_id']" position="after">
+                <field
+                    name="branch_id"
+                    string="Branch"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+                <field
+                    name="company_id"
+                    options="{'no_create': True}"
+                    groups="base.group_multi_company"
+                    optional="hidden"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- =========================================================
+         Diario (FORM) - añadir branch en el formulario del diario
+         ========================================================= -->
+    <record id="view_account_bank_journal_form_branch_inherit" model="ir.ui.view">
+        <field name="name">account.bank.journal.form.branch.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//field[@name='company_id']" position="after">
+                <field
+                    name="branch_id"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

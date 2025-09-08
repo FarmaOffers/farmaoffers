@@ -17,7 +17,7 @@
                             <div class="text-muted">
                                 Agregar whatsapp a tu sitio web
                             </div>
-                            <div class="content-group" attrs="{'invisible': [('has_whatsapp', '=', False)]}">
+                            <div class="content-group" modifiers="{'invisible': [('has_whatsapp', '=', False)]}">
                                 <div class="row">
                                     <label for="whatsapp_number" string="Whatsapp" class="col-md-3 o_light_label"/>
                                     <field name="whatsapp_number"/>

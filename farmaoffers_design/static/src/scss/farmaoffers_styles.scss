@@ -1,7 +1,7 @@
 $text-dark: #333333;
-$font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif !important;
-$font-size-cards: 0.9rem !important;
-$font-8-5: 0.85rem !important;
+$font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
+$font-size-cards: 0.9rem;
+$font-8-5: 0.85rem;
 $farmaoffers-primary: #4CBB17;
 $farmaoffers-gray: #C9D7E2;
 $farmaoffers-light-gray: #C9D7E2;
@@ -686,7 +686,7 @@ span.span-input-tip {
     ul {
         .span-ul {
             font-size: 0.75rem;
-            font-family: "Montserrat", "Odoo Unicode Support Noto", sans-;
+            font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
             font-weight: bold;
         }
     }

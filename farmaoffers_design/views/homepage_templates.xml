@@ -58,7 +58,9 @@
 
               <section class="mt16 mb16">
                 <div class="container">
-                  <t t-call="farmaoffers_design.s_our_tips"/>
+                  <t t-if="request.env['ir.ui.view'].sudo().search([('key', '=', 'farmaoffers_design.s_our_tips'), ('website_id', 'in', [False, request.website.id])])">
+                    <t t-call="farmaoffers_design.s_our_tips"/>
+                  </t>
                 </div>
               </section>
 
@@ -67,7 +69,9 @@
               
               <section class="mt16 mb16">
                 <div class="container">
-                  <t t-call="farmaoffers_design.s_reviews"/>
+                  <t t-if="request.env['ir.ui.view'].sudo().search([('key', '=', 'farmaoffers_design.s_reviews'), ('website_id', 'in', [False, request.website.id])])">
+                    <t t-call="farmaoffers_design.s_reviews"/>
+                  </t>
                 </div>
               </section>
 
@@ -76,10 +80,12 @@
 
               <section class="mt16">
                 <div class="container">
-                  <t t-call="farmaoffers_design.section_faqs">
-                    <t t-set="title_p1" t-value="'Tips'"/>
-                    <t t-set="title_p2" t-value="'Frecuentes'"/>
-                    <t t-set="faqs" t-value="request.env['fo.frequent.tips'].search([('active', '=', True)])"/>
+                  <t t-if="request.env['ir.ui.view'].sudo().search([('key', '=', 'farmaoffers_design.section_faqs'), ('website_id', 'in', [False, request.website.id])])">
+                    <t t-call="farmaoffers_design.section_faqs">
+                      <t t-set="title_p1" t-value="'Tips'"/>
+                      <t t-set="title_p2" t-value="'Frecuentes'"/>
+                      <t t-set="faqs" t-value="request.env['fo.frequent.tips'].search([('active', '=', True)])"/>
+                    </t>
                   </t>
                 </div>
               </section>

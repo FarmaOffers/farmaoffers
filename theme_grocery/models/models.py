@@ -179,16 +179,15 @@ class CustomerTestimonial(models.Model):
 
 
 class IrModuleModule(models.Model):
-    _name = "ir.module.module"
+    _inherit = "ir.module.module"
     _description = 'Module'
-    _inherit = _name
 
     @api.model
     def _theme_remove(self, website):
-        if website.theme_id.name == "theme_grocery":
-            # default homepage set when un-install theme grocery
-            env = api.Environment(self.env.cr, SUPERUSER_ID, {})
-            default_website = env.ref('website.default_website', raise_if_not_found=False)
-            default_homepage = env.ref('website.homepage_page', raise_if_not_found=False)
-            default_website.homepage_id = default_homepage.id
-        return super(IrModuleModule, self)._theme_remove(website)
+        # When uninstalling theme_grocery, restore the default homepage if available
+        if website and website.theme_id and website.theme_id.name == "theme_grocery":
+            default_website = self.env.ref('website.default_website', raise_if_not_found=False)
+            default_homepage = self.env.ref('website.homepage_page', raise_if_not_found=False)
+            if default_website and default_homepage:
+                default_website.sudo().homepage_id = default_homepage.id
+        return super()._theme_remove(website)
