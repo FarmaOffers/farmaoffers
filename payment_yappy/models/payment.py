@@ -11,8 +11,6 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.addons.payment_yappy.controllers.main import YappyController
 
-_logger = logging.getLogger(__name__)
-
 
 class PaymentProviderYappy(models.Model):
     _inherit = 'payment.provider'
@@ -65,6 +63,10 @@ class PaymentProviderYappy(models.Model):
         raise ValidationError(
             f"{response['error']['code']} - {response['error']['message']}"
         )
+
+    def get_form_action_url(self):
+        self.ensure_one()
+        return self.yappy_get_form_action_url()
 
 
 class PaymentTransactionYappy(models.Model):

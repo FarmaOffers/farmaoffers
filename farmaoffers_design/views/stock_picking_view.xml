@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_picking_form_branch_inherit_custom" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="multi_branch.view_picking_form_branch_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='branch_id']" position="replace">
+                <field
+                    name="branch_id"
+                    required="1"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

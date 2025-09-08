@@ -32,7 +32,6 @@
             </xpath>
         </field>
     </record>
-
     <!-- Inherited Res Partner Form View to Add the Branch -->
     <record id="view_partner_form_branch_inherit" model="ir.ui.view">
         <field name="name">res.partner.form</field>
