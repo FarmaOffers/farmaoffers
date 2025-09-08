@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+  <data noupdate="1">
+    <record id="payment_provider_cybersource" model="payment.provider">
+      <field name="name">CyberSource</field>
+      <field name="code">cybersource</field>
+      <field name="company_id" ref="base.main_company"/>
+      <field name="image_128" type="base64" file="aspl_payment_cybersource_ee/static/src/img/logo.jpg"/>
 
-        <record id="payment_provider_cybersource" model="payment.provider">
-            <field name="name">CyberSource</field>
-            <!-- En v18 el identificador del proveedor es 'code' -->
-            <field name="code">cybersource</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="image_128" type="base64" file="aspl_payment_cybersource_ee/static/src/img/logo.jpg"/>
-            <!-- Habilítalo si quieres probar de una -->
-            <field name="state">enabled</field>
+      <!-- OBLIGATORIOS (placeholders para que cargue) -->
+      <field name="cybersource_merchant_id">DUMMY_MERCHANT</field>
+      <field name="cybersource_key">DUMMY_KEY</field>
 
-            <!-- NOTA: en v18 normalmente NO hay campos de plantilla aquí.
-                 Si necesitas renderizar formularios propios, ya agregamos tus QWeb
-                 y los puedes invocar desde controladores/JS del módulo. -->
-            <!-- <field name="view_template_id" ref="cybersource_form"/> -->
-            <!-- <field name="registration_view_template_id" ref="cybersource_s2s_form"/> -->
-        </record>
-
-    </data>
+      <!-- NO lo habilites en la instalación inicial -->
+      <field name="state">test</field>  <!-- o disabled -->
+    </record>
+  </data>
 </odoo>

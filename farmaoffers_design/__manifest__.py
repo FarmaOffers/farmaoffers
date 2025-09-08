@@ -20,34 +20,35 @@
     'version': '18.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale'],
+    'depends': ['base', 'website', 'website_sale', 'point_of_sale', 'pos_sale', 'sale'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-        'views/h_f_templates.xml',
-        'views/snippets.xml',
-        'views/inherit_templates.xml',
-        'views/homepage_templates.xml',
-        'views/delivery_carrier.xml',
-        'views/address_template.xml',
-        'views/sale_order.xml',
-        'views/res_country_state.xml',
-        'views/website_form_templates_inherit.xml',
-        'views/website_data_inherit.xml',
-        'views/res_config_settings_views.xml',
-        'data/res_country_data.xml',
-        'views/res_partner_view.xml',
-        'views/portal_templates.xml',
-        'views/multi_branch_extension_view.xml',
-        'views/website_top_slider_views.xml',
-        'views/sales_report_view.xml',
-        'views/pos_config_view.xml',
-        'views/point_of_sale_view.xml'
+        #'views/views.xml',
+        #'views/templates.xml',
+        #'views/h_f_templates.xml',
+        #'views/snippets.xml',
+        #'views/inherit_templates.xml',
+        #'views/homepage_templates.xml',
+        #'views/delivery_carrier.xml',
+        #'views/address_template.xml',
+        #'views/sale_order.xml',
+        #'views/res_country_state.xml',
+        #'views/website_form_templates_inherit.xml',
+        #'views/website_data_inherit.xml',
+        #'views/res_config_settings_views.xml',
+        #'data/res_country_data.xml',
+        #'views/res_partner_view.xml',
+        #'views/portal_templates.xml',
+        #'views/multi_branch_extension_view.xml',
+        #'views/website_top_slider_views.xml',
+        #'views/sales_report_view.xml',
+        #'views/pos_config_view.xml',
+        #'views/point_of_sale_view.xml'
 
     ],
+
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',

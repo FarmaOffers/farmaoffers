@@ -12,11 +12,7 @@
     'data': [
 
     ],
-    'assets': {
-        'web.assets_frontend': [
-            'payment_yappy/static/src/js/payment_form.js',
-        ],
-    },
+
     'installable': True,
     'application': False,
     'license': 'LGPL-3',

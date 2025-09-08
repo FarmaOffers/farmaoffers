@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from odoo import models, fields, api, SUPERUSER_ID
+from odoo import models, fields, api
 
 
 class website(models.Model):
@@ -10,14 +10,13 @@ class website(models.Model):
     def get_categories(self):
         categories = self.env['product.public.category'].sudo().search([])
         return categories
-    
+
     def get_main_categories(self):
         domain = [
             ('website_id', 'in', [False, self.id]),
             ('parent_id', '=', False)
         ]
         return self.env['product.public.category'].sudo().search(domain)
-
 
     def get_homepage_categories(self):
         categories = self.env['homepage.categories'].sudo().search([], order='sequence')
@@ -143,8 +142,8 @@ class HomepageHorizontalFullBanner(models.Model):
 
     name = fields.Char('Name')
     link = fields.Char('Link')
-    image = fields.Binary('Banner Image', help='Bammer must be 938px x 173px size.')
-    rtl_image = fields.Binary('Banner Image (RTL)', help='Bammer must be 938px x 173px size.')
+    image = fields.Binary('Banner Image', help='Banner must be 938px x 173px size.')
+    rtl_image = fields.Binary('Banner Image (RTL)', help='Banner must be 938px x 173px size.')
 
 
 class HomepageHorizontalHalfBanner(models.Model):
@@ -153,8 +152,8 @@ class HomepageHorizontalHalfBanner(models.Model):
 
     name = fields.Char('Name')
     link = fields.Char('Link')
-    image = fields.Binary('Banner Image', help='Bammer must be 454px x 165px size.')
-    rtl_image = fields.Binary('Banner Image (RTL)', help='Bammer must be 454px x 165px size.')
+    image = fields.Binary('Banner Image', help='Banner must be 454px x 165px size.')
+    rtl_image = fields.Binary('Banner Image (RTL)', help='Banner must be 454px x 165px size.')
 
 
 class HomepageVerticalBanner(models.Model):
@@ -163,8 +162,8 @@ class HomepageVerticalBanner(models.Model):
 
     name = fields.Char('Name')
     link = fields.Char('Link')
-    image = fields.Binary('Banner Image', help='Bammer must be 285px x 458px size.')
-    rtl_image = fields.Binary('Banner Image (RTL)', help='Bammer must be 285px x 458px size.')
+    image = fields.Binary('Banner Image', help='Banner must be 285px x 458px size.')
+    rtl_image = fields.Binary('Banner Image (RTL)', help='Banner must be 285px x 458px size.')
 
 
 class CustomerTestimonial(models.Model):
@@ -184,10 +183,21 @@ class IrModuleModule(models.Model):
 
     @api.model
     def _theme_remove(self, website):
-        # When uninstalling theme_grocery, restore the default homepage if available
         if website and website.theme_id and website.theme_id.name == "theme_grocery":
             default_website = self.env.ref('website.default_website', raise_if_not_found=False)
-            default_homepage = self.env.ref('website.homepage_page', raise_if_not_found=False)
-            if default_website and default_homepage:
-                default_website.sudo().homepage_id = default_homepage.id
+            default_homepage = (
+                self.env.ref('website.homepage_page', raise_if_not_found=False)
+                or self.env.ref('website.website_homepage', raise_if_not_found=False)
+            )
+            if not default_homepage:
+                default_homepage = self.env['website.page'].search([('url', '=', '/')], limit=1)
+            page_url = '/'
+            if default_homepage and getattr(default_homepage, 'url', False):
+                page_url = default_homepage.url
+            if default_website:
+                default_website = default_website.sudo()
+                if 'homepage_url' in default_website._fields:
+                    default_website.homepage_url = page_url
+                elif 'homepage_id' in default_website._fields and default_homepage:
+                    default_website.homepage_id = default_homepage.id
         return super()._theme_remove(website)

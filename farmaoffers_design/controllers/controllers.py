@@ -5,19 +5,26 @@ from odoo.exceptions import UserError
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.payment.controllers.portal import PaymentProcessing
+from odoo.addons.payment.controllers.post_processing import PaymentPostProcessing as PaymentProcessing
 from werkzeug.exceptions import Forbidden, NotFound
-from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.addons.website_sale.controllers.main import Website
+from odoo.addons.website.controllers.main import Website as WebsiteController
 from odoo.osv import expression
-from odoo.addons.http_routing.models.ir_http import slug
 import base64
 import logging
 import re
 import werkzeug
+import unicodedata
 
+def slug(obj):
+    name = getattr(obj, "display_name", str(obj))
+    rec_id = getattr(obj, "id", None)
+    base = f"{rec_id}-{name}" if rec_id else name
+    value = unicodedata.normalize("NFKD", base).encode("ascii", "ignore").decode("ascii")
+    value = re.sub(r"[^a-zA-Z0-9\s\-_.]", "", value)
+    value = re.sub(r"[\s_]+", "-", value).strip("-").lower()
+    return value
 # Make a regular expression
 # for validating an Email
 regexEmail = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -26,7 +33,7 @@ regexEmail = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 _logger = logging.getLogger(__name__)
 
 
-class Website(Website):
+class Website(WebsiteController):
 
     @http.route()
     def index(self, **kw):
