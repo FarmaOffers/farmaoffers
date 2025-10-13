@@ -1,0 +1,9 @@
+<odoo>
+  <template id="stripe_info_snippet_registry" inherit_id="website.snippets">
+    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
+      <t t-snippet="farmaoffers_design.stripe_info_snippet"
+         data-name="Stripe Info"
+         data-category="Structure"/>
+    </xpath>
+  </template>
+</odoo>

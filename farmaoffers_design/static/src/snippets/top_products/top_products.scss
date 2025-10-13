@@ -1,0 +1,62 @@
+/** SCSS for Top Products Snippet **/
+
+.top_products {
+    .owl-nav {
+        position: absolute;
+        right: 0;
+        top: -40px;
+
+        button:focus {
+            outline: none;
+        }
+    }
+
+    .widget-products {
+        border-top: 2px solid #c9d7e2;
+        border-bottom: 2px solid #c9d7e2;
+        border-right: 2px solid #c9d7e2;
+
+        li {
+            margin: 0;
+
+            .img {
+                border: none;
+                margin-top: 0;
+                min-height: 180px;
+                max-height: 180px;
+
+                img {
+                    max-height: inherit;
+                }
+            }
+
+            .product {
+                background-color: #f5f6f8;
+                min-height: 100px;
+                max-height: 100px;
+                overflow-y: auto;
+            }
+
+            .name {
+                line-height: 1rem;
+            }
+
+            .icon-right {
+                font-size: 0.8rem;
+                background-color: #4cbb17;
+                padding: 0.05rem 0.25rem;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .owl-item:first-child .widget-products {
+        border-left: 2px solid #c9d7e2;
+    }
+
+    @media (max-width: 425px) {
+        .widget-products li .name {
+            font-size: 0.65rem !important;
+        }
+    }
+}

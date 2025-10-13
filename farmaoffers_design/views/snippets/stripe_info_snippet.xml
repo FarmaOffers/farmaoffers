@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="stripe_info_snippet" name="Stripe Info Snippet">
+    <section class="stripe_info row col-12 p-0 m-0 mt-3">
+      <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+        <i class="fa fa-paper-plane fa-3x mr-3 text-white" aria-hidden="false"></i>
+        <div class="font-montserrat font-8-5 text-white">
+          <span class="font-weight-bold text-uppercase">delivery mismo día</span>
+          <p class="m-0">Te llevamos tu mercancía el mismo día dentro de la ciudad</p>
+        </div>
+      </div>
+
+      <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+        <i class="fa fa-credit-card fa-3x mr-3 text-white" aria-hidden="false"></i>
+        <div class="font-montserrat font-8-5 text-white">
+          <span class="font-weight-bold text-uppercase">pago seguro</span>
+          <p class="m-0">Paga seguro en nuestro sitio con diferentes métodos de pago</p>
+        </div>
+      </div>
+
+      <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+        <i class="fa fa-question fa-3x mr-3 text-white" aria-hidden="false"></i>
+        <div class="font-montserrat font-8-5 text-white">
+          <span class="font-weight-bold text-uppercase">soporte</span>
+          <p class="m-0">Nuestras líneas están disponibles 24/7 — 800-23453</p>
+        </div>
+      </div>
+
+      <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+        <i class="fa fa-mobile fa-3x mr-3 text-white" aria-hidden="false"></i>
+        <div class="font-montserrat font-8-5 text-white">
+          <span class="font-weight-bold text-uppercase">amplio catálogo</span>
+          <p class="m-0">Contamos con más de 10 000 productos en nuestras tiendas</p>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>
