@@ -8,14 +8,20 @@
     </xpath>
   </template>
 
-  <template id="farmaoffers_customize_options" inherit_id="web._assets_primary_variables">
-    <xpath expr="." position="inside">
-      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
-      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
-      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
-      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss"/>
-    </xpath>
-  </template>
+<template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
+  <xpath expr="//link[last()]" position="after">
+    <link rel="stylesheet" type="text/css" href="/farmaoffers_design/static/src/css/website_sale.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
+    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
+    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
+    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss"/>
+  </xpath>
+  <xpath expr="//script[last()]" position="after">
+    <script src="/farmaoffers_design/static/src/js/script.js"></script>
+    <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
+  </xpath>
+</template>
 
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
     <xpath expr="//link[last()]" position="after">
@@ -368,7 +374,7 @@
       <div class="footer_copyright mt-2">
         <div class="container font-montserrat">
           <div class="pull-left">
-            <span>Copyright &copy; 2021. Todos los derechos reservados.</span>
+            <span>Copyright &amp;copy; 2021. Todos los derechos reservados.</span>
           </div>
           <div class="clearfix"></div>
         </div>

@@ -1,0 +1,31 @@
+<odoo>
+  <template id="section_aditional_info_snippet" name="Información adicional del producto">
+    <section class="section_aditional_info" data-snippet="section_aditional_info" data-name="Información adicional del producto">
+      <t t-if="editable">
+        <div class="alert alert-info text-center">
+          [Vista previa del snippet de información adicional del producto]
+        </div>
+      </t>
+
+      <t t-if="not editable">
+        <t t-set="product" t-value="request.env.context.get('product') if request else None"/>
+        <t t-if="product and product.aditional_info_image_ids">
+          <div class="container mt-3 mb-4">
+            <div class="row justify-content-center">
+              <t t-foreach="product.aditional_info_image_ids" t-as="image">
+                <div class="col-md-4 col-sm-6 mb-3 text-center">
+                  <img t-att-src="'/web/image/%s/%s/%s' % (image._name, image.id, 'image_1920')"
+                       t-att-alt="image.name or 'Información adicional'"
+                       class="img-fluid rounded shadow-sm"/>
+                  <t t-if="image.description">
+                    <p class="mt-2 text-muted font-italic" t-esc="image.description"/>
+                  </t>
+                </div>
+              </t>
+            </div>
+          </div>
+        </t>
+      </t>
+    </section>
+  </template>
+</odoo>
