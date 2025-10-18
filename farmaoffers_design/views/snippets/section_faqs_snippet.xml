@@ -1,0 +1,59 @@
+<odoo>
+  <template id="section_faqs_snippet" name="Section FAQs">
+    <section class="section_faqs"
+             data-snippet="section_faqs"
+             data-name="Section FAQs">
+      <!-- Vista en modo editor -->
+      <t t-if="editable">
+        <div class="alert alert-info text-center">
+          [Vista previa del snippet Section FAQs — se mostrará solo en páginas de producto]
+        </div>
+      </t>
+
+      <!-- Vista en modo sitio web real -->
+      <t t-if="not editable">
+        <t t-set="product" t-value="request.env.context.get('product') if request else None"/>
+        <t t-set="faqs" t-value="website.get_general_info_by_type(product.id, 'faq') if (request and product) else []"/>
+
+        <section t-if="len(faqs) &gt; 0" class="mb-4 pt-5">
+          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <span class="text-secondary">
+              Preguntas
+            </span>
+            <span class="text-primary">
+              Frecuentes
+            </span>
+          </h3>
+          <hr class="mx-0 mt-1 mb-4"/>
+
+          <div class="content-section">
+            <div class="accordion font-montserrat" id="faqsAccordion">
+              <div t-foreach="faqs" t-as="item" class="card">
+                <div class="card-header bg-white mb-2" t-attf-id="heading-#{item.id}">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5"
+                      type="button" data-toggle="collapse"
+                      t-attf-data-target="#collapse-#{item.id}"
+                      aria-expanded="true" t-attf-aria-controls="collapse-#{item.id}">
+                      <t t-esc="item.title"/>
+                    </button>
+                  </h2>
+                </div>
+
+                <div t-attf-id="collapse-#{item.id}"
+                     t-attf-class="collapse mb-2 #{ 'show' if item_first else '' }"
+                     t-attf-aria-labelledby="heading-#{item.id}"
+                     data-parent="#faqsAccordion">
+                  <div class="card-body font-8-5">
+                    <t t-esc="item.description"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </t>
+    </section>
+  </template>
+</odoo>

@@ -1,0 +1,25 @@
+.section_product_resume {
+  .content-section {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th {
+        font-weight: bold;
+        color: #333;
+      }
+
+      td {
+        text-align: right;
+      }
+
+      tr {
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      span.text-secondary {
+        color: #6c757d;
+      }
+    }
+  }
+}

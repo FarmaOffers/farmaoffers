@@ -33,6 +33,15 @@
         "views/snippets/section_same_compound_snippet_registry.xml",
         "views/snippets/section_bought_together_snippet.xml",
         "views/snippets/section_bought_together_snippet_registry.xml",
+        "views/snippets/section_general_info_snippet.xml",
+        "views/snippets/section_general_info_snippet_registry.xml",
+"views/snippets/section_faqs_snippet.xml",
+"views/snippets/section_faqs_snippet_registry.xml",
+"views/snippets/section_product_resume_snippet.xml",
+"views/snippets/section_product_resume_snippet_registry.xml",
+"views/snippets/product_sidebar_snippet.xml",
+"views/snippets/product_sidebar_snippet_registry.xml",
+
 
 
         # === Header & Footer Templates ===
@@ -77,6 +86,13 @@
             # === Snippet: Productos comprados juntos ===
             "/farmaoffers_design/static/src/snippets/section_bought_together/style.scss",
             "/farmaoffers_design/static/src/snippets/section_bought_together/000.js",
+            "/farmaoffers_design/static/src/snippets/section_general_info/style.scss",
+            "/farmaoffers_design/static/src/snippets/section_faqs/style.scss",
+
+"/farmaoffers_design/static/src/snippets/section_product_resume/style.scss",
+
+"/farmaoffers_design/static/src/snippets/product_sidebar/style.scss",
+"/farmaoffers_design/static/src/snippets/product_sidebar/000.js",
 
 
         ],
