@@ -1,0 +1,45 @@
+.card_our_tips {
+  background-color: #fff;
+  text-align: center;
+  padding: 4rem 0;
+
+  h2 {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .tip-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    h5 {
+      color: #4cbb17;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+  }
+
+  .splide__arrow {
+    background: #4cbb17;
+    color: #fff;
+    border: none;
+    opacity: 0.85;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .splide__pagination__page.is-active {
+    background: #4cbb17;
+  }
+}

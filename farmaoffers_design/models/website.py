@@ -54,6 +54,18 @@ class Website(models.Model):
         """Return active top sliders."""
         return self.env['fo.top.slider'].sudo().search([('active', '=', True)])
 
+    def get_active_sale_order(self):
+        """
+        Devuelve la orden activa del usuario actual,
+        o False si no hay carrito.
+        """
+        try:
+            order = request.website.sale_get_order()
+            return order
+        except Exception as e:
+            _logger.error(f"Error obteniendo pedido activo: {e}")
+            return False
+
 
 class PriceFilter(models.Model):
     _name = 'price.filter'

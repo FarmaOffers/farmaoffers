@@ -4,38 +4,13 @@
 
   <template id="farmaoffers_design.layout" inherit_id="web.layout">
     <xpath expr="//link[@rel='shortcut icon']" position="replace">
-      <link rel="shortcut icon" href="/farmaoffers_design/static/src/img/favicon.png" />
+      <link rel="shortcut icon" href="/farmaoffers_design/static/src/img/favicon.png"/>
     </xpath>
   </template>
 
-<template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
-  <xpath expr="//link[last()]" position="after">
-    <link rel="stylesheet" type="text/css" href="/farmaoffers_design/static/src/css/website_sale.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
-    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
-    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
-    <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss"/>
-  </xpath>
-  <xpath expr="//script[last()]" position="after">
-    <script src="/farmaoffers_design/static/src/js/script.js"></script>
-    <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
-  </xpath>
-</template>
-
-  <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
-    <xpath expr="//link[last()]" position="after">
-      <link rel="stylesheet" type="text/css" href="/farmaoffers_design/static/src/css/website_sale.css" />
-      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    </xpath>
-    <xpath expr="//script[last()]" position="after">
-      <script src="/farmaoffers_design/static/src/js/script.js"></script>
-      <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
-    </xpath>
-  </template>
 
   <template id="farmaoffers_header" inherit_id="website.layout" name="FarmaOffers - Header" active="True">
-    <xpath expr="//header" position="replace">
+      <xpath expr="//header" position="replace">
 
       <t t-set="whatsapp" t-value="website.whatsapp_number"/>
       <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"><i class="fa fa-whatsapp whatsapp-icon"></i></a>

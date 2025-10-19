@@ -1,0 +1,32 @@
+<odoo>
+  <template id="list_filters_fo_snippet" name="List Filters FO">
+    <section class="list_filters_fo" data-snippet="list_filters_fo" data-name="List Filters FO">
+      <div class="container py-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+          <div class="dropdown mb-2 mb-md-0">
+            <button class="btn btn-outline-secondary dropdown-toggle order_items_current" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Ordenar por: Destacados
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="?order=name">Nombre</a></li>
+              <li><a class="dropdown-item" href="?order=price_asc">Precio: menor a mayor</a></li>
+              <li><a class="dropdown-item" href="?order=price_desc">Precio: mayor a menor</a></li>
+              <li><a class="dropdown-item" href="?order=new">Novedades</a></li>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle show_items_current" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Mostrar: 12
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="?show=12">12</a></li>
+              <li><a class="dropdown-item" href="?show=24">24</a></li>
+              <li><a class="dropdown-item" href="?show=48">48</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

@@ -1,0 +1,24 @@
+.all_offers {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 3rem 0;
+
+  h2 {
+    color: #333;
+    font-weight: 600;
+  }
+
+  p {
+    color: #555;
+  }
+
+  .alloffers-img {
+    border: 2px solid #c9d7e2;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}

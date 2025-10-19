@@ -1,0 +1,9 @@
+<odoo>
+  <template id="filters_shop_list_snippet_registry" inherit_id="website.snippets">
+    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
+      <t t-snippet="farmaoffers_design.filters_shop_list_snippet"
+         data-name="Filters Shop List"
+         data-category="Structure"/>
+    </xpath>
+  </template>
+</odoo>

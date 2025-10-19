@@ -1,0 +1,34 @@
+/* ---------------------------------------------
+   FarmaOffers Theme Variables
+   Compatible with Odoo 18
+---------------------------------------------- */
+
+/* ------------- Theme Color Palette ------------- */
+$o-theme-color-palettes: (
+    (
+        'alpha': #4cbb17,   // Primary green
+        'beta': #000000,    // Black
+        'gamma': #1f384c,   // Dark blue-gray
+        'epsilon': #3f474d, // Gray tone
+    ),
+);
+
+/* ------------- Color Palettes ------------- */
+$o-color-palettes: (
+    (
+        'o-color-1': #000000,
+        'o-color-2': #4cbb17,
+        'o-color-3': #eceae4,
+        'o-color-4': #ffffff,
+        'o-color-5': #a49e9e,
+
+        'o-cc1-text': #6c757d,          // Body color
+        'o-cc1-headings': 'o-color-5',  // Heading color
+        'menu': #4cbb17,                // Menu color
+        'footer': #f8f8f8,              // Footer background
+    ),
+);
+
+/* ------------- SVG Color Filter ------------- */
+$svg-color: invert(53%) sepia(100%) saturate(345%) hue-rotate(62deg)
+             brightness(99%) contrast(96%);

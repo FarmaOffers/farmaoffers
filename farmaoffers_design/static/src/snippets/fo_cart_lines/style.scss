@@ -1,0 +1,28 @@
+.fo_cart_lines {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.75rem;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+  }
+
+  img {
+    border: 1px solid #dee2e6;
+  }
+
+  tfoot th {
+    font-size: 1.1rem;
+  }
+
+  p.text-muted {
+    font-size: 1rem;
+  }
+}

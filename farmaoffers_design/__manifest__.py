@@ -17,6 +17,8 @@
     "data": [
         # === Base Templates ===
         "views/homepage_templates.xml",
+        "views/h_f_templates.xml",
+
 
         # === Snippets ===
         "views/snippets/stripe_info_snippet.xml",
@@ -35,66 +37,108 @@
         "views/snippets/section_bought_together_snippet_registry.xml",
         "views/snippets/section_general_info_snippet.xml",
         "views/snippets/section_general_info_snippet_registry.xml",
-"views/snippets/section_faqs_snippet.xml",
-"views/snippets/section_faqs_snippet_registry.xml",
-"views/snippets/section_product_resume_snippet.xml",
-"views/snippets/section_product_resume_snippet_registry.xml",
-"views/snippets/product_sidebar_snippet.xml",
-"views/snippets/product_sidebar_snippet_registry.xml",
+        "views/snippets/section_faqs_snippet.xml",
+        "views/snippets/section_faqs_snippet_registry.xml",
+        "views/snippets/section_product_resume_snippet.xml",
+        "views/snippets/section_product_resume_snippet_registry.xml",
+        "views/snippets/product_sidebar_snippet.xml",
+        "views/snippets/product_sidebar_snippet_registry.xml",
+#"views/snippets/total_f2_snippet.xml",
+#"views/snippets/total_f2_snippet_registry.xml",
+        "views/snippets/quote_snippet.xml",
+        "views/snippets/quote_snippet_registry.xml",
+        "views/snippets/contact_us_snippet.xml",
+        "views/snippets/contact_us_snippet_registry.xml",
+        "views/snippets/prescription_snippet.xml",
+        "views/snippets/prescription_snippet_registry.xml",
+        "views/snippets/thanks_page_snippet.xml",
+        "views/snippets/thanks_page_snippet_registry.xml",
+        "views/snippets/all_offers_snippet.xml",
+        "views/snippets/all_offers_snippet_registry.xml",
+        "views/snippets/filters_shop_list_snippet.xml",
+        "views/snippets/filters_shop_list_snippet_registry.xml",
+        "views/snippets/pager_product_list_snippet.xml",
+        "views/snippets/pager_product_list_snippet_registry.xml",
+        "views/snippets/list_filters_fo_snippet.xml",
+        "views/snippets/list_filters_fo_snippet_registry.xml",
+        "views/snippets/t_owl_carousel_snippet.xml",
+        "views/snippets/t_owl_carousel_snippet_registry.xml",
+        "views/snippets/card_client_reviews_snippet.xml",
+        "views/snippets/card_client_reviews_snippet_registry.xml",
+        "views/snippets/card_our_tips_snippet.xml",
+        "views/snippets/card_our_tips_snippet_registry.xml",
+        #"views/snippets/views/.xml",
+        #"views/snippets/views/_registry.xml",
+        "views/snippets/t_body_categories_snippet.xml",
+        "views/snippets/t_body_categories_snippet_registry.xml",
+        "views/snippets/select_body_item_snippet.xml",
+        "views/snippets/select_body_item_snippet_registry.xml",
+        #"views/snippets/views/",
+        #"views/snippets/fo_cart_lines_snippet_registry.xml",
+        "views/snippets/place_into_bar_snippet.xml",
+        "views/snippets/place_into_bar_snippet_registry.xml",
 
 
-
-        # === Header & Footer Templates ===
-        #"views/h_f_templates.xml",
     ],
     "assets": {
         "web.assets_frontend": [
+
+            '/farmaoffers_design/static/src/css/website_sale.css',
+            '/farmaoffers_design/static/src/css/splide/splide.min.css',
+            '/farmaoffers_design/static/src/js/splide/splide.min.js',
+            '/farmaoffers_design/static/src/js/script.js',
+
             # === Farmaoffers Core Styles ===
             "/farmaoffers_design/static/src/css/website_sale.css",
             # "/farmaoffers_design/static/src/css/splide/splide.min.css",
             "/farmaoffers_design/static/src/scss/farmaoffers_variables.scss",
-           # "/farmaoffers_design/static/src/scss/farmaoffers_styles.scss",
-           # "/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss",
-
-            # === Farmaoffers JS ===
+            "/farmaoffers_design/static/src/scss/farmaoffers_styles.scss",
+            "/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss",
             "/farmaoffers_design/static/src/js/script.js",
             "/farmaoffers_design/static/src/js/splide/splide.min.js",
-
-            # === Google Fonts ===
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined",
 
-            # === Snippet: Stripe Info ===
+            # === Snippets ===
             "/farmaoffers_design/static/src/snippets/stripe_info/style.scss",
             "/farmaoffers_design/static/src/snippets/stripe_info/000.js",
-
-            # === Snippet: Top Products ===
             "/farmaoffers_design/static/src/snippets/top_products/top_products.scss",
             "/farmaoffers_design/static/src/snippets/top_products/000.js",
-
-            # === Snippet: Section Banner ===
-            "/farmaoffers_design/static/src/snippets/s_section_banner/style.scss",
-
-            # === Snippet: Section Description & Disclaimer ===
-            "/farmaoffers_design/static/src/snippets/section_desc_disc/style.scss",
+            "/farmaoffers_design/static/src/snippets/section_banner/style.scss",
             "/farmaoffers_design/static/src/snippets/section_desc_disc/style.scss",
             "/farmaoffers_design/static/src/snippets/section_aditional_info/style.scss",
-
-            # === Snippet: Productos con el mismo compuesto activo ===
             "/farmaoffers_design/static/src/snippets/section_same_compound/style.scss",
             "/farmaoffers_design/static/src/snippets/section_same_compound/000.js",
-
-            # === Snippet: Productos comprados juntos ===
             "/farmaoffers_design/static/src/snippets/section_bought_together/style.scss",
             "/farmaoffers_design/static/src/snippets/section_bought_together/000.js",
             "/farmaoffers_design/static/src/snippets/section_general_info/style.scss",
             "/farmaoffers_design/static/src/snippets/section_faqs/style.scss",
-
-"/farmaoffers_design/static/src/snippets/section_product_resume/style.scss",
-
-"/farmaoffers_design/static/src/snippets/product_sidebar/style.scss",
-"/farmaoffers_design/static/src/snippets/product_sidebar/000.js",
-
-
+            "/farmaoffers_design/static/src/snippets/section_product_resume/style.scss",
+            "/farmaoffers_design/static/src/snippets/product_sidebar/style.scss",
+            "/farmaoffers_design/static/src/snippets/product_sidebar/000.js",
+            "/farmaoffers_design/static/src/snippets/extend_table_cart/style.scss",
+            "/farmaoffers_design/static/src/snippets/extend_table_cart/000.js",
+            "/farmaoffers_design/static/src/snippets/total_f2/style.scss",
+            "/farmaoffers_design/static/src/snippets/quote/style.scss",
+            "/farmaoffers_design/static/src/snippets/contact_us/style.scss",
+            "/farmaoffers_design/static/src/snippets/prescription/style.scss",
+            "/farmaoffers_design/static/src/snippets/thanks_page/style.scss",
+            "/farmaoffers_design/static/src/snippets/all_offers/style.scss",
+            "/farmaoffers_design/static/src/snippets/filters_shop_list/style.scss",
+            "/farmaoffers_design/static/src/snippets/filters_shop_list/000.js",
+            "/farmaoffers_design/static/src/snippets/pager_product_list/style.scss",
+            "/farmaoffers_design/static/src/snippets/list_filters_fo/style.scss",
+            "/farmaoffers_design/static/src/snippets/t_owl_carousel/style.scss",
+            "/farmaoffers_design/static/src/snippets/t_owl_carousel/000.js",
+            "/farmaoffers_design/static/src/snippets/card_client_reviews/style.scss",
+            "/farmaoffers_design/static/src/snippets/card_client_reviews/000.js",
+            "/farmaoffers_design/static/src/snippets/card_our_tips/style.scss",
+            "/farmaoffers_design/static/src/snippets/card_our_tips/000.js",
+            "/farmaoffers_design/static/src/snippets/t_body_categories/style.scss",
+            "/farmaoffers_design/static/src/snippets/select_body_item/style.scss",
+            "/farmaoffers_design/static/src/snippets/fo_cart_lines/style.scss",
+            "/farmaoffers_design/static/src/snippets/fo_cart_lines/000.js",
+            "/farmaoffers_design/static/src/snippets/place_into_bar/style.scss",
+            "/farmaoffers_design/static/src/snippets/place_into_bar/000.js",
         ],
         "web_editor.assets_wysiwyg": [
             # === JS enabled in editor mode ===

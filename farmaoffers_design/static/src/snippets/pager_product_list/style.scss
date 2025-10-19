@@ -1,0 +1,27 @@
+.pager_product_list {
+  text-align: center;
+  padding: 2rem 0;
+
+  .pagination {
+    .page-link {
+      color: #4cbb17;
+      border-color: #dee2e6;
+
+      &:hover {
+        color: #16a2ff;
+      }
+    }
+
+    .active .page-link {
+      background-color: #4cbb17;
+      border-color: #4cbb17;
+      color: #fff;
+    }
+  }
+
+  select {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.3rem 0.75rem;
+  }
+}

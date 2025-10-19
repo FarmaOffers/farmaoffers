@@ -1,0 +1,26 @@
+<odoo>
+  <template id="t_owl_carousel_snippet" name="Carousel (Splide)">
+    <section class="t_owl_carousel" data-snippet="t_owl_carousel" data-name="Carousel (Splide)">
+      <div class="container py-5">
+        <div id="t_owl_carousel_splide" class="splide">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <img src="/farmaoffers_design/static/src/img/sample-slide-1.jpg" class="img-fluid rounded" alt="Slide 1"/>
+                <p class="mt-2">Ejemplo de imagen 1</p>
+              </li>
+              <li class="splide__slide">
+                <img src="/farmaoffers_design/static/src/img/sample-slide-2.jpg" class="img-fluid rounded" alt="Slide 2"/>
+                <p class="mt-2">Ejemplo de imagen 2</p>
+              </li>
+              <li class="splide__slide">
+                <img src="/farmaoffers_design/static/src/img/sample-slide-3.jpg" class="img-fluid rounded" alt="Slide 3"/>
+                <p class="mt-2">Ejemplo de imagen 3</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>
