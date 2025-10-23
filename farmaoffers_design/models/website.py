@@ -66,6 +66,19 @@ class Website(models.Model):
             _logger.error(f"Error obteniendo pedido activo: {e}")
             return False
 
+    def get_main_categories(self):
+        """
+        Compatibilidad con Odoo 14:
+        Retorna las categorías principales publicadas en el sitio web.
+        """
+        try:
+            return self.env['product.public.category'].sudo().search([
+                ('parent_id', '=', False),
+                ('website_published', '=', True)
+            ])
+        except Exception as e:
+            _logger.error(f"Error obteniendo categorías principales: {e}")
+            return []
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
