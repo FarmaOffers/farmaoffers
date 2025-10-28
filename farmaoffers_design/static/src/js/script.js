@@ -337,19 +337,34 @@ odoo.define('farmaoffers_design.script', function (require) {
                             }).then(function (result) {
                                 if (result) {
                                     // if the server sent us the html form, we create a form element
-                                    var newForm = document.createElement('form');
-                                    newForm.setAttribute("method", self._get_redirect_form_method());
-                                    newForm.setAttribute("provider", checked_radio.dataset.provider);
-                                    newForm.hidden = true; // hide it
-                                    newForm.innerHTML = result; // put the html sent by the server inside the form
-                                    var action_url = $(newForm).find('input[name="data_set"]').data('actionUrl');
-                                    newForm.setAttribute("action", action_url); // set the action url
-                                    $(document.getElementsByTagName('body')[0]).append(newForm); // append the form to the body
-                                    $(newForm).find('input[data-remove-me]').remove(); // remove all the input that should be removed
-                                    if (action_url) {
-                                        newForm.submit(); // and finally submit the form
-                                        return new Promise(function () { });
-                                    }
+                                    if (result && typeof result === 'string') {
+                                        if (result && typeof result === 'string') {
+                                            var newForm = document.createElement('form');
+                                            newForm.setAttribute("method", self._get_redirect_form_method());
+                                            newForm.setAttribute("provider", checked_radio.dataset.provider);
+                                            newForm.hidden = true; // hide it
+                                            newForm.innerHTML = result;
+                                            var action_url = $(newForm).find('input[name="data_set"]').data('actionUrl');
+                                            if (action_url) {
+                                                newForm.setAttribute("action", action_url);
+                                                $(document.body).append(newForm);
+                                                $(newForm).find('input[data-remove-me]').remove();
+                                                newForm.submit();
+                                                return new Promise(function () {});
+                                            } else {
+                                                self.displayError(
+                                                    _t('Server Error'),
+                                                    _t("Missing action URL in the payment form.")
+                                                );
+                                                self.enableButton(button);
+                                            }
+                                        } else {
+                                            self.displayError(
+                                                _t('Server Error'),
+                                                _t("Invalid or empty payment form.")
+                                            );
+                                            self.enableButton(button);
+}
                                 }
                                 else {
                                     self.displayError(

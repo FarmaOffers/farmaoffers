@@ -67,14 +67,10 @@ class Website(models.Model):
             return False
 
     def get_main_categories(self):
-        """
-        Compatibilidad con Odoo 14:
-        Retorna las categorías principales publicadas en el sitio web.
-        """
         try:
             return self.env['product.public.category'].sudo().search([
                 ('parent_id', '=', False),
-                ('website_published', '=', True)
+                ('website_id', '!=', False)
             ])
         except Exception as e:
             _logger.error(f"Error obteniendo categorías principales: {e}")
