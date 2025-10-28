@@ -1,9 +1,0 @@
-<odoo>
-  <template id="t_owl_carousel_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.t_owl_carousel_snippet"
-         data-name="Carousel (Splide)"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

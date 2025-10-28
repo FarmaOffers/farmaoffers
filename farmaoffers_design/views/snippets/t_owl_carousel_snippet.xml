@@ -1,5 +1,5 @@
 <odoo>
-  <template id="t_owl_carousel_snippet" name="Carousel (Splide)">
+  <template id="t_owl_carousel" name="Carousel (Splide)">
     <section class="t_owl_carousel" data-snippet="t_owl_carousel" data-name="Carousel (Splide)">
       <div class="container py-5">
         <div id="t_owl_carousel_splide" class="splide">
