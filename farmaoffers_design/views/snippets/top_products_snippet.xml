@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
- <template id="top_products_snippet" name="Top Products Snippet">
+  <template id="t_top_products" name="Top Products Component">
     <t t-if="not editable">
       <t t-set="top_products" t-value="request.env['website'].get_top_products()"/>
     </t>

@@ -17,6 +17,7 @@
         "auth_signup",
     ],
     "data": [
+        'security/ir.model.access.csv',
         # === Base Templates ===
         "views/homepage_templates.xml",
         "views/h_f_templates.xml",
@@ -27,7 +28,8 @@
         "views/snippets/stripe_info_snippet.xml",
         "views/snippets/stripe_info_snippet_registry.xml",
         "views/snippets/top_products_snippet.xml",
-        "views/snippets/top_products_snippet_registry.xml",
+        "views/snippets/s_top_offers.xml",
+
         "views/snippets/section_banner_snippet.xml",
         "views/snippets/section_banner_snippet_registry.xml",
         "views/snippets/section_desc_disc_snippet.xml",

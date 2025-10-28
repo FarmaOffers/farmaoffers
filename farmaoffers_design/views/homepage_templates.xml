@@ -113,7 +113,7 @@
 
                     <section class="mt16 mb16">
                         <div class="container">
-                            <t t-call="farmaoffers_design.t_top_products" />
+                            <t t-call="farmaoffers_design.t_top_products"/>
                         </div>
                     </section>
 
