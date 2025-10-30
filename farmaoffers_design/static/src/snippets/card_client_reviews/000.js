@@ -1,6 +1,6 @@
 /** @odoo-module **/
 import publicWidget from "@web/legacy/js/public/public_widget";
-import Splide from "@web/../splide.min.js";
+// import Splide from "@web/../splide.min.js";
 
 publicWidget.registry.card_client_reviews = publicWidget.Widget.extend({
     selector: ".card_client_reviews",

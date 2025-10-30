@@ -1,0 +1,29 @@
+$text-dark: #333333;
+$font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif !important;
+$font-size-cards: 0.9rem !important;
+$font-8-5: 0.85rem !important;
+$farmaoffers-primary: #4CBB17;
+$farmaoffers-gray: #C9D7E2;
+$farmaoffers-light-gray: #C9D7E2;
+$max-size-mobile: 425px;
+
+
+@if o-website-value('header-template')=='farmaoffers_header_style' {
+
+    // Import navbar-specific styles for the farmaoffers header
+    body {
+        margin: 0;
+        color: #6c757d;
+        background-color: #ECEAE4;
+    }
+
+    .bg-secondary {
+        background-color: #4cbb17 !important;
+        color: #FFFFFF;
+    }
+
+    .bg-primary {
+        background-color: #000000 !important;
+        color: #FFFFFF;
+    }
+}

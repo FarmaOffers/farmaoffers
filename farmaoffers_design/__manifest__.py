@@ -15,14 +15,15 @@
         "stock",
         "product",
         "auth_signup",
+        "point_of_sale",
+        "theme_grocery",
     ],
     "data": [
         'security/ir.model.access.csv',
         # === Base Templates ===
-        "views/homepage_templates.xml",
-        "views/h_f_templates.xml",
-        'views/inherit_templates.xml',
-
+        "views/header_template.xml",
+        "views/footer_template.xml",
+        "views/snippets.xml",
 
         # === Snippets ===
         "views/snippets/stripe_info_snippet.xml",
@@ -81,26 +82,23 @@
         "views/snippets/place_into_bar_snippet.xml",
         "views/snippets/place_into_bar_snippet_registry.xml",
 
-
+        "views/homepage_templates.xml",
+        #'views/inherit_templates.xml',
     ],
     "assets": {
-        "web.assets_frontend": [
-
-            '/farmaoffers_design/static/src/css/website_sale.css',
-            '/farmaoffers_design/static/src/css/splide/splide.min.css',
-            '/farmaoffers_design/static/src/js/splide/splide.min.js',
-            '/farmaoffers_design/static/src/js/script.js',
-
+        'web._assets_primary_variables': [
+            "farmaoffers_design/static/src/scss/farmaoffers_variables.scss",
+        ],
+        'web.assets_frontend': [
             "farmaoffers_design/static/src/css/website_sale.css",
             "farmaoffers_design/static/src/css/splide/splide.min.css",
-            "farmaoffers_design/static/src/scss/farmaoffers_variables.scss",
+            "farmaoffers_design/static/src/js/splide/splide.min.js",
+
             "farmaoffers_design/static/src/scss/farmaoffers_styles.scss",
             "farmaoffers_design/static/src/scss/farmaoffers_top_header.scss",
-            "farmaoffers_design/static/src/js/script.js",
-            "farmaoffers_design/static/src/js/splide/splide.min.js",
-            "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined",
+            "farmaoffers_design/static/src/scss/styles.scss",
 
-            # === Snippets ===
+             # === Snippets ===
             "farmaoffers_design/static/src/snippets/stripe_info/style.scss",
             "farmaoffers_design/static/src/snippets/stripe_info/000.js",
             "farmaoffers_design/static/src/snippets/top_products/top_products.scss",
@@ -141,12 +139,13 @@
             "farmaoffers_design/static/src/snippets/fo_cart_lines/000.js",
             "farmaoffers_design/static/src/snippets/place_into_bar/style.scss",
             "farmaoffers_design/static/src/snippets/place_into_bar/000.js",
-        ],
-        "web_editor.assets_wysiwyg": [
-            # === JS enabled in editor mode ===
-            "farmaoffers_design/static/src/snippets/stripe_info/000.js",
-            "farmaoffers_design/static/src/snippets/top_products/000.js",
-        ],
+        ]
+        
+        # "web_editor.assets_wysiwyg": [
+        #     # === JS enabled in editor mode ===
+        #     "farmaoffers_design/static/src/snippets/stripe_info/000.js",
+        #     "farmaoffers_design/static/src/snippets/top_products/000.js",
+        # ],
     },
     "installable": True,
     "application": False,
