@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import publicWidget from "@web/legacy/js/public/public_widget";
-import rpc from "web.rpc";
+import { rpc } from "@web/core/network/rpc";
 
 publicWidget.registry.section_same_compound = publicWidget.Widget.extend({
     selector: ".section_same_compound",
@@ -32,8 +32,7 @@ publicWidget.registry.section_same_compound = publicWidget.Widget.extend({
             text = "Desplegar más";
         }
 
-        rpc.query({
-            route: "/products/same-compounds",
+        rpc("/products/same-compounds",{
             params: {
                 exception: productId,
                 compound: compound,

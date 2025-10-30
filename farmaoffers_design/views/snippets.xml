@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="farmaoffers_design_snippet_options" inherit_id="website.snippet_options">
+        <xpath expr="//we-select[@data-variable='header-template']/we-button[last()]" position="after">
+            <we-button title="FarmaOffers Header" data-customize-website-views="farmaoffers_design.farmaoffers_header" data-customize-website-variable="'farmaoffers_header_style'" />
+        </xpath>
+        <xpath expr="//we-select[@data-variable='footer-template']/we-button[last()]" position="after">
+            <we-button title="FarmaOffers Footer" data-customize-website-views="farmaoffers_design.farmaoffers_footer" data-customize-website-variable="'farmaoffers_footer_style'" />
+        </xpath>
+    </template>
+</odoo>
