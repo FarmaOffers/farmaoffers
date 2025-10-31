@@ -7,13 +7,10 @@ $o-color-palettes: map-merge($o-color-palettes,
                 'o-color-5': #a49e9e,
                 'o-cc1-text': #6c757d,
                 'o-cc1-headings': 'o-color-5',
-                'menu': #4cbb17,
-                'footer': #f8f8f8,
+
+                'menu': 1,
+                'footer': 1,
             ),
         ));
 
-/* $o-selected-color-palettes-names: append($o-selected-color-palettes-names, 'farmaoffers_palette');
-
-$o-website-values-palettes: (
-    ('color-palettes-name': 'farmaoffers_palette', ),
-); */
+$o-selected-color-palettes-names: append($o-selected-color-palettes-names, 'farmaoffers_palette');

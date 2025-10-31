@@ -64,9 +64,9 @@ class WebsiteSale(WebsiteSale):
     @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         response = super(WebsiteSale, self).shop(page=page, category=category, search=search, ppg=ppg, **post)
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
-        payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
-        if payment_acquirer.save_token == 'none':
+        payment_acquirer = request.env['payment.provider'].sudo().search([('code', '=', 'cybersource')])
+        payment_token = request.env['payment.token'].sudo().search([('provider_id', '=', payment_acquirer.id)])
+        if payment_acquirer.support_tokenization:
             for token_id in payment_token:
                 token_id.unlink()
         if post.get('error'):
