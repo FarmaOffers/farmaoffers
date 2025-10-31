@@ -44,7 +44,8 @@ class Website(models.Model):
     def get_top_products(self, category=False):
         """Return top products ordered by sequence."""
         try:
-            products = self.env['fo.top.product'].sudo().search([], order='sequence')
+            products = self.env['fo.top.product'].sudo().search(
+                [], order='sequence')
             return products.mapped('product_tmpl_id')
         except Exception as e:
             _logger.error(f"Error in get_top_products: {e}")
@@ -53,18 +54,6 @@ class Website(models.Model):
     def get_top_sliders(self):
         """Return active top sliders."""
         return self.env['fo.top.slider'].sudo().search([('active', '=', True)])
-
-    def get_active_sale_order(self):
-        """
-        Devuelve la orden activa del usuario actual,
-        o False si no hay carrito.
-        """
-        try:
-            order = request.website.sale_get_order()
-            return order
-        except Exception as e:
-            _logger.error(f"Error obteniendo pedido activo: {e}")
-            return False
 
     def get_main_categories(self):
         try:
@@ -76,6 +65,7 @@ class Website(models.Model):
             _logger.error(f"Error obteniendo categorías principales: {e}")
             return []
 
+
 class PriceFilter(models.Model):
     _name = 'price.filter'
     _description = "Price filter for website products"
@@ -83,7 +73,8 @@ class PriceFilter(models.Model):
 
     price_under = fields.Float('Precio desde', digits=(12, 6), default=100)
     price_over = fields.Float('Precio hasta', digits=(12, 6), default=1000)
-    price_range = fields.Float('Rango de precios', digits=(12, 6), default=1000)
+    price_range = fields.Float(
+        'Rango de precios', digits=(12, 6), default=1000)
     sequence = fields.Integer('Sequence', default=10)
 
     @api.constrains('price_over')
@@ -181,7 +172,8 @@ class SaleOrder(models.Model):
     @api.depends('order_line')
     def _compute_website_order_saving(self):
         for order in self:
-            full_price = sum(line.price_unit * line.product_uom_qty for line in order.order_line)
+            full_price = sum(line.price_unit *
+                             line.product_uom_qty for line in order.order_line)
             order.website_order_saving = full_price - order.amount_total
 
 

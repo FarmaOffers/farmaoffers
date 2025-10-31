@@ -11,6 +11,8 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.addons.payment_yappy.controllers.main import YappyController
 
+_logger = logging.getLogger(__name__)
+
 
 class PaymentProviderYappy(models.Model):
     _inherit = 'payment.provider'
@@ -51,7 +53,8 @@ class PaymentProviderYappy(models.Model):
             }
         }
 
-        _logger.info("DATA PARA GENERAR EL LINK DE YAPPY: %s", json.dumps(data))
+        _logger.info("DATA PARA GENERAR EL LINK DE YAPPY: %s",
+                     json.dumps(data))
         content = check_output(
             ['node', os.path.expanduser('~')+'/node_sdk/dist/index.js', json.dumps(data)])
         encoding = (chardet.detect(content)['encoding'] or 'utf-8').lower()

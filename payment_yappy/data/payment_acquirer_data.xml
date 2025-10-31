@@ -7,8 +7,10 @@
             <field name="code">yappy</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="state">test</field>
-            <field name="module_id" ref="base.module_payment_yappy"/>
             <field name="image_128" type="base64" file="payment_yappy/static/src/img/yappy_icon.png"/>
+            <field name="yappy_merchant_id">DUMMY_MERCHANT</field>
+            <field name="yappy_secret_key">DUMMY_KEY</field>
+            <field name="state">test</field>
         </record>
 
     </data>
