@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_reviews" name="Client reviews">
+    <t t-set="reviews" t-value="request.env['fo.client.review'].sudo().search([('active', '=', True)])"/>
+
+    <t t-call="farmaoffers_theme.t_owl_carousel">
+      <t t-set="items" t-value="reviews"/>
+      <t t-set="carousel_type" t-value="'client_reviews'"/>
+      <t t-set="carousel_class" t-value="'client_reviews'"/>
+      <t t-set="title_p1" t-value="'Reviews'"/>
+      <t t-set="title_p2" t-value="'De nuestros clientes'"/>
+      <t t-set="need_bottom_hr" t-value="true"/>
+      <t t-set="client_review" t-value="True"/>
+      <t t-set="mb_class" t-value="'mb-4 pt-5'"/>
+    </t>
+  </template>
+</odoo>

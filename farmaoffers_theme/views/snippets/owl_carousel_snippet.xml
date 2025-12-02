@@ -1,0 +1,36 @@
+<odoo>
+  <template id="t_owl_carousel" name="Carousel (Splide)">
+    <section class="t_owl_carousel" data-snippet="t_owl_carousel" data-name="Carousel (Splide)" t-att-data-carousel-type="carousel_type or 'default'">
+      <div class="container py-5">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+          <span class="text-secondary">
+            <t t-esc="title_p1"/>
+          </span>
+          <span class="text-primary">
+            <t t-esc="title_p2"/>
+          </span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-4"/>
+
+        <div class="splide">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <t t-foreach="items" t-as="item">
+                <li class="splide__slide" t-attf-style="#{'width:170px;' if top_offers else ''}">
+                  <ul class="widget-products">
+                    <li class="d-flex flex-column align-items-center">
+                      <t t-call="farmaoffers_theme.select_body_item_snippet">
+                        <t t-set="item" t-value="item"/>
+                      </t>
+                    </li>
+                  </ul>
+                  <hr t-if="need_bottom_hr" class="hr-reviews"/>
+                </li>
+              </t>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

@@ -1,0 +1,38 @@
+.t_owl_carousel {
+  text-align: center;
+  padding: 3rem 0;
+  background-color: #fff;
+
+  .splide__slide {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    img {
+      border-radius: 8px;
+      border: 2px solid #e6e6e6;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+  }
+
+  .splide__arrow {
+    background: #4cbb17;
+    color: #fff;
+    border: none;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .splide__pagination__page.is-active {
+    background: #4cbb17;
+  }
+}

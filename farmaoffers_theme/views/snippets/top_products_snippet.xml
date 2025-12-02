@@ -1,0 +1,36 @@
+<odoo>
+  <template id="t_top_products" name="Top Products">
+
+    <t t-set="current_website" t-value="request.env['website'].get_current_website()"/>
+    <t t-set="top_products" t-value="current_website.get_top_products()"/>
+
+    <section class="top_products mb-4 pt-2">
+      <section class="list-slider">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+          <span class="text-secondary">Productos</span>
+          <span class="text-primary">Top</span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-3"/>
+
+
+        <div class="t_owl_carousel" data-carousel-type="products">
+          <div class="splide">
+            <div class="splide__track">
+              <ul class="splide__list">
+
+                <t t-if="top_products">
+                  <t t-call="farmaoffers_theme.t_body_categories">
+                    <t t-set="products" t-value="top_products"/>
+                  </t>
+                </t>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </section>
+
+  </template>
+</odoo>

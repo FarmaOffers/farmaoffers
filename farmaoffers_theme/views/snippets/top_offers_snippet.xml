@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_top_offers" name="Top Offers">
+    <t t-set="offers" t-value="request.env['product.offers'].search([('top', '=', True)])"/>
+
+    <t t-call="farmaoffers_theme.t_owl_carousel">
+      <t t-set="items" t-value="offers"/>
+      <t t-set="carousel_type" t-value="'offers'"/>
+      <t t-set="carousel_class" t-value="'top_offers'"/>
+      <t t-set="title_p1" t-value="'Ofertas'"/>
+      <t t-set="title_p2" t-value="'Destacadas'"/>
+      <t t-set="need_bottom_hr" t-value="false"/>
+      <t t-set="top_offers" t-value="True"/>
+      <t t-set="mb_class" t-value="'mb-0'"/>
+    </t>
+
+    <section>
+      <section>
+        <a class="text-uppercase font-montserrat text-blue font-weight-bold mb-2" href="/all-offers">
+          Ver todas las ofertas
+        </a>
+      </section>
+    </section>
+
+    <div class="hide-mobile">
+      <t t-call="farmaoffers_theme.stripe_info"/>
+    </div>
+  </template>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_top_offers_banner" name="Gallery Top Offers">
+    <section class="s_top_offers_banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+              <span class="text-secondary">
+                                OFERTAS
+              </span>
+              <span class="text-primary">
+                                DESTACADAS
+              </span>
+            </h3>
+            <hr class="mx-0 mt-1 mb-4"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-xl-3 d-block d-xl-block d-md-flex justify-content-around">
+            <a href="/" class="d-block mr-0 mr-xl-0 mr-md-3 small-image">
+              <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
+            </a>
+            <a href="/" class="d-block mt-3 mt-xl-3 mt-md-0 small-image">
+              <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
+            </a>
+          </div>
+          <div class="col-12 col-xl-9 mt-3 mt-xl-0 pl-xl-0">
+            <a href="/" class="d-block main-image">
+              <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

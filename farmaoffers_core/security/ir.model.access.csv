@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fo_top_slider,access_fo_top_slider,model_fo_top_slider,base.group_user,1,1,1,1
+access_farmaoffers_theme_product_offers,farmaoffers_theme.product_offers,model_product_offers,,1,1,1,1
+access_fo_top_product,access_fo_top_product,model_fo_top_product,base.group_user,1,1,1,1
+access_fo_our_tips,access_fo_our_tips,model_fo_our_tips,base.group_user,1,1,1,1
+access_fo_client_review,access_fo_client_review,model_fo_client_review,base.group_user,1,1,1,1
+access_fo_faqs,access_fo_faqs,model_fo_faqs,base.group_user,1,1,1,1
+access_fo_prescription,access_fo_prescription,model_fo_prescription,base.group_user,1,1,1,1
+access_fo_quote,access_fo_quote,model_fo_quote,base.group_user,1,1,1,1
