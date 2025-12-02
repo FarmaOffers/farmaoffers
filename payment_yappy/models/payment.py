@@ -1,6 +1,5 @@
 # coding: utf-8
 
-import logging
 import json
 import chardet
 import os
@@ -11,8 +10,6 @@ from odoo import api, fields, models, _
 from odoo.tools.pycompat import to_text
 from odoo.exceptions import ValidationError
 from odoo.addons.payment_yappy.controllers.main import YappyController
-
-_logger = logging.getLogger(__name__)
 
 
 class AcquirerPaypal(models.Model):
@@ -30,9 +27,15 @@ class AcquirerPaypal(models.Model):
     def _get_yappy_urls(self):
         from subprocess import check_output
         global form_data
-        fernet = Fernet(YappyController._secret_key)
-        encripted_reference = fernet.encrypt(
-            form_data["reference"].encode()).decode()
+
+        # Encriptar referencia
+        try:
+            fernet = Fernet(YappyController._secret_key)
+            encripted_reference = fernet.encrypt(form_data["reference"].encode()).decode()
+        except Exception:
+            raise
+
+        # Armar payload
         data = {
             'environment': self.state,
             'merchant_id': self.yappy_merchant_id,
@@ -44,24 +47,41 @@ class AcquirerPaypal(models.Model):
                 'discount': 0.00,
                 'taxes': form_data['amount_tax'] or '0.00',
                 'orderId': form_data['reference'],
-                'successUrl': urls.url_join(self.get_base_url(), f'/payment/yappy/return?reference={encripted_reference}'),
-                'failUrl': urls.url_join(self.get_base_url(), f'/payment/yappy/fail?fail=true&reference={encripted_reference}'),
+                'successUrl': urls.url_join(self.get_base_url(),
+                                            f'/payment/yappy/return?reference={encripted_reference}'),
+                'failUrl': urls.url_join(self.get_base_url(),
+                                         f'/payment/yappy/fail?fail=true&reference={encripted_reference}'),
                 'tel': form_data['partner_phone'],
                 'domain': self.get_base_url()
             }
         }
-        _logger.info("DATA PARA GENERAR EL LINK DE YAPPY: %s" %
-                     json.dumps(data))
-        content = check_output(
-            ['node', os.path.expanduser('~')+'/node_sdk/dist/index.js', json.dumps(data)])
-        encoding = chardet.detect(content)['encoding'].lower()
-        content = content.decode(encoding).encode('utf-8')
-        response = json.loads(to_text(content))
-        _logger.info(response)
+
+        # Ejecutar Node
+        node_script = os.path.expanduser('~') + '/node_sdk/dist/index.js'
+        try:
+            content = check_output(['node', node_script, json.dumps(data)])
+        except Exception:
+            raise
+
+        # Decodificar salida
+        try:
+            enc_info = chardet.detect(content) or {}
+            encoding = (enc_info.get('encoding') or '').lower()
+            content = content.decode(encoding).encode('utf-8')
+        except Exception:
+            raise
+
+        # Parsear JSON
+        try:
+            response = json.loads(to_text(content))
+        except Exception:
+            raise
+
+        # Evaluar respuesta
         if response['success']:
             return response['url']
-        raise ValidationError(
-            f"{response['error']['code']} - {response['error']['message']}")
+
+        raise ValidationError(f"{response['error']['code']} - {response['error']['message']}")
 
     def yappy_form_generate_values(self, values):
         global form_data
@@ -72,6 +92,10 @@ class AcquirerPaypal(models.Model):
     def yappy_get_form_action_url(self):
         self.ensure_one()
         return self._get_yappy_urls()
+
+    def get_form_action_url(self):
+        self.ensure_one()
+        return self.yappy_get_form_action_url()
 
 
 class TxAdyen(models.Model):
