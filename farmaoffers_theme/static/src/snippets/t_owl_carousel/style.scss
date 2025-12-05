@@ -1,6 +1,4 @@
 .t_owl_carousel {
-  text-align: center;
-  padding: 3rem 0;
   background-color: #fff;
 
   .splide__slide {
@@ -8,11 +6,6 @@
 
     &:hover {
       transform: scale(1.03);
-    }
-
-    img {
-      border-radius: 8px;
-      border: 2px solid #e6e6e6;
     }
 
     p {

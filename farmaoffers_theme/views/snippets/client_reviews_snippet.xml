@@ -11,7 +11,7 @@
       <t t-set="title_p2" t-value="'De nuestros clientes'"/>
       <t t-set="need_bottom_hr" t-value="true"/>
       <t t-set="client_review" t-value="True"/>
-      <t t-set="mb_class" t-value="'mb-4 pt-5'"/>
+      <t t-set="spacing_class" t-value="'py-5'"/>
     </t>
   </template>
 </odoo>

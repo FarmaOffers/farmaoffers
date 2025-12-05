@@ -3,15 +3,15 @@
 
     <t t-set="top_products" t-value="request.env['fo.top.product'].sudo().search([('active', '=', True)], order='sequence')" />
 
-    <section class="top_products mb-4 pt-2">
+    <section class="top_products py-5">
       <section class="list-slider">
-        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 fw-bold">
           <span class="text-secondary">Productos</span>
           <span class="text-primary">Top</span>
         </h3>
         <hr class="mx-0 mt-1 mb-3"/>
 
-        <div class="t_owl_carousel" data-carousel-type="products">
+        <div class="t_owl_carousel top_products" data-carousel-type="products">
           <div class="splide">
             <div class="splide__track">
               <ul class="splide__list">

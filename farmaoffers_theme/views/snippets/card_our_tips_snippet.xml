@@ -2,7 +2,7 @@
 <odoo>
   <template id="card_our_tips" name="Card Our Tips">
     <div class="card-our-tips d-flex align-items-center">
-      <div class="text-uppercase font-montserrat font-size-cards font-weight-bold pr-2">
+      <div class="text-uppercase font-montserrat font-size-cards fw-bold pe-2">
         <t t-esc="item.text" />
       </div>
       <div class="img">

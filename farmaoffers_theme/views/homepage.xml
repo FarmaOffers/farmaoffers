@@ -13,7 +13,7 @@
             <t t-set="website" t-value="request.website or request.env['website'].get_current_website()"/>
 
             <div id="wrap" class="oe_structure">
-              <section class="pt16 t_owl_carousel" data-carousel-type="homepage">
+              <section class="t_owl_carousel" data-carousel-type="homepage">
                 <div class="container">
                   <div class="splide" id="slider-homepage">
                     <div class="splide__track">

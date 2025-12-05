@@ -11,12 +11,12 @@
       <t t-set="title_p2" t-value="'Destacadas'"/>
       <t t-set="need_bottom_hr" t-value="false"/>
       <t t-set="top_offers" t-value="True"/>
-      <t t-set="mb_class" t-value="'mb-0'"/>
+      <t t-set="spacing_class" t-value="'py-5'"/>
     </t>
 
     <section>
       <section>
-        <a class="text-uppercase font-montserrat text-blue font-weight-bold mb-2" href="/all-offers">
+        <a class="text-uppercase font-montserrat text-blue fw-bold mb-2" href="/all-offers">
           Ver todas las ofertas
         </a>
       </section>

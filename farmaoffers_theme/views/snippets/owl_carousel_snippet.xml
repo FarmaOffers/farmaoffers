@@ -1,8 +1,8 @@
 <odoo>
   <template id="t_owl_carousel" name="Carousel (Splide)">
-    <section class="t_owl_carousel" data-snippet="t_owl_carousel" data-name="Carousel (Splide)" t-att-data-carousel-type="carousel_type or 'default'">
-      <div class="container py-5">
-        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+    <section t-attf-class="t_owl_carousel {{ carousel_class or '' }}" data-snippet="t_owl_carousel" data-name="Carousel (Splide)" t-att-data-carousel-type="carousel_type or 'default'">
+      <div t-attf-class="container {{ spacing_class or '' }}">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 fw-bold">
           <span class="text-secondary">
             <t t-esc="title_p1"/>
           </span>

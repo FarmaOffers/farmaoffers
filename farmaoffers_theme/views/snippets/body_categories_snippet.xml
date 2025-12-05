@@ -15,12 +15,12 @@
           </span>
 
           <div class="d-flex flex-column justify-content-between product m-0 font-montserrat w-100 p-2">
-            <span class="name mb-1 d-inline-block text-uppercase font-montserrat w-100 font-weight-bold font-8-5">
+            <span class="name mb-1 d-inline-block text-uppercase font-montserrat w-100 fw-bold font-8-5">
               <t t-esc="top_product.product_name"/>
             </span>
 
             <div class="d-flex justify-content-between align-items-center">
-              <span class="price product_price text-primary font-weight-bold font-8-5" style="white-space: nowrap;">
+              <span class="price product_price text-primary fw-bold font-8-5" style="white-space: nowrap;">
                 <t t-esc="top_product.product_price"
                    t-options="{'widget': 'monetary', 'display_currency': current_website.currency_id}"/>
               </span>
@@ -28,7 +28,7 @@
               <a class="d-flex align-items-center"
                  t-att-href="'/shop/product/' + slug(top_product.product_tmpl_id)"
                  t-att-title="top_product.product_name">
-                <span class="name mr-1 d-inline-block text-uppercase font-montserrat text-blue w-100 font-weight-bold font-8-5">
+                <span class="name mt-1 me-1 d-inline-block text-uppercase font-montserrat text-blue w-100 fw-bold font-8-5">
                   Ver más
                 </span>
                 <i class="icon-right fa fa-angle-double-right h3 text-white m-0" aria-hidden="false"></i>

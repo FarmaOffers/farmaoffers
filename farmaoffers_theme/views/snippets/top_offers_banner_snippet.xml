@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 fw-bold">
               <span class="text-secondary">
                                 OFERTAS
               </span>
@@ -18,14 +18,14 @@
         </div>
         <div class="row">
           <div class="col-12 col-xl-3 d-block d-xl-block d-md-flex justify-content-around">
-            <a href="/" class="d-block mr-0 mr-xl-0 mr-md-3 small-image">
+            <a href="/" class="d-block me-0 me-xl-0 me-md-3 small-image">
               <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
             </a>
             <a href="/" class="d-block mt-3 mt-xl-3 mt-md-0 small-image">
               <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
             </a>
           </div>
-          <div class="col-12 col-xl-9 mt-3 mt-xl-0 pl-xl-0">
+          <div class="col-12 col-xl-9 mt-3 mt-xl-0 ps-xl-0">
             <a href="/" class="d-block main-image">
               <img src="/farmaoffers_theme/static/src/img/bg-basic.png" class="w-100 h-100" style="object-fit: cover;"/>
             </a>

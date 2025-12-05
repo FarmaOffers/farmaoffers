@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pr-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
+                        <div class="pe-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
                             <div class="">
                                 <a href="/prescription" title="Tengo una preescripción">
                                     <div class="container--prescription bg-secondary">
@@ -184,7 +184,7 @@
                                                     </span>
                                                     <span>ítem</span>
                                                     <hr class="hr-price" />
-                                                    <span class="price-minicart font-weight-bold">
+                                                    <span class="price-minicart fw-bold">
                                                         <span class="price">
                                                             <t t-if="website_sale_order.amount_total > 0">
                                                                 <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}' />
@@ -270,7 +270,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pr-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
+                            <div class="pe-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
                                 <div class="">
                                     <a href="/prescription" title="Tengo una preescripción">
                                         <div class="container--prescription bg-secondary">
@@ -307,7 +307,7 @@
                                                         </span>
                                                         <span>ítem</span>
                                                         <hr class="hr-price" />
-                                                        <span class="price-minicart font-weight-bold">
+                                                        <span class="price-minicart fw-bold">
                                                             <span class="price">
                                                                 <t t-if="website_sale_order.amount_total > 0">
                                                                     <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}' />

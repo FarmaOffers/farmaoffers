@@ -11,7 +11,7 @@
       <t t-set="title_p2" t-value="'Tips'"/>
       <t t-set="need_bottom_hr" t-value="False"/>
       <t t-set="our_tips" t-value="True"/>
-      <t t-set="mb_class" t-value="'mb-4'"/>
+      <t t-set="spacing_class" t-value="'py-5'"/>
     </t>
 
     <div class="only-mobile">
