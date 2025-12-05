@@ -1,7 +1,7 @@
 {
     "name": "FarmaOffers Theme",
     "version": "1.0.0",
-    "author": "FarmaOffers",
+    "author": "Rootstack, S.A.",
     "category": "Website",
     "summary": "FarmaOffers custom header, footer and snippets",
     "license": "LGPL-3",

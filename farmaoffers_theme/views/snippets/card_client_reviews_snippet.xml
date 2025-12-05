@@ -6,7 +6,12 @@
         <i class="fa fa-1x fa-quote-left"></i>
       </div>
       <div class="content-item px-4">
-        <t t-esc="item.review" />
+        <t t-if="item.review">
+          <t t-esc="item.review" />
+        </t>
+        <t t-else="">
+          <t t-esc="item.title" />
+        </t>
       </div>
       <div class="d-flex justify-content-end">
         <i class="fa fa-1x fa-quote-right"></i>

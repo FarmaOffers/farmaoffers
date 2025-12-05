@@ -1,7 +1,7 @@
 {
     "name": "FarmaOffers Core",
     "version": "1.0.0",
-    "author": "FarmaOffers",
+    "author": "Rootstack, S.A.",
     "category": "Website",
     "summary": "Core models and helpers for FarmaOffers website",
     "license": "LGPL-3",

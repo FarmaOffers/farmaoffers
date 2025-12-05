@@ -1,30 +1,33 @@
 # -*- coding: utf-8 -*-
-from . import models
 from . import controllers
+from . import models
+
+from odoo.addons.payment import setup_provider, reset_payment_provider
 
 
-def _post_init_hook(cr, registry):
-    import shutil
+def post_init_hook(env):
     import os
+    import json
     from pynpm import NPMPackage
-    from os.path import dirname
+    from os.path import dirname, join
 
-    source_dir = dirname(__file__) + '/node_sdk'
-    destination_dir = os.path.expanduser('~') + '/node_sdk'
+    destination_dir = join(dirname(__file__), 'node_sdk')
+    package_json_path = join(destination_dir, 'package.json')
 
-    shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    if os.path.exists(package_json_path):
+        with open(package_json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        if data.get("type") == "module":
+            data.pop("type")
+            with open(package_json_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2)
 
-    pkg = NPMPackage(destination_dir + '/package.json')
-    pkg.install()
-    pkg.run_script('build')
+        pkg = NPMPackage(package_json_path)
+        pkg.install()
+        pkg.run_script('build')
+
+    setup_provider(env, 'yappy')
 
 
-def uninstall_hook(cr, registry):
-    """En Odoo 18 no existe reset_payment_provider, así que
-    en desinstalación podemos simplemente eliminar el registro del provider si hace falta."""
-    from odoo.api import Environment
-
-    env = Environment(cr, 1, {})  # usuario admin
-    provider = env['payment.provider'].search([('code', '=', 'yappy')])
-    if provider:
-        provider.unlink()
+def uninstall_hook(env):
+    reset_payment_provider(env, 'yappy')
