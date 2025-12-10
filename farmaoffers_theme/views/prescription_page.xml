@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="prescription" name="Prescription Page">
+    <t t-call="website.layout">
+      <div id="wrap" class="oe_structure">
+        <t t-call="farmaoffers_theme.s_prescription_form"/>
+        <div class="clearfix"/>
+        <div class="oe_structure"/>
+      </div>
+    </t>
+  </template>
+</odoo>

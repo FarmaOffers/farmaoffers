@@ -6,9 +6,18 @@ from . import wizard
 from odoo import api, SUPERUSER_ID
 
 
-def _disable_security_rules(cr, registry):
-    """Hook method, used to disable security rules."""
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def _disable_security_rules(*args):
+    """Hook method, used to disable security rules.
+
+    Accept either the old (cr, registry) signature or the newer single env argument
+    that Odoo may pass to lifecycle hooks. This makes the hook compatible with
+    both call styles.
+    """
+    if len(args) == 1:
+        env = args[0]
+    else:
+        cr, registry = args
+        env = api.Environment(cr, SUPERUSER_ID, {})
     sale_own_rule_id = env.ref('sale.sale_order_personal_rule')
     sale_rule_id = env.ref("sale.sale_order_see_all")
     sale_order_line_rule_id = env.ref("sale.sale_order_line_see_all")
@@ -43,9 +52,18 @@ def _disable_security_rules(cr, registry):
         account_move_see_all_id.write({"active": False})
 
 
-def _enable_security_rules(cr, registry):
-    """Hook method, used to enable security rules."""
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def _enable_security_rules(*args):
+    """Hook method, used to enable security rules.
+
+    Accept either the old (cr, registry) signature or the newer single env argument
+    that Odoo may pass to lifecycle hooks. This makes the hook compatible with
+    both call styles.
+    """
+    if len(args) == 1:
+        env = args[0]
+    else:
+        cr, registry = args
+        env = api.Environment(cr, SUPERUSER_ID, {})
     sale_rule_id = env.ref("sale.sale_order_see_all")
     crm_rule_id = env.ref("crm.crm_rule_all_lead")
     crm_activity_report_id = env.ref("crm.crm_activity_report_rule_all_activities")

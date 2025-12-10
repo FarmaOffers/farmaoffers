@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from odoo import models, fields, api
 import logging
 
 _logger = logging.getLogger(__name__)
+
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
@@ -19,18 +21,22 @@ class PosOrder(models.Model):
         """
         _logger.info("Interceptando _process_order: Procesando pedido...")
 
+        # Ejecutar el proceso original
         order = super(PosOrder, self)._process_order(order_data, draft, existing_order)
 
+        # En Odoo 18 _process_order puede devolver un recordset o un ID según el flujo
         if isinstance(order, int):
             order = self.browse(order)
 
         branch_id = order.session_id.config_id.branch_id.id if order.session_id.config_id.branch_id else False
         _logger.info(f"Branch ID obtenido desde POS Config: {branch_id}")
 
+        # Asignar branch_id al pedido
         if branch_id:
             order.write({'branch_id': branch_id})
             _logger.info(f"Branch ID asignado al pedido: {branch_id}")
 
+        # Asignar branch_id a la factura asociada
         if order.account_move and branch_id:
             order.account_move.write({'branch_id': branch_id})
             _logger.info(f"Branch ID asignado a la factura: {order.account_move.name}")

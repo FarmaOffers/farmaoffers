@@ -1,0 +1,22 @@
+.section_faqs {
+  .accordion {
+    .card {
+      border: 1px solid #dee2e6;
+      margin-bottom: 1rem;
+
+      .card-header {
+        background-color: #fff;
+        button {
+          color: #007bff;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+      }
+
+      .card-body {
+        background-color: #f9f9f9;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<odoo>
+  <template id="prescription_snippet" name="Prescription Upload">
+    <section class="prescription" data-snippet="prescription" data-name="Prescription Upload">
+      <div class="container text-center py-5">
+        <h2 class="mb-4">Sube tu receta médica</h2>
+        <p class="mb-3">Envía tu receta y te ayudaremos a gestionar tu pedido de forma rápida y segura.</p>
+        <a href="/prescription" class="btn btn-secondary">
+          <i class="fa fa-upload me-2"></i> Subir receta
+        </a>
+      </div>
+    </section>
+  </template>
+</odoo>

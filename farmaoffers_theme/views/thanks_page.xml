@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="thanks_page" name="Thanks Page">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container-fo mx-auto my-0 basic-bg basic-bg-thanks">
+
+          <section class="pt8 pb0" data-vcss="001">
+            <div class="o_container_small font-montserrat text-uppercase">
+              <h1 class="title-thanks m-0" style="text-align: center;">
+                <font class="text-white fw-bold font-montserrat" style="font-size: 32px;">
+                  <t t-esc="title"/>
+                </font>
+              </h1>
+            </div>
+          </section>
+
+          <section class="pb0 pt0">
+            <div class="o_container_small">
+              <p class="text-center text-white font-montserrat m-0 font-size-cards">
+                <t t-esc="body"/>
+              </p>
+            </div>
+
+            <div class="text-center my-4">
+              <a t-att-href="back_url or '/'" class="btn btn-secondary font-montserrat text-uppercase font-8-5 fw-bold">
+                <t t-esc="back_button_text or 'Volver al inicio'"/>
+              </a>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="clearfix"/>
+        <div class="oe_structure"/>
+      </div>
+    </t>
+  </template>
+</odoo>

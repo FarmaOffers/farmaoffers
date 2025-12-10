@@ -1,0 +1,36 @@
+<odoo>
+  <template id="card_client_reviews_snippet" name="Client Reviews">
+    <section class="card_client_reviews" data-snippet="card_client_reviews" data-name="Client Reviews">
+      <div class="container py-5 text-center">
+        <h2 class="mb-4">Lo que dicen nuestros clientes</h2>
+        <div id="client_reviews_splide" class="splide">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <div class="review-card p-4 shadow-sm rounded">
+                  <img src="/farmaoffers_design/static/src/img/review-user-1.jpg" class="rounded-circle mb-3" width="80" alt="Cliente 1"/>
+                  <p class="mb-3">“Excelente servicio y entrega rápida. ¡Muy recomendados!”</p>
+                  <h6 class="fw-bold mb-0">María González</h6>
+                </div>
+              </li>
+              <li class="splide__slide">
+                <div class="review-card p-4 shadow-sm rounded">
+                  <img src="/farmaoffers_design/static/src/img/review-user-2.jpg" class="rounded-circle mb-3" width="80" alt="Cliente 2"/>
+                  <p class="mb-3">“Siempre encuentro lo que necesito y a buen precio.”</p>
+                  <h6 class="fw-bold mb-0">Carlos Pérez</h6>
+                </div>
+              </li>
+              <li class="splide__slide">
+                <div class="review-card p-4 shadow-sm rounded">
+                  <img src="/farmaoffers_design/static/src/img/review-user-3.jpg" class="rounded-circle mb-3" width="80" alt="Cliente 3"/>
+                  <p class="mb-3">“Atención al cliente de primera. Repetiré sin duda.”</p>
+                  <h6 class="fw-bold mb-0">Lucía Fernández</h6>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

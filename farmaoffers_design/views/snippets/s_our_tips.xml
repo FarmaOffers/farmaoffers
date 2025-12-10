@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_our_tips" name="Our tips">
+    <t t-set="tips" t-value="request.env['fo.our.tips'].search([('active', '=', True)])"/>
+
+    <t t-call="farmaoffers_design.t_owl_carousel">
+      <t t-set="items" t-value="tips"/>
+      <t t-set="carousel_class" t-value="'our_tips'"/>
+      <t t-set="title_p1" t-value="'Nuestros'"/>
+      <t t-set="title_p2" t-value="'Tips'"/>
+      <t t-set="need_bottom_hr" t-value="False"/>
+      <t t-set="our_tips" t-value="True"/>
+      <t t-set="mb_class" t-value="'mb-4'"/>
+    </t>
+
+    <div class="only-mobile">
+      <t t-call="farmaoffers_design.stripe_info"/>
+    </div>
+  </template>
+</odoo>

@@ -1,0 +1,39 @@
+<odoo>
+  <template id="section_general_info_snippet" name="Section General Info">
+    <section class="section_general_info"
+             data-snippet="section_general_info"
+             data-name="Section General Info">
+      <!-- Vista en modo editor -->
+      <t t-if="editable">
+        <div class="alert alert-info text-center">
+          [Vista previa del snippet Section General Info — se mostrará solo en páginas de producto]
+        </div>
+      </t>
+
+      <!-- Vista en modo sitio web real -->
+      <t t-if="not editable">
+        <t t-set="product" t-value="request.env.context.get('product') if request else None"/>
+        <t t-set="general_data" t-value="website.get_general_info_by_type(product.id) if (request and product) else []"/>
+
+        <section t-if="len(general_data) &gt; 0" class="mb-4 pt-5">
+          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <span class="text-secondary">Información</span>
+            <span class="text-primary">General</span>
+          </h3>
+          <hr class="mx-0 mt-1 mb-4"/>
+          <div class="content-section">
+            <ul>
+              <li t-foreach="general_data" t-as="item" t-attf-id="general-info-#{item.id}"
+                  class="my-3 font-montserrat font-size-cards">
+                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">
+                  <t t-esc="item.title"/>
+                </h4>
+                <p><t t-esc="item.description"/></p>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </t>
+    </section>
+  </template>
+</odoo>

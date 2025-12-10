@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="card_client_reviews" name="Card Client Reviews">
+    <div>
+      <div class="d-flex justify-content-start">
+        <i class="fa fa-1x fa-quote-left"></i>
+      </div>
+      <div class="content-item px-4">
+        <t t-if="item.review">
+          <t t-esc="item.review" />
+        </t>
+        <t t-else="">
+          <t t-esc="item.title" />
+        </t>
+      </div>
+      <div class="d-flex justify-content-end">
+        <i class="fa fa-1x fa-quote-right"></i>
+      </div>
+    </div>
+  </template>
+</odoo>

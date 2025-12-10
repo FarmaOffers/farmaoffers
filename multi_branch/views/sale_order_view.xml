@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Inherited base Res Users Form View -->
+    <!-- Inherit: Sale Order Form -->
     <record id="view_order_form_branch_inherit" model="ir.ui.view">
         <field name="name">sale.order.form.branch.inherit</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <field name="team_id" position="after">
+            <!-- Inserta branch_id después de team_id; si no existe, después de user_id -->
+            <xpath expr="//field[@name='team_id'] | //field[@name='user_id']" position="after">
                 <field
                     name="branch_id"
                     required="1"
                     options="{'no_create_edit': True}"
                     context="{'branch_filter': True, 'filter_company_id': company_id}"
                 />
-            </field>
-        </field>
-    </record>
-    <record id="view_sales_order_filter_branch_inherit" model="ir.ui.view">
-        <field name="name">sale.order.list.select.branch.inherit</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_sales_order_filter" />
-        <field name="arch" type="xml">
-            <field name="user_id" position="after">
-                <field name="branch_id" />
-            </field>
-            <filter name="order_month" position="after">
-                <filter
-                    string="Branch"
-                    context="{'group_by':'branch_id'}"
-                    name="branch_id"
-                />
-            </filter>
-        </field>
-    </record>
-    <record id="view_order_product_pivot_branch_inherit" model="ir.ui.view">
-        <field name="name">sale.report.pivot.branch.inherit</field>
-        <field name="model">sale.report</field>
-        <field name="inherit_id" ref="sale.view_order_product_pivot" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='date']" position="after">
-                <field name="branch_id" type="row" />
             </xpath>
         </field>
     </record>
 
-    <!--Added group by filter in sale report-->
+    <!-- Inherit: Sale Order Search (list filter) -->
+    <record id="view_sales_order_filter_branch_inherit" model="ir.ui.view">
+        <field name="name">sale.order.list.select.branch.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <!-- Añade branch_id a la barra de búsqueda sin depender de filtros de fecha -->
+            <xpath expr="//search" position="inside">
+                <field name="branch_id"/>
+                <filter name="group_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit: Sale Report Pivot (agrega branch como eje) -->
+    <record id="view_order_product_pivot_branch_inherit" model="ir.ui.view">
+        <field name="name">sale.report.pivot.branch.inherit</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_pivot"/>
+        <field name="arch" type="xml">
+            <!-- Inserta branch en el eje de la tabla dinámica sin depender del nombre del campo de fecha -->
+            <xpath expr="//pivot" position="inside">
+                <field name="branch_id" type="row"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit: Sale Report Search (analysis) -->
     <record id="sale_report_analysis_branch_inherit" model="ir.ui.view">
         <field name="name">sale.report.analysis.branch.inherit</field>
         <field name="model">sale.report</field>
-        <field name="inherit_id" ref="sale.view_order_product_search" />
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
+            <!-- Añade branch a la barra de búsqueda y un group_by robusto -->
+            <xpath expr="//search" position="inside">
                 <field name="branch_id"/>
-            </field>
-            <xpath expr="//filter[@name='date']" position="after">
-                <filter name="branches" string="Branch" context="{'group_by':'branch_id'}"/>
+                <filter name="group_branch_report" string="Branch" context="{'group_by': 'branch_id'}"/>
             </xpath>
         </field>
     </record>

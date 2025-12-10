@@ -1,0 +1,9 @@
+<odoo>
+    <template id="total_f2_snippet_registry" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
+            <t t-snippet="farmaoffers_design.total_f2_snippet"
+               data-name="Total del Pedido"
+               data-category="Structure"/>
+        </xpath>
+    </template>
+</odoo>

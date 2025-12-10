@@ -1,0 +1,33 @@
+.section_same_compound {
+  text-align: center;
+  margin: 2rem 0;
+
+  h3 {
+    color: #16a2ff;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 0.3rem 0;
+  }
+
+  a {
+    color: #444;
+    text-decoration: none;
+
+    &:hover {
+      color: #16a2ff;
+      text-decoration: underline;
+    }
+  }
+
+  #show-more-with-same-compound {
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+}

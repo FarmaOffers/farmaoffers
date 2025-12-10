@@ -1,0 +1,33 @@
+.section_bought_together {
+  text-align: center;
+  margin: 2rem 0;
+
+  h3 {
+    color: #16a2ff;
+    font-weight: bold;
+  }
+
+  .owl-carousel .item {
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+
+    img {
+      border-radius: 8px;
+      max-width: 100%;
+    }
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .owl-nav i {
+    color: #16a2ff;
+  }
+}

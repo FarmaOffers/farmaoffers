@@ -1,0 +1,18 @@
+.breadcrumb_fo {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: "Montserrat", sans-serif;
+
+  .breadcrumb-container {
+    a {
+      color: #4cbb17;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    span {
+      color: #555;
+    }
+  }
+}

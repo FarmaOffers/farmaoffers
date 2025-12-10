@@ -1,0 +1,38 @@
+<odoo>
+  <template id="section_bought_together_snippet" name="Productos comprados juntos">
+    <section class="section_bought_together bought-together" data-snippet="section_bought_together" data-name="Productos comprados juntos">
+      <t t-if="editable">
+        <div class="alert alert-info text-center">
+          [Vista previa del snippet de productos comprados juntos]
+        </div>
+      </t>
+
+      <t t-if="not editable">
+        <t t-set="product" t-value="request.env.context.get('product') if request else None"/>
+        <t t-if="product and product.bought_together_product_ids">
+          <div class="container mt-4 mb-4">
+            <div class="row">
+              <div class="col-12 text-center mb-3">
+                <h3 class="text-primary font-weight-bold">Comprados juntos habitualmente</h3>
+              </div>
+              <div class="col-12">
+                <div class="owl-carousel">
+                  <t t-foreach="product.bought_together_product_ids" t-as="p">
+                    <div class="item text-center p-3">
+                      <a t-att-href="p.website_url">
+                        <img t-att-src="'/web/image/product.template/%s/image_1920' % p.id"
+                             t-att-alt="p.name"
+                             class="img-fluid rounded shadow-sm"/>
+                        <p class="mt-2 font-montserrat" t-esc="p.name"/>
+                      </a>
+                    </div>
+                  </t>
+                </div>
+              </div>
+            </div>
+          </div>
+        </t>
+      </t>
+    </section>
+  </template>
+</odoo>

@@ -15,7 +15,7 @@ class MultiBranch(models.Model):
     @api.model
     def default_get(self, fields):
         """Method to set default company in branch."""
-        result = super(MultiBranch, self).default_get(fields)
+        result = super().default_get(fields)
         company = (
             self.env.company.id or False
         )
@@ -78,7 +78,7 @@ class MultiBranch(models.Model):
         for branch in self.filtered(lambda branch: branch.partner_id):
             address_data = branch.partner_id.sudo().address_get(adr_pref=["contact"])
             if address_data["contact"]:
-                partner = branch.partner_id.browse(address_data["contact"]).sudo()
+                partner = self.env['res.partner'].browse(address_data['contact']).sudo()
                 branch.update(branch._get_branch_address_fields(partner))
 
     def _inverse_street(self):
@@ -108,7 +108,7 @@ class MultiBranch(models.Model):
     @api.returns("self", lambda value: value.id)
     def copy(self):
         """Overridden copy method to restrict all users."""
-        super(MultiBranch, self).copy()
+        super().copy()
         raise ValidationError(
             _(
                 "User can not Duplicate the branch ! "
@@ -122,7 +122,7 @@ class MultiBranch(models.Model):
         partner_obj = self.env["res.partner"]
         if not vals.get("name", False) or vals.get("partner_id", False):
             self.clear_caches()
-            return super(MultiBranch, self).create(vals)
+            return super().create(vals)
         partner = partner_obj.create(
             {
                 "name": vals["name"],
@@ -135,7 +135,7 @@ class MultiBranch(models.Model):
         )
         vals["partner_id"] = partner.id
         self.clear_caches()
-        new_branch = super(MultiBranch, self).create(vals)
+        new_branch = super().create(vals)
         # The write is made on the user to set it automatically in the multi
         # branch group.
         self.env.user.write({"branch_ids": [(4, new_branch.id)]})

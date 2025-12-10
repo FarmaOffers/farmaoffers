@@ -14,11 +14,8 @@ import json
 import logging
 
 from uuid import uuid4
-from suds.wsse import Security, UsernameToken
-from suds.client import Client
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from requests import get
-from suds.sudsobject import asdict
 from datetime import datetime, timedelta
 from odoo import http, _
 from odoo.http import request
@@ -67,9 +64,9 @@ class WebsiteSale(WebsiteSale):
     @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         response = super(WebsiteSale, self).shop(page=page, category=category, search=search, ppg=ppg, **post)
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
-        payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
-        if payment_acquirer.save_token == 'none':
+        payment_acquirer = request.env['payment.provider'].sudo().search([('code', '=', 'cybersource')])
+        payment_token = request.env['payment.token'].sudo().search([('provider_id', '=', payment_acquirer.id)])
+        if payment_acquirer.support_tokenization:
             for token_id in payment_token:
                 token_id.unlink()
         if post.get('error'):
@@ -81,7 +78,15 @@ class CyberSourceController(http.Controller):
     
     def recursive_dict(self,d):
         out = {}
-        for k, v in asdict(d).items():
+        try:
+            from suds.sudsobject import asdict as suds_asdict
+        except Exception:
+            # Fallback for non-suds objects: try simple dict conversion
+            def suds_asdict(obj):
+                if hasattr(obj, '__dict__'):
+                    return {k: v for k, v in obj.__dict__.items() if not k.startswith('_')}
+                return obj if isinstance(obj, dict) else {}
+        for k, v in suds_asdict(d).items():
             if hasattr(v, '__keylist__'):
                 out[k] = self.recursive_dict(v)
             elif isinstance(v, list):
@@ -145,22 +150,36 @@ class CyberSourceController(http.Controller):
             return request.redirect('/shop')
         
     def request_payment_status(self,post):
+        # Import suds locally to avoid module-level import errors during registry loading
+        try:
+            from suds.client import Client
+            from suds.wsse import Security, UsernameToken
+        except Exception as ie:
+            _logger.error("Missing suds dependency for CyberSource controller: %s", ie)
+            return None
+
         order_id = request.session.get('sale_order_id')
         order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
         kwargs = {}
         payment_acquire = request.env['payment.acquirer'].sudo().search([('id', '=', post.get('acquirer_id'))])
         if payment_acquire.state == 'enabled':
-            wsdl = 'https://ics2wsa.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl' 
+            wsdl = 'https://ics2wsa.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl'
         else:
             wsdl = 'https://ics2wstesta.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl'
         transaction_security_key = payment_acquire.cybersource_key
         merchant_id = payment_acquire.cybersource_merchant_id
         self.merchant_id = merchant_id
-        self.client = Client(wsdl)
-        security = Security()
-        token = UsernameToken(self.merchant_id, transaction_security_key)
-        security.tokens.append(token)
-        self.client.set_options(wsse=security)
+
+        try:
+            self.client = Client(wsdl)
+            security = Security()
+            token = UsernameToken(self.merchant_id, transaction_security_key)
+            security.tokens.append(token)
+            self.client.set_options(wsse=security)
+        except Exception as e:
+            _logger.exception("Error initializing suds Client/Security: %s", e)
+            return None
+
         data = {}
         data['merchantID'] = self.merchant_id
         data['merchantReferenceCode'] = self.merchant_id
@@ -190,9 +209,13 @@ class CyberSourceController(http.Controller):
         data['shipTo'].postalCode = order.partner_id.zip
         data['apPaymentType'] = 'EPS'
         data['card'] = self.client.factory.create('ns0:Card')
-        data['card'].accountNumber = int(post.get('cc_number').replace(" ", ""))
-        data['card'].expirationMonth = int(post.get('cc_expiry')[:2])
-        data['card'].expirationYear = int('20' + post.get('cc_expiry')[5:])
+        data['card'].accountNumber = int(post.get('cc_number').replace(" ", "")) if post.get('cc_number') else None
+        try:
+            data['card'].expirationMonth = int(post.get('cc_expiry')[:2])
+            data['card'].expirationYear = int('20' + post.get('cc_expiry')[5:])
+        except Exception:
+            data['card'].expirationMonth = None
+            data['card'].expirationYear = None
         data['card'].cvNumber = post.get('cc_cvc')
         data['ccAuthService'] = self.client.factory.create('ns0:ccAuthService')
         data['ccAuthService']._run = 'true'
@@ -201,5 +224,6 @@ class CyberSourceController(http.Controller):
         try:
             resp = self.client.service.runTransaction(**data)
         except Exception as e:
+            _logger.exception("Error running CyberSource transaction: %s", e)
             resp = None
-        return resp    
+        return resp

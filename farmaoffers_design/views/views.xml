@@ -1,97 +1,10 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="farmaoffers_design.list">
-      <field name="name">farmaoffers_design list</field>
-      <field name="model">farmaoffers_design.farmaoffers_design</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
--->
-
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="farmaoffers_design.action_window">
-      <field name="name">farmaoffers_design window</field>
-      <field name="res_model">farmaoffers_design.farmaoffers_design</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="farmaoffers_design.action_server">
-      <field name="name">farmaoffers_design server</field>
-      <field name="model_id" ref="model_farmaoffers_design_farmaoffers_design"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
-
-    <!-- Top menu item -->
-<!--
-    <menuitem name="farmaoffers_design" id="farmaoffers_design.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="farmaoffers_design.menu_1" parent="farmaoffers_design.menu_root"/>
-    <menuitem name="Menu 2" id="farmaoffers_design.menu_2" parent="farmaoffers_design.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="farmaoffers_design.menu_1_list" parent="farmaoffers_design.menu_1"
-              action="farmaoffers_design.action_window"/>
-    <menuitem name="Server to list" id="farmaoffers_design" parent="farmaoffers_design.menu_2"
-              action="farmaoffers_design.action_server"/>
--->
         <menuitem id="menu_farma_offers" name="FarmaOffers"
         parent="website.menu_website_configuration"
         sequence="16"
         groups="base.group_user"/>
 
-        <!-- Price Filter -->
-        <record id="price_filter_form_view" model="ir.ui.view">
-            <field name="name">price.filter.form</field>
-            <field name="model">price.filter</field>
-            <field name="arch" type="xml">
-                <form string="Price filter" create="0" delete="0">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="price_under" digits="[15,2]"/>
-                                <field name="price_over" digits="[15,2]"/>
-                                <field name="price_range" digits="[15,2]"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="price_filter_tree_view" model="ir.ui.view">
-            <field name="name">price.filter.tree</field>
-            <field name="model">price.filter</field>
-            <field name="field_parent" eval="False"/>
-            <field name="arch" type="xml">
-                <tree string="Price filter" create="0" delete="0">
-                    <field name="price_under" digits="[15,2]"/>
-                    <field name="price_over" digits="[15,2]"/>
-                    <field name="price_range" digits="[15,2]"/>
-                </tree>
-            </field>
-        </record>
 
         <record id="menu_price_filter_action" model="ir.actions.act_window">
             <field name="name">Price filter</field>
@@ -106,51 +19,11 @@
             </field>
         </record>
 
-        <!-- Ribbons -->
-        <record id="product_ribbon_form_view" model="ir.ui.view">
-            <field name="name">product.ribbon.form</field>
-            <field name="model">product.ribbon</field>
-            <field name="arch" type="xml">
-                <form string="Product ribbon">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="html"/>
-                                <field name="bg_color"/>
-                                <field name="text_color"/>
-                                <field name="html_class"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
 
-        <record id="product_ribbon_tree_view" model="ir.ui.view">
-            <field name="name">product.ribbon.tree</field>
-            <field name="model">product.ribbon</field>
-            <field name="field_parent" eval="False"/>
-            <field name="arch" type="xml">
-                <tree string="Product ribbon">
-                    <field name="html"/>
-                </tree>
-            </field>
-        </record>
 
-        <record id="menu_product_ribbon_action" model="ir.actions.act_window">
-            <field name="name">Product ribbons</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.ribbon</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    Click to add a ribbon.
-                </p><p>
-                </p>
-            </field>
-        </record>
 
-        <!-- Offers -->
+
+
         <record id="product_offers_form_view" model="ir.ui.view">
             <field name="name">product.offers.form</field>
             <field name="model">product.offers</field>
@@ -174,17 +47,15 @@
         </record>
 
         <record id="product_offers_tree_view" model="ir.ui.view">
-            <field name="name">product.offers.tree</field>
-            <field name="model">product.offers</field>
-            <field name="field_parent" eval="False"/>
-            <field name="arch" type="xml">
-                <tree string="Product offers">
-                    <field name="title"/>
-                    <field name="description"/>
-                </tree>
-            </field>
-        </record>
-
+        <field name="name">product.offers.tree</field>
+        <field name="model">product.offers</field>
+        <field name="arch" type="xml">
+            <tree string="Product offers">
+                <field name="title"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
         <record id="menu_product_offers_action" model="ir.actions.act_window">
             <field name="name">Product offers</field>
             <field name="type">ir.actions.act_window</field>
@@ -198,7 +69,6 @@
             </field>
         </record>
 
-        <!-- Aditional Information -->
         <record id="product_aditional_info_form_view" model="ir.ui.view">
             <field name="name">product.aditional.info.form</field>
             <field name="model">product.aditional.info</field>
@@ -220,7 +90,6 @@
         <record id="product_aditional_info_tree_view" model="ir.ui.view">
             <field name="name">product.aditional.info.tree</field>
             <field name="model">product.aditional.info</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Aditional information">
                     <field name="description"/>
@@ -228,7 +97,6 @@
             </field>
         </record>
 
-        <!-- general Information -->
         <record id="product_general_info_form_view" model="ir.ui.view">
             <field name="name">product.general.info.form</field>
             <field name="model">product.general.info</field>
@@ -251,7 +119,6 @@
         <record id="product_general_info_tree_view" model="ir.ui.view">
             <field name="name">product.general.info.tree</field>
             <field name="model">product.general.info</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="General information">
                     <field name="title"/>
@@ -260,7 +127,6 @@
             </field>
         </record>
 
-        <!-- branch offices -->
         <record id="branch_office_form_view" model="ir.ui.view">
             <field name="name">branch.office.form</field>
             <field name="model">branch.office</field>
@@ -282,7 +148,6 @@
         <record id="branch_office_tree_view" model="ir.ui.view">
             <field name="name">branch.office.tree</field>
             <field name="model">branch.office</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Branch Offices">
                     <field name="name"/>
@@ -304,7 +169,6 @@
             </field>
         </record>
 
-        <!-- Quotes -->
         <record id="quote_form_view" model="ir.ui.view">
             <field name="name">farmaoffers.quote.form</field>
             <field name="model">farmaoffers.quote</field>
@@ -333,7 +197,6 @@
         <record id="quote_tree_view" model="ir.ui.view">
             <field name="name">farmaoffers.quote.tree</field>
             <field name="model">farmaoffers.quote</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Quotes">
                     <field name="name"/>
@@ -357,7 +220,6 @@
             </field>
         </record>
 
-        <!-- Contact Us -->
         <record id="contactus_form_view" model="ir.ui.view">
             <field name="name">farmaoffers.contactus.form</field>
             <field name="model">farmaoffers.contactus</field>
@@ -379,7 +241,6 @@
         <record id="contactus_tree_view" model="ir.ui.view">
             <field name="name">farmaoffers.contactus.tree</field>
             <field name="model">farmaoffers.contactus</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Contactus">
                     <field name="name"/>
@@ -402,7 +263,6 @@
             </field>
         </record>
 
-        <!-- Prescription -->
         <record id="prescription_form_view" model="ir.ui.view">
             <field name="name">farmaoffers.prescription.form</field>
             <field name="model">farmaoffers.prescription</field>
@@ -431,7 +291,6 @@
         <record id="prescription_tree_view" model="ir.ui.view">
             <field name="name">farmaoffers.prescription.tree</field>
             <field name="model">farmaoffers.prescription</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="prescription">
                     <field name="name"/>
@@ -455,7 +314,6 @@
             </field>
         </record>
 
-        <!-- Client Reviews -->
         <record id="client_review_form_view" model="ir.ui.view">
             <field name="name">fo.client.review.form</field>
             <field name="model">fo.client.review</field>
@@ -475,7 +333,6 @@
         <record id="client_review_tree_view" model="ir.ui.view">
             <field name="name">fo.client.review.tree</field>
             <field name="model">fo.client.review</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Client reviews">
                     <field name="title"/>
@@ -498,7 +355,6 @@
             </field>
         </record>
 
-        <!-- Nuestros Tips -->
         <record id="our_tips_form_view" model="ir.ui.view">
             <field name="name">fo.our.tips.form</field>
             <field name="model">fo.our.tips</field>
@@ -518,7 +374,6 @@
         <record id="our_tips_tree_view" model="ir.ui.view">
             <field name="name">fo.our.tips.tree</field>
             <field name="model">fo.our.tips</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Nuestros tips">
                     <field name="text"/>
@@ -540,7 +395,6 @@
             </field>
         </record>
 
-        <!-- Tips frecuentes -->
         <record id="frequent_tips_form_view" model="ir.ui.view">
             <field name="name">fo.frequent.tips.form</field>
             <field name="model">fo.frequent.tips</field>
@@ -560,7 +414,6 @@
         <record id="frequent_tips_tree_view" model="ir.ui.view">
             <field name="name">fo.frequent.tips.tree</field>
             <field name="model">fo.frequent.tips</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Tips frecuentes">
                     <field name="title"/>
@@ -582,11 +435,9 @@
             </field>
         </record>
 
-        <!-- Productos top -->
         <record id="top_product_tree_view" model="ir.ui.view">
             <field name="name">fo.top.product.tree</field>
             <field name="model">fo.top.product</field>
-            <field name="field_parent" eval="False"/>
             <field name="arch" type="xml">
                 <tree string="Featured Product" editable="bottom">
                     <field name="sequence" widget="handle"/>
@@ -608,7 +459,6 @@
             </field>
         </record>
 
-        <!-- Menus -->
         <menuitem id="menu_price_filter"
             action="menu_price_filter_action"
             parent="menu_farma_offers" sequence="1"/>
@@ -616,7 +466,7 @@
         <menuitem id="menu_product_ribbon"
             action="menu_product_ribbon_action"
             parent="menu_farma_offers" sequence="2"/>
-        
+
         <menuitem id="menu_product_offers"
             action="menu_product_offers_action"
             parent="menu_farma_offers" sequence="3"/>
@@ -628,7 +478,7 @@
         <menuitem id="menu_quote"
             action="menu_quote_action"
             parent="menu_farma_offers" sequence="5"/>
-        
+
         <menuitem id="menu_contactus"
             action="menu_contactus_action"
             parent="menu_farma_offers" sequence="6"/>
@@ -636,7 +486,7 @@
         <menuitem id="menu_prescription"
             action="menu_prescription_action"
             parent="menu_farma_offers" sequence="7"/>
-        
+
         <menuitem id="menu_client_review"
             action="menu_client_review_action"
             parent="menu_farma_offers" sequence="8"/>
@@ -644,7 +494,7 @@
         <menuitem id="menu_our_tips"
             action="menu_our_tips_action"
             parent="menu_farma_offers" sequence="9"/>
-        
+
         <menuitem id="menu_frequent_tips"
             action="menu_frequent_tips_action"
             parent="menu_farma_offers" sequence="10"/>
@@ -653,25 +503,22 @@
             action="menu_top_product_action"
             parent="menu_farma_offers" sequence="11"/>
 
-        <!-- Default values -->
         <record id="default_price_filter" model="price.filter">
-			<field name="price_under">10</field>
+            <field name="price_under">10</field>
             <field name="price_over">20</field>
             <field name="price_range">100</field>
-		</record>
+        </record>
 
         <record id="default_frequent_tips_1" model="fo.frequent.tips">
-			<field name="title">Comprar medicinas online es seguro?</field>
+            <field name="title">Comprar medicinas online es seguro?</field>
             <field name="description">Es seguro comprar medicamentos online, siempre y cuando se haga en páginas autorizadas. En Farmaoffers cumplimos todos los requisitos indispensables para que sea fácil y seguro comprar todos los medicamentos.
             </field>
-		</record>
+        </record>
 
         <record id="default_frequent_tips_2" model="fo.frequent.tips">
-			<field name="title">Se puede pedir medicamentos que tengan prescripción?</field>
+            <field name="title">Se puede pedir medicamentos que tengan prescripción?</field>
             <field name="description">Para poder pedir tus medicamentos con prescripción, haz clic en el apartado de "tengo una prescripción" y llena el formulario.</field>
-		</record>
-        
-        <!-- Inheriting from the theme -->
+        </record>
 
         <record id="products_categories_extended" model="ir.ui.view">
             <field name="name">products_categories_extended</field>
@@ -694,11 +541,13 @@
                 </xpath>
                 <xpath expr="//div[@id='wsale_products_attributes_collapse']/form/ul" position="after">
                     <t t-call="farmaoffers_design.list_filters_fo"/>
-                    <!-- Price -->
                     <div class="nav-item tp-filter-attribute tp-hook-filter-price fo-side-price mb-4">
                         <t t-set="tp_is_attribute_filtered" t-value="bool(request.httprequest.args.get('min_price') or request.httprequest.args.get('max_price') or request.httprequest.args.get('under_10') or request.httprequest.args.get('over_20') or request.httprequest.args.get('ten_to_tweenty'))"/>
                         <t t-set="tp_selected_min_price" t-value="request.httprequest.args.get('min_price')"/>
                         <t t-set="tp_selected_max_price" t-value="request.httprequest.args.get('max_price')"/>
+                        <t t-set="under_10" t-value="request.httprequest.args.get('under_10')"/>
+                        <t t-set="ten_to_tweenty" t-value="request.httprequest.args.get('ten_to_tweenty')"/>
+                        <t t-set="over_20" t-value="request.httprequest.args.get('over_20')"/>
                         <t t-set="price_filter" t-value="website.get_price_filter()"/>
                         <t t-set="max_price" t-value="price_filter.price_range"/>
                         <t t-set="min_price" value="0"/>
@@ -776,8 +625,6 @@
                                 <input t-if="request.httprequest.args.get('min_price')" type="hidden" name="min_price" t-att-value="from_price"/>
                                 <input t-if="request.httprequest.args.get('max_price')" type="hidden" name="max_price" t-att-value="to_price"/>
                             </div>
-                            <!-- <ul class="nav nav-pills flex-column ml-0 flex-nowrap tp-filter-attribute-scrollbar kz-custom-price-filter-see-all">
-                            </ul> -->
 
                             <t t-set="tp_selected_min_price" t-value="request.httprequest.args.get('min_price')"/>
                             <t t-set="tp_selected_max_price" t-value="request.httprequest.args.get('max_price')"/>
@@ -871,7 +718,7 @@
                                                             t-att-data-ribbon-id="td_product['ribbon'].id" >
                                                             <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
                                                                 <t t-call="website_sale.products_item">
-                                                                    <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>
+                                                                    <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] > 2"/>
                                                                 </t>
                                                             </div>
                                                         </td>
@@ -900,7 +747,7 @@
                                                         t-att-data-ribbon-id="td_product['ribbon'].id">
                                                         <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
                                                             <t t-call="website_sale.products_item">
-                                                                <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>
+                                                                <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] > 2"/>
                                                             </t>
                                                         </div>
                                                     </td>
@@ -941,7 +788,6 @@
             <field name="key">farmaoffers_design.products_item_inherit_customize</field>
             <field name="arch" type="xml">
                 <xpath expr="//form" position="replace">
-                <!-- <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="replace"> -->
                     <form action="/shop/cart/update" method="post" class="card tp-product-card-style-1 oe_product_cart farmaoffers-card"
                     t-att-data-publish="product.website_published and 'on' or 'off'"
                     itemscope="itemscope" itemtype="http://schema.org/Product">
@@ -952,11 +798,8 @@
                                     t-options="{'widget': 'image', 'preview_image': 'image_1024' if product_image_big else 'image_512'}"
                                     class="d-flex h-100 justify-content-center align-items-center tp-product-image-container"/>
                             </a>
-                            <!-- <button type="button" role="button" class="btn btn-primary rounded-circle font-weight-bold py-2 tp-product-quick-view-action tp-product-quick-view-large-btn text-truncate p_quick_view" title="Quick View" t-att-data-product-id="product.id">
-                                <i class="fa fa-eye mr-1 o_not_editable" role="img" aria-label="Quick View"></i> Quick View
-                            </button> -->
+                            <div class="quick_view_pop_up_p_detail"/>
                         </div>
-                        <div class="quick_view_pop_up_p_detail"/>
                         <div t-attf-class="card-body rounded-bottom p-0 o_wsale_product_information">
                             <div class="p-2 o_wsale_product_information_text">
                                 <h6 class="card-product-name o_wsale_products_item_title mb-1" style="width: 100%; table-layout: fixed;">
@@ -972,16 +815,8 @@
                                 </div>
                             </div>
                             <div class="o_wsale_product_btn text-right o_not_editable">
-                                <!-- <button type="button" role="button" class="btn btn-secondary tp-product-quick-view-action tp-product-quick-view-small-btn" title="Quick View" t-att-data-product-id="product.id">
-                                    <i class="fa fa-eye" aria-label="Quick View"></i>
-                                </button> -->
                                 <t t-set="product_variant_id" t-value="product._get_first_possible_variant_id()"/>
                                 <input name="product_id" t-att-value="product_variant_id" type="hidden"/>
-                                <!-- <t t-if="product_variant_id">
-                                    <a href="#" role="button" class="btn btn-secondary a-submit" aria-label="Shopping cart" title="Shopping cart">
-                                        <span class="fa fa-shopping-cart"/>
-                                    </a>
-                                </t> -->
                                 <a href="#" role="button" class="a-submit add-shopcart-indicator">
                                     <div>
                                         <span class="text-uppercase">Agregar al carrito</span>
@@ -989,16 +824,11 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Odoo ribbon -->
                         <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
                         <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
                         <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
                         <span t-attf-class="d-none o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-raw="td_product['ribbon']['html'] or ''"/>
-                        <div class="o_ribbon_wrapper_fo">
-                            <t t-foreach="product.ribbon_ids" t-as="ribbon">
-                                <span t-attf-class="o_ribbon o_ribbon_fo #{ribbon.html_class}" t-attf-style="#{ribbon.text_color and ('color: %s; ' % ribbon.text_color)}#{ribbon.bg_color and 'background-color:' + ribbon.bg_color}" t-esc="ribbon.html"/>
-                            </t>
-                        </div>
+
                     </form>
                 </xpath>
             </field>
@@ -1025,9 +855,6 @@
                 </xpath>
                 <xpath expr="//p[hasclass('text-muted')]" position="replace">
                 </xpath>
-                <!-- <xpath expr="//xpath[2]" position="replace">
-                    <attribute name="class">col-md-12 col-lg-7</attribute>
-                </xpath> -->
                 <xpath expr="//section[hasclass('product_desc')]" position="replace">
                     <section class="product_desc product-grid-main mt32 mb32">
                         <t t-call="farmaoffers_design.section_desc_disc"></t>
@@ -1097,19 +924,6 @@
             </field>
         </record>
 
-        <!-- <record id="homepage_slider_form_view_customize" model="ir.ui.view">
-            <field name="name">homepage_slider_form_view_customize</field>
-            <field name="model">homepage.slider</field>
-            <field name="inherit_id" ref="theme_grocery.homepage_slider_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='link']" position="after">
-                    <field name="title"/>
-                    <field name="description"/>
-                </xpath>
-            </field>
-        </record> -->
-
-        <!-- Backend modifications -->
         <record id="ws_product_template_form_view_customize" model="ir.ui.view">
             <field name="name">ws_product_template_form_view_customize</field>
             <field name="model">product.template</field>
@@ -1160,6 +974,6 @@
                 </xpath>
             </field>
         </record>
-        
+
     </data>
 </odoo>

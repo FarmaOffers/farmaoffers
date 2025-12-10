@@ -1,0 +1,14 @@
+<odoo>
+  <template id="s_section_banner_snippet" name="Section Banner">
+    <section class="s_section_banner" data-snippet="s_section_banner" data-name="Section Banner">
+      <div class="section_banner">
+        <div class="image text-center">
+          <h1 class="text-uppercase font-montserrat font-weight-bold">Farma Offers</h1>
+          <img class="img img-fluid mx-auto"
+               src="/farmaoffers_design/static/src/img/bg-basic.png"
+               alt="Farma Offers Banner"/>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

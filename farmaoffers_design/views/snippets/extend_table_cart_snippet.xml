@@ -1,0 +1,60 @@
+<odoo>
+  <template id="extend_table_cart_snippet" name="Extended Table Cart">
+    <section class="extend_table_cart" data-snippet="extend_table_cart" data-name="Extended Table Cart">
+      <div class="container py-5">
+        <h2 class="mb-4 text-center">Tu carrito</h2>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th>Producto</th>
+                <th>Precio unitario</th>
+                <th>Cantidad</th>
+                <th>Descuento</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr t-foreach="order.order_line" t-as="line">
+                <td><span t-field="line.product_id.display_name"/></td>
+                <td><span t-field="line.price_unit"/></td>
+                <td>
+                  <input type="number" t-att-value="line.product_uom_qty"
+                         min="1"
+                         class="form-control text-center cart-qty-input"
+                         name="update_qty"
+                         t-att-data-line-id="line.id"/>
+                </td>
+                <td>
+                  <t t-if="line.discount"><span t-esc="line.discount"/>%</t>
+                  <t t-else="">—</t>
+                </td>
+                <td><span t-field="line.price_subtotal"/></td>
+                <td>
+                  <button type="button"
+                          class="btn btn-outline-danger btn-sm remove-line"
+                          t-att-data-line-id="line.id">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+            <tr class="table-secondary">
+              <td colspan="4" class="text-end fw-bold">Total:</td>
+              <td colspan="2" class="fw-bold">
+                <span t-field="order.amount_total"/>
+              </td>
+            </tr>
+          </tfoot>
+          </table>
+        </div>
+        <div class="text-end mt-4">
+          <a href="/shop" class="btn btn-outline-secondary me-2">Seguir comprando</a>
+          <a href="/shop/checkout" class="btn btn-success">Proceder al pago</a>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="card_our_tips" name="Card Our Tips">
+    <div class="card-our-tips d-flex align-items-center">
+      <div class="text-uppercase font-montserrat font-size-cards fw-bold pe-2">
+        <t t-esc="item.text" />
+      </div>
+      <div class="img">
+        <img t-attf-src="/website/image/fo.our.tips/{{item.id}}/image" t-att-alt="item.text" class="w-100 h-100 object-fit-contain"/>
+      </div>
+    </div>
+  </template>
+</odoo>

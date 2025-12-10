@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="assets" inherit_id="point_of_sale.assets">
+        <!-- Extend POS frontend assets -->
+        <template id="assets" inherit_id="point_of_sale.assets" name="Farmaoffers POS Custom Assets">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/farmaoffers_design/static/src/js/OrderReceipt.js"/>
+                <script src="/farmaoffers_design/static/src/js/OrderReceipt.js"/>
             </xpath>
         </template>
     </data>

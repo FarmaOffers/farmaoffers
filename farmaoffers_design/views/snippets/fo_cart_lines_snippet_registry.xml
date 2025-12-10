@@ -1,0 +1,9 @@
+<odoo>
+  <template id="fo_cart_lines_snippet_registry" inherit_id="website.snippets">
+    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
+      <t t-snippet="farmaoffers_design.fo_cart_lines_snippet"
+         data-name="Cart Lines"
+         data-category="Structure"/>
+    </xpath>
+  </template>
+</odoo>

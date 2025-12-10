@@ -1,0 +1,9 @@
+<odoo>
+  <template id="t_body_categories_snippet_registry" inherit_id="website.snippets">
+    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
+      <t t-snippet="farmaoffers_design.t_body_categories_snippet"
+         data-name="Body Categories"
+         data-category="Structure"/>
+    </xpath>
+  </template>
+</odoo>

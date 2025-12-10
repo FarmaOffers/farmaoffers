@@ -14,11 +14,11 @@ import hashlib
 import base64
 import uuid
 import json
-import logging, base64, requests, json
+import logging
+import requests
 
 from werkzeug import urls
 from datetime import datetime
-from suds.sudsobject import asdict
 from odoo import api, fields, models, _
 from odoo.http import request
 from odoo.tools.float_utils import float_compare
@@ -26,18 +26,30 @@ from odoo.tools.float_utils import float_compare
 _logger = logging.getLogger(__name__)
 
 
-class PaymentAcquirer(models.Model):
-    _inherit = 'payment.acquirer'
+# =========================
+# Odoo 18+: payment.provider
+# - En la API nueva el campo de selección es "code" (no "provider")
+# - Este modelo reemplaza a payment.acquirer
+# =========================
+class PaymentProvider(models.Model):
+    _inherit = 'payment.provider'
 
-    provider = fields.Selection(selection_add=[('cybersource', 'CyberSource')], ondelete={'cybersource': 'set default'})
-    cybersource_merchant_id = fields.Char(required_if_provider='cybersource', string="Merchant id")
+    # En v18 los módulos de provider amplían la selección del campo "code"
+    code = fields.Selection(selection_add=[('cybersource', 'CyberSource')],
+                            ondelete={'cybersource': 'set default'})
+
+    # Campos de configuración propios del provider
+    cybersource_merchant_id = fields.Char(required_if_provider='cybersource', string="Merchant ID")
     cybersource_key = fields.Char(required_if_provider='cybersource', string="Key")
-    
+
     def _get_feature_support(self):
-        res = super(PaymentAcquirer, self)._get_feature_support()
+        # Mantiene la declaración de capacidades (tokenize, etc.)
+        res = super(PaymentProvider, self)._get_feature_support()
         res['tokenize'].append('cybersource')
         return res
-    
+
+    # Conservamos la generación de valores "form" si tu flujo todavía la usa.
+    # Nota: en un refactor completo a v18 conviene implementar hooks (authorize/capture/void).
     cybersouce_values = {}
 
     def cybersource_form_generate_values(self, values):
@@ -77,14 +89,14 @@ class PaymentAcquirer(models.Model):
             'billing_state': values.get('billing_partner_state') and values['billing_partner_state'].code or '',
         })
         return cybersouce_values
-    
+
+
 class TxCybersource(models.Model):
     _inherit = 'payment.transaction'
-    
-
 
     @api.model
     def _cybersource_form_get_tx_from_data(self, data):
+        # Mantiene la búsqueda por 'reference'
         reference = data.get('id')
         transaction = self.search([('reference', '=', reference)])
         if not transaction:
@@ -92,17 +104,18 @@ class TxCybersource(models.Model):
         elif len(transaction) > 1:
             _logger.warning(_('Cybersource: received data for reference %s; multiple orders found') % (reference))
         return transaction
-    
+
     def s2s_do_transaction(self, **kwargs):
-        custom_method_name = '%s_s2s_do_transaction' % self.acquirer_id.provider
+        # En v18 payment.transaction referencia provider por 'provider_id'
+        # y el código del provider está en provider_id.code (antes acquirer_id.provider)
+        custom_method_name = '%s_s2s_do_transaction' % (self.provider_id.code or '')
         for trans in self:
-            transaction_status = {}
-            transaction_status.update({
+            transaction_status = {
                 'state': 'done',
                 'date': fields.Datetime.now(),
                 'state_message': request.session.get('reason'),
-                'acquirer_reference': request.session.get('requestID') or '',
-            })
+                'acquirer_reference': request.session.get('requestID') or '',  # sigue siendo el reference del PSP
+            }
             trans.write(transaction_status)
             trans._log_payment_transaction_sent()
             if hasattr(trans, custom_method_name):
