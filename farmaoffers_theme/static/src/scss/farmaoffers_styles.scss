@@ -351,7 +351,7 @@ header.container .navbar {
   display: flex !important;
 }
 
-.toplinks > .header.links {
+.toplinks>.header.links {
   vertical-align: middle;
   list-style: none;
   margin: 0;
@@ -648,7 +648,7 @@ span.span-input-tip {
   }
 
   .nav-pills .nav-link.active,
-  .nav-pills .show > .nav-link {
+  .nav-pills .show>.nav-link {
     color: #4cbb17;
     font-weight: bold;
     background-color: white;
@@ -694,24 +694,16 @@ span.span-input-tip {
   font-size: 0.85rem;
 }
 
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
   border-color: #4cbb17;
   background-color: #4cbb17;
 }
 
-#wrap.js_sale
-  #wsale_products_attributes_collapse
-  .tp-price-filter
-  .irs--square
-  .irs-handle {
+#wrap.js_sale #wsale_products_attributes_collapse .tp-price-filter .irs--square .irs-handle {
   border-color: #999999 !important;
 }
 
-#wrap.js_sale
-  #wsale_products_attributes_collapse
-  .tp-price-filter
-  .irs--square
-  .irs-bar {
+#wrap.js_sale #wsale_products_attributes_collapse .tp-price-filter .irs--square .irs-bar {
   background: #167bcb !important;
 }
 
@@ -776,6 +768,7 @@ span.span-input-tip {
 }
 
 .o_wsale_product_btn {
+
   .o_add_wishlist,
   .o_add_compare {
     display: none;
@@ -985,7 +978,7 @@ section {
   }
 }
 
-.offers-for-you .accordion > .card .card-header {
+.offers-for-you .accordion>.card .card-header {
   h2 {
     display: grid;
     grid-template-columns: 20% 80%;
@@ -1189,11 +1182,11 @@ div.collapse .card-body-offers {
 }
 
 .select_pickup {
-  .custom-control-input:checked ~ .custom-control-label::before {
+  .custom-control-input:checked~.custom-control-label::before {
     border-color: white;
   }
 
-  .custom-control-input:focus ~ .custom-control-label::before {
+  .custom-control-input:focus~.custom-control-label::before {
     box-shadow: none;
   }
 }
@@ -1393,16 +1386,20 @@ section.top_offers .owl-item {
   .splide .splide__track {
     background-color: #f8f8f8;
     padding: 2rem 1.5rem;
+
     .splide__list .splide__slide {
       padding: 1rem 0rem !important;
       border-radius: 5px !important;
       background-color: white;
+
       .fa-quote-left {
         color: #4cbb17;
       }
+
       .fa-quote-right {
         color: #4cbb17;
       }
+
       .hr-reviews {
         margin: 0;
         position: absolute;
@@ -1437,7 +1434,7 @@ section.top_offers .owl-item {
   color: #358fd8;
 }
 
-.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
   color: #358fd8;
   content: ">";
 }
@@ -1555,6 +1552,7 @@ div .o_footer a:not(.btn) {
 
 //CHANGE UPPERCASE
 div#product_option_block {
+
   a,
   button {
     text-transform: uppercase;
@@ -1608,14 +1606,15 @@ div#product_option_block {
   }
 }
 
-.breadcrumb-item + .breadcrumb-item {
+.breadcrumb-item+.breadcrumb-item {
   padding-left: 0.2rem !important;
 }
-.breadcrumb-item + .breadcrumb-item::before {
+
+.breadcrumb-item+.breadcrumb-item::before {
   padding-right: 0.2rem !important;
 }
 
-.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
   content: "/";
 }
 
@@ -1637,14 +1636,15 @@ div#product_option_block {
   margin-top: 13px;
 }
 
-.breadcrumb-item + .breadcrumb-item {
+.breadcrumb-item+.breadcrumb-item {
   padding-left: 0.2rem !important;
 }
-.breadcrumb-item + .breadcrumb-item::before {
+
+.breadcrumb-item+.breadcrumb-item::before {
   padding-right: 0.2rem !important;
 }
 
-.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
   content: "/";
 }
 
@@ -1661,10 +1661,6 @@ div#product_option_block {
       height: 4vh;
   } */
 
-.o_wsale_product_grid_wrapper_1_1 {
-  padding: 10vh;
-}
-
 #products_grid table {
   background: #dfe4e6;
 }
@@ -1676,6 +1672,7 @@ div#product_option_block {
 .text-color-green {
   color: $farmaoffers-primary !important;
 }
+
 .text-color-light-gray {
   color: $farmaoffers-light-gray !important;
 }
@@ -1737,10 +1734,12 @@ span.size-20 {
   .img {
     position: relative;
   }
+
   .image {
     height: 10vh;
     width: 100vw;
   }
+
   .image h1 {
     z-index: 2;
     position: absolute;
@@ -1752,7 +1751,8 @@ span.size-20 {
     height: 26px;
     padding: 0;
     margin: 0;
-    margin-top: -13px; /* 1/2 height */
+    margin-top: -13px;
+    /* 1/2 height */
     text-align: center;
     color: white;
     font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
@@ -1763,6 +1763,7 @@ span.size-20 {
       margin-top: -34px;
     }
   }
+
   .image img {
     z-index: 1;
     width: 100%;
@@ -1788,11 +1789,11 @@ span.size-20 {
 
 .owl-carousel .owl-stage {
   @media (max-width: 400px) and (min-width: 300px) {
-    width: 960px !important ;
+    width: 960px !important;
   }
 
   @media (max-width: 399px) and (min-width: 200px) {
-    width: 1500px !important ;
+    width: 1500px !important;
   }
 }
 
@@ -1823,4 +1824,15 @@ span.size-20 {
 
 .h6.font-montserrat.oe_default_price {
   font-size: 1rem;
+}
+
+div.o_wsale_products_grid_table_wrapper {
+  background-color: #DFE4E6;
+}
+
+#products_grid .oe_product .oe_product_image {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 90px;
 }
