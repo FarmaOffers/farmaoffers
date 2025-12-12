@@ -1836,3 +1836,65 @@ div.o_wsale_products_grid_table_wrapper {
   top: 0;
   bottom: 90px;
 }
+
+form.tp-product-card-style-1:hover span.oe_product_image_img_wrapper:after {
+  opacity: 0.5;
+  background-color: #000;
+}
+
+span.oe_product_image_img_wrapper:after {
+  content: ' ';
+  background: black;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+
+// Properties for add to cart button on product cards
+.o_wsale_product_btn {
+  display: block !important;
+  transition: all 0.3s ease-in-out !important;
+  position: absolute !important;
+  bottom: 25% !important;
+  right: 0 !important;
+  transform: none !important;
+  left: auto !important;
+  text-align: right;
+
+  .btn.btn-secondary.a-submit,
+  .btn.btn-secondary.o_add_wishlist,
+  .btn.btn-secondary.tp-product-quick-view-action.tp-product-quick-view-small-btn,
+  .d-none.d-md-inline-block.btn.btn-secondary.o_add_compare {
+    border-radius: 50px !important;
+    height: 41px !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+  }
+}
+
+/* Hide product action buttons by default */
+.o_wsale_layout_list .o_wsale_product_btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  bottom: 5%;
+  right: 0 !important;
+  transform: none !important;
+  left: auto !important;
+}
+
+/* Show them when product card is hovered */
+.o_wsale_layout_list .o_wsale_product_information:hover .o_wsale_product_btn {
+  opacity: 1;
+  visibility: visible;
+  left: auto !important;
+}
+
+#o_wsale_products_grid {
+  padding: 1rem;
+}
