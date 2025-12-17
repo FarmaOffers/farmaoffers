@@ -1,22 +1,23 @@
 {
     "name": "FarmaOffers Theme",
-    "version": "1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Rootstack, S.A.",
     "category": "Website",
-    "summary": "FarmaOffers custom header, footer and snippets",
+    "summary": "FarmaOffers custom header, footer, pages, snippets and styles",
     "license": "LGPL-3",
     "depends": [
         "website",
         "website_sale",
         "web_editor",
         "theme_grocery",
-        "farmaoffers_core",
+        "farmaoffers_design",
     ],
     "data": [
         "views/homepage.xml",
         "views/header.xml",
         "views/footer.xml",
         "views/prescription_page.xml",
+        "views/contact_page.xml",
         "views/thanks_page.xml",
         "views/snippets.xml",
         "views/quote_page.xml",
@@ -35,24 +36,24 @@
         "views/snippets/card_our_tips_snippet.xml",
         "views/snippets/card_top_offer_snippet.xml",
         "views/snippets/prescription_form_snippet.xml",
+        "views/snippets/contact_form_snippet.xml",
         "views/snippets/quote_form_snippet.xml",
+        "views/shop_templates.xml",
     ],
-   "assets": {
-    'web._assets_primary_variables': [
-        "farmaoffers_theme/static/src/scss/farmaoffers_variables.scss",
-    ],
-    'web.assets_frontend': [
-        "farmaoffers_theme/static/src/css/website_sale.css",
-        "farmaoffers_theme/static/src/css/splide/splide.min.css",
-        "farmaoffers_theme/static/src/js/splide/splide.min.js",
-
-        "farmaoffers_theme/static/src/scss/farmaoffers_styles.scss",
-        "farmaoffers_theme/static/src/scss/farmaoffers_top_header.scss",
-        "farmaoffers_theme/static/src/scss/styles.scss",
-
-        "farmaoffers_theme/static/src/snippets/t_owl_carousel/style.scss",
-        "farmaoffers_theme/static/src/snippets/t_owl_carousel/000.js",
-    ]
+    "assets": {
+        "web._assets_primary_variables": [
+            "farmaoffers_theme/static/src/scss/farmaoffers_variables.scss",
+        ],
+        "web.assets_frontend": [
+            "farmaoffers_theme/static/src/css/website_sale.css",
+            "farmaoffers_theme/static/src/css/splide/splide.min.css",
+            "farmaoffers_theme/static/src/js/splide/splide.min.js",
+            "farmaoffers_theme/static/src/scss/farmaoffers_styles.scss",
+            "farmaoffers_theme/static/src/scss/farmaoffers_top_header.scss",
+            "farmaoffers_theme/static/src/scss/styles.scss",
+            "farmaoffers_theme/static/src/snippets/t_owl_carousel/style.scss",
+            "farmaoffers_theme/static/src/snippets/t_owl_carousel/000.js",
+        ],
     },
     "installable": True,
     "application": False,

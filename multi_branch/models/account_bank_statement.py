@@ -13,13 +13,14 @@ class AccountBankStatement(models.Model):
     @api.onchange("journal_id")
     def onchange_journal_id(self):
         """Overridden Onchange Method."""
-        super(AccountBankStatement, self).onchange_journal_id()
+        res = super(AccountBankStatement, self).onchange_journal_id()
         self.branch_id = (
             self.journal_id
             and self.journal_id.branch_id
             and self.journal_id.branch_id.id
             or False
         )
+        return res
 
 
 class AccountBankStatementLine(models.Model):

@@ -1,9 +1,0 @@
-<odoo>
-  <template id="pager_product_list_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.pager_product_list_snippet"
-         data-name="Pager Product List"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

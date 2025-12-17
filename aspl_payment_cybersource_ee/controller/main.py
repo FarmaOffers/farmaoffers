@@ -8,19 +8,17 @@
 # You can`t redistribute it and/or modify it.
 #
 #################################################################################
-import werkzeug
-import requests
+
 import json
 import logging
-
-from uuid import uuid4
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from requests import get
-from datetime import datetime, timedelta
-from odoo import http, _
-from odoo.http import request
+from odoo import http
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.web.controllers import main as web
+from odoo.http import request
+from requests import get
+from suds.client import Client
+from suds.sudsobject import asdict
+from suds.wsse import Security, UsernameToken
+
 _logger = logging.getLogger(__name__)
 
 reason_code = {
@@ -60,33 +58,27 @@ reason_code = {
     400: 'Soft Decline - Fraud score exceeds threshold.'
 }
 
-class WebsiteSale(WebsiteSale):
+
+class InheritWebsiteSale(WebsiteSale):
+
     @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
-        response = super(WebsiteSale, self).shop(page=page, category=category, search=search, ppg=ppg, **post)
-        payment_acquirer = request.env['payment.provider'].sudo().search([('code', '=', 'cybersource')])
-        payment_token = request.env['payment.token'].sudo().search([('provider_id', '=', payment_acquirer.id)])
-        if payment_acquirer.support_tokenization:
+        response = super(InheritWebsiteSale, self).shop(page=page, category=category, search=search, ppg=ppg, **post)
+        payment_provider = request.env['payment.provider'].sudo().search([('code', '=', 'cybersource')])
+        payment_token = request.env['payment.token'].sudo().search([('provider_id', '=', payment_provider.id)])
+        if not payment_provider.allow_tokenization:
             for token_id in payment_token:
                 token_id.unlink()
         if post.get('error'):
-            return request.render('aspl_payment_cybersource_ee.PaymentFailed',{'reason' : request.session.get('reason')})
-            request.session['reason'] = False
+            return request.render('aspl_payment_cybersource_ee.PaymentFailed', {'reason': request.session.get('reason')})
         return response
 
+
 class CyberSourceController(http.Controller):
-    
-    def recursive_dict(self,d):
+
+    def recursive_dict(self, d):
         out = {}
-        try:
-            from suds.sudsobject import asdict as suds_asdict
-        except Exception:
-            # Fallback for non-suds objects: try simple dict conversion
-            def suds_asdict(obj):
-                if hasattr(obj, '__dict__'):
-                    return {k: v for k, v in obj.__dict__.items() if not k.startswith('_')}
-                return obj if isinstance(obj, dict) else {}
-        for k, v in suds_asdict(d).items():
+        for k, v in asdict(d).items():
             if hasattr(v, '__keylist__'):
                 out[k] = self.recursive_dict(v)
             elif isinstance(v, list):
@@ -99,123 +91,117 @@ class CyberSourceController(http.Controller):
             else:
                 out[k] = v
         return out
-    
+
     @http.route(['/payment/cybersource/s2s/create_json_3ds'], type='json', auth='public', csrf=False)
     def cybersource_s2s_create_json_3ds(self, verify_validity=False, **kwargs):
-        order_id = request.session.get('sale_order_id')
-        order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('id', '=', kwargs.get('acquirer_id'))])
-        responseData = self.request_payment_status(kwargs)
-        data = json.loads(json.dumps(self.recursive_dict(responseData)))
-        reason = reason_code.get(data.get('reasonCode'), 'Invalid Data')
-        return_url = '/'
-        data.update({'amount' : order.amount_total,'id' : order.name, 'reason' : reason})
-        request.session['reason'] = reason
-        if responseData:
-            if data.get('reasonCode') == 100 or data.get('reasonCode') == 480:
-                token_id = request.env['payment.token'].sudo().create({'partner_id':order.partner_id.id,'acquirer_id':payment_acquirer.id,
-                            'acquirer_ref':order.name,'active':True,'name': 'XXXXXXXXXXXX%s - %s' % (kwargs.get('cc_number')[-4:], kwargs.get('cc_holder_name'))})
-                return_url = '/shop/confirmation'
-                request.session['requestID'] = data.get('requestID')
-            transaction = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        if data.get('reasonCode') == 100 or data.get('reasonCode') == 480 :
-            return {
-                'result': True,
-                '3d_secure': False,
-                'id': token_id.id,
-                'short_name': token_id.acquirer_ref,
-                'verified': True,
-                }
-        else: 
-            return {
-                'result': True,
-                '3d_secure': False,
-                'verified': True,
-                }
-            
+        """
+        :param verify_validity: False
+        :param kwargs: all card and order details
+        :return: Dict after successfully payment
+        """
+        post = kwargs['processingValues']
+        if post.get('cc_number') and post.get('cc_holder_name') and post.get('cc_expiry') and post.get('cc_cvc'):
+            payment_provider = request.env['payment.provider'].sudo().search(
+                [('id', '=', kwargs['processingValues'].get('provider_id'))])
+            payment_method_id = payment_provider.payment_method_ids
+            tx = request.env['payment.transaction'].sudo().search(
+                [('reference', '=', kwargs['processingValues'].get('reference')), ('provider_code', '=', 'cybersource')])
+            responseData = self.request_payment_status(kwargs['processingValues'])
+            data = json.loads(json.dumps(self.recursive_dict(responseData)))
+            reason = reason_code.get(data.get('reasonCode'), 'Invalid Data')
+            data.update({'amount': tx.amount, 'id': tx.reference, 'reason': reason})
+            request.session['reason'] = reason
+            if responseData:
+                if data.get('reasonCode') == 100 or data.get('reasonCode') == 480:
+                    token_id = request.env['payment.token'].sudo().create(
+                        {'partner_id': tx.partner_id.id, 'provider_id': payment_provider.id,
+                         'provider_ref': tx.reference, 'active': True,
+                         'payment_method_id': payment_method_id.id,
+                         'payment_details': 'XXXXXXXXXXXX%s - %s' % (kwargs['processingValues'].get('cc_number')[-4:],kwargs['processingValues'].get('cc_holder_name'))})
+                    request.session['requestID'] = data.get('requestID')
+                    transaction = request.env['payment.transaction'].sudo()._handle_notification_data('cybersource', kwargs)
+                    return {
+                        'result': True,
+                        '3d_secure': False,
+                        'id': token_id.id,
+                        'short_name': token_id.provider_ref,
+                        'verified': True,
+                    }
+                else:
+                    raise Warning(reason_code.get(data.get('reasonCode')))
+        else:
+            raise Warning('Please Enter valid card details')
+
     @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
-        payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
-        if payment_acquirer.save_token == 'none':
-            for token_id in payment_token:
-                token_id.unlink()
+        '''
+        :param post: Not in use
+        :return: Redirect or render accordingly
+        '''
         sale_order_id = request.session.get('sale_last_order_id')
         if sale_order_id:
             order = request.env['sale.order'].sudo().browse(sale_order_id)
             if not order or order.state != 'draft':
                 request.website.sale_reset()
-            return request.render("website_sale.confirmation", {'order': order})
+            return request.render("website_sale.confirmation", {'website_sale_order': order,'order':order})
         else:
             return request.redirect('/shop')
-        
-    def request_payment_status(self,post):
-        # Import suds locally to avoid module-level import errors during registry loading
-        try:
-            from suds.client import Client
-            from suds.wsse import Security, UsernameToken
-        except Exception as ie:
-            _logger.error("Missing suds dependency for CyberSource controller: %s", ie)
-            return None
 
-        order_id = request.session.get('sale_order_id')
-        order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
-        kwargs = {}
-        payment_acquire = request.env['payment.acquirer'].sudo().search([('id', '=', post.get('acquirer_id'))])
-        if payment_acquire.state == 'enabled':
-            wsdl = 'https://ics2wsa.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl'
+    def request_payment_status(self, post):
+        '''
+        Method checks card details and create response from cybersource
+        :param post: Dict of order and card details
+        :return: response from the cybersource
+        '''
+        tx = request.env['payment.transaction'].sudo().search(
+            [('reference', '=', post.get('reference')), ('provider_code', '=', 'cybersource')])
+        payment_provider = request.env['payment.provider'].sudo().search([('id', '=', post.get('provider_id'))])
+        if payment_provider.state == 'enabled':
+            # Production link for India
+            # https://ics2wsa.in.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.191.wsdl
+            wsdl = 'https://ics2wsa.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.205.wsdl'
         else:
-            wsdl = 'https://ics2wstesta.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl'
-        transaction_security_key = payment_acquire.cybersource_key
-        merchant_id = payment_acquire.cybersource_merchant_id
+            wsdl = 'https://ics2wstesta.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.205.wsdl'
+        transaction_security_key = payment_provider.cybersource_key
+        merchant_id = payment_provider.cybersource_merchant_id
         self.merchant_id = merchant_id
-
-        try:
-            self.client = Client(wsdl)
-            security = Security()
-            token = UsernameToken(self.merchant_id, transaction_security_key)
-            security.tokens.append(token)
-            self.client.set_options(wsse=security)
-        except Exception as e:
-            _logger.exception("Error initializing suds Client/Security: %s", e)
-            return None
-
+        self.client = Client(wsdl)
+        security = Security()
+        token = UsernameToken(self.merchant_id, transaction_security_key)
+        security.tokens.append(token)
+        self.client.set_options(wsse=security)
         data = {}
         data['merchantID'] = self.merchant_id
         data['merchantReferenceCode'] = self.merchant_id
         data['purchaseTotals'] = self.client.factory.create('ns0:PurchaseTotals')
-        data['purchaseTotals'].currency = order.pricelist_id.currency_id.name or 'USD'
-        data['purchaseTotals'].grandTotalAmount = order.amount_total
+        data['purchaseTotals'].currency = tx.currency_id.name
+        data['purchaseTotals'].grandTotalAmount = tx.amount
         data['pos'] = self.client.factory.create('ns0:pos')
         data['billTo'] = self.client.factory.create('ns0:BillTo')
-        data['billTo'].email = order.partner_id.email
-        data['billTo'].firstName = order.partner_id.name
-        data['billTo'].lastName = order.partner_id.name
-        data['billTo'].street1 = order.partner_id.street
-        data['billTo'].street2 = order.partner_id.street2 or None
-        data['billTo'].city = order.partner_id.city
-        data['billTo'].state = order.partner_id.state_id.code
-        data['billTo'].postalCode = order.partner_id.zip
-        data['billTo'].country = order.partner_id.country_id.code
+        data['billTo'].email = tx.partner_id.email
+        data['billTo'].firstName = tx.partner_id.name
+        data['billTo'].lastName = tx.partner_id.name
+        data['billTo'].street1 = tx.partner_id.street
+        data['billTo'].street2 = tx.partner_id.street2 or None
+        data['billTo'].city = tx.partner_id.city
+        data['billTo'].state = tx.partner_id.state_id.code
+        data['billTo'].postalCode = tx.partner_id.zip
+        data['billTo'].country = tx.partner_id.country_id.code
         data['billTo'].ipAddress = get('https://api.ipify.org').text
         data['shipTo'] = self.client.factory.create('ns0:shipTo')
-        data['shipTo'].firstName = order.partner_id.name
-        data['shipTo'].lastName = order.partner_id.name
-        data['shipTo'].street1 = order.partner_id.street
-        data['shipTo'].street2 = order.partner_id.street2 or None
-        data['shipTo'].city = order.partner_id.city
-        data['shipTo'].state = order.partner_id.state_id.code
-        data['shipTo'].country = order.partner_id.country_id.code
-        data['shipTo'].postalCode = order.partner_id.zip
+        data['shipTo'].firstName = tx.partner_id.name
+        data['shipTo'].lastName = tx.partner_id.name
+        data['shipTo'].street1 = tx.partner_id.street
+        data['shipTo'].street2 = tx.partner_id.street2 or None
+        data['shipTo'].city = tx.partner_id.city
+        data['shipTo'].state = tx.partner_id.state_id.code
+        data['shipTo'].country = tx.partner_id.country_id.code
+        data['shipTo'].postalCode = tx.partner_id.zip
         data['apPaymentType'] = 'EPS'
         data['card'] = self.client.factory.create('ns0:Card')
-        data['card'].accountNumber = int(post.get('cc_number').replace(" ", "")) if post.get('cc_number') else None
-        try:
-            data['card'].expirationMonth = int(post.get('cc_expiry')[:2])
-            data['card'].expirationYear = int('20' + post.get('cc_expiry')[5:])
-        except Exception:
-            data['card'].expirationMonth = None
-            data['card'].expirationYear = None
+        data['card'].accountNumber = int(post.get('cc_number'))
+        data['card'].expirationMonth = int(post.get('cc_expiry')[:2])
+        data['card'].expirationYear = int('20' + post.get('cc_expiry')[3:])
         data['card'].cvNumber = post.get('cc_cvc')
         data['ccAuthService'] = self.client.factory.create('ns0:ccAuthService')
         data['ccAuthService']._run = 'true'
@@ -224,6 +210,8 @@ class CyberSourceController(http.Controller):
         try:
             resp = self.client.service.runTransaction(**data)
         except Exception as e:
-            _logger.exception("Error running CyberSource transaction: %s", e)
             resp = None
+            5/0
         return resp
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

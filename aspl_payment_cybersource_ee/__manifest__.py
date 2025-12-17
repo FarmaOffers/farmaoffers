@@ -11,23 +11,34 @@
 {
     'name': 'Odoo CyberSource Payment Gateway (Enterprise)',
     'summary': 'Cybersource Payment Gateway',
+    'license': 'LGPL-3',
     'version': '18.0.1.0.0',
-    'license': 'AGPL-3',
     'description': """Cybersource Payment Gateway""",
     'author': 'Acespritech Solutions Pvt. Ltd.',
     'category': 'Website',
     'website': "http://www.acespritech.com",
-    'price': 50.00,
+    'price': 100.00,
     'currency': 'EUR',
-    'depends': ['payment'],
-    'external_dependencies': {'python': ['suds']},
+    'depends': ['base', 'web','payment','website','website_sale', 'mail', 'account_payment'],
     'data': [
-        'views/payment_view.xml',
         'views/payment_cybersource_template.xml',
-        'data/payment_acquirer_data.xml',
+        'views/payment_view.xml',
+        'data/payment_provider_data.xml',
     ],
-    'images': ['static/description/cyber_source_logo.jpg'],
+    'external_dependencies': {
+        # 'python': [
+        #     'suds'
+        # ],
+    'python': ['suds-py3'],
+    },
+    'images': ['static/description/v18_payment_cybersource_ee.png'],
     'installable': True,
     'auto_install': False,
+    'assets': {
+        'web.assets_frontend': [
+            'aspl_payment_cybersource_ee/static/src/js/payment_form.js',
+            'aspl_payment_cybersource_ee/static/src/css/style.css',
+        ],
+    },
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -44,5 +44,9 @@
         <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
             <t t-snippet="farmaoffers_theme.s_quote_form" data-name="Quote Form" data-string="Quote Form" t-thumbnail="/farmaoffers_theme/static/src/img/quote_form_thumb.png"/>
         </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_contact_form" data-name="Contact Form" data-string="Contact Form" t-thumbnail="/farmaoffers_theme/static/src/img/contact_us_form_thumb.png"/>
+        </xpath>
     </template>
 </odoo>

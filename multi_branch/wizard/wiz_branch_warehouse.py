@@ -10,9 +10,9 @@ class WizBranchWarehouse(models.TransientModel):
     _name = "wiz.branch.warehouse"
     _description = "Wizard Branch Warehouse"
 
-    name = fields.Char(string="Name")
-    code = fields.Char(string="Code")
-    note = fields.Text(string="Note")
+    name = fields.Char()
+    code = fields.Char()
+    note = fields.Text()
 
     @api.constrains("code")
     def _check_code(self):
@@ -45,23 +45,26 @@ class WizBranchWarehouse(models.TransientModel):
         res = super(WizBranchWarehouse, self).default_get(fields)
         if self._context.get("active_id", False):
             branch = self.env["multi.branch"].browse(self._context["active_id"])
-            branch_warehouses_recs = self.env['stock.warehouse'].search([('branch_id', '=', False)])
-            note = "Warehouses available without branch information,\n" \
-                   "You can update branch information directly into the below mentioned Warehouses." \
-                   "(From Menu: Inventory => Configuration => Warehouses).\n"\
-                   "                    OR                           \n"\
-                   "You can click on confirm to create new Warehouse.\n"
+            branch_warehouses_recs = self.env["stock.warehouse"].search(
+                [("branch_id", "=", False)]
+            )
+            note = (
+                "Warehouses available without branch information,\n"
+                "You can update branch information directly into the below"
+                " mentioned Warehouses."
+                "\n(From Menu: Inventory => Configuration => Warehouses).\n"
+                "                    OR                           \n"
+                "You can click on confirm to create new Warehouse.\n"
+            )
             note += "------------------------------------------------\n"
             note += "                  WAREHOUSES                    \n"
             note += "------------------------------------------------\n"
             count = 1
             for wh in branch_warehouses_recs:
-                note += str(count) + ') ' + wh.name + "\n"
+                note += str(count) + ") " + wh.name + "\n"
                 count += 1
             if branch_warehouses_recs:
-                res.update({
-                    "note": note
-                })
+                res.update({"note": note})
             res.update(
                 {
                     "name": branch.name,

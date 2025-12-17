@@ -8,4 +8,7 @@
 # You can`t redistribute it and/or modify it.
 #
 #################################################################################
+
 from . import main
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

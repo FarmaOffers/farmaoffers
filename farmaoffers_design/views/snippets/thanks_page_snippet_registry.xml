@@ -1,9 +1,0 @@
-<odoo>
-  <template id="thanks_page_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.thanks_page_snippet"
-         data-name="Thanks Page"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

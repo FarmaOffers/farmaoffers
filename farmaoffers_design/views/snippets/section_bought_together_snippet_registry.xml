@@ -1,9 +1,0 @@
-<odoo>
-  <template id="section_bought_together_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.section_bought_together_snippet"
-         data-name="Productos comprados juntos"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

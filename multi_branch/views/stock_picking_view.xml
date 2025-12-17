@@ -11,7 +11,7 @@
                     required="1"
                     options="{'no_create_edit': True}"
                     context="{'branch_filter': True, 'filter_company_id': company_id}"
-                    modifiers="{'readonly':[('state','not in',['draft'])]}"
+                    readonly="state != 'draft'"
                 />
             </field>
         </field>

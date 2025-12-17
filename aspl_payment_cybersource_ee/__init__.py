@@ -8,5 +8,8 @@
 # You can`t redistribute it and/or modify it.
 #
 #################################################################################
+
 from . import controller
 from . import models
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

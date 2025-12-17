@@ -1,9 +1,0 @@
-<odoo>
-  <template id="section_desc_disc_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.section_desc_disc_snippet"
-         data-name="Section Description &amp; Disclaimer"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

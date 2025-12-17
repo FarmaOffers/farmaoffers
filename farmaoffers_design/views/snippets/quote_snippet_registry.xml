@@ -1,9 +1,0 @@
-<odoo>
-  <template id="quote_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.quote_snippet"
-         data-name="Quote"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

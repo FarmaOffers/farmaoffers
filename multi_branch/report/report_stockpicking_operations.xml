@@ -6,7 +6,7 @@
         inherit_id="stock.report_picking"
     >
         <xpath expr="//div[@name='div_sched_date']" position="after">
-            <div t-if="o.branch_id" class="col-auto" name="div_branch_id">
+            <div class="col-auto" name="div_branch_id">
                 <strong>Branch:</strong>
                 <p t-field="o.branch_id" />
             </div>

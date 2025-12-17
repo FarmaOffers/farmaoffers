@@ -1,77 +1,66 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Stock Location list (Odoo 18 usa <list>) -->
+    <!-- Stock Location tree view -->
     <record id="view_location_tree2_inherit" model="ir.ui.view">
-        <field name="name">stock.location.tree.branch.inherit</field>
+        <field name="name">stock.location.tree</field>
         <field name="model">stock.location</field>
-        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="inherit_id" ref="stock.view_location_tree2" />
         <field name="arch" type="xml">
-            <!-- Inserta al final de la lista para evitar depender de company_id -->
-            <xpath expr="//list" position="inside">
-                <field
-                    name="branch_id"
-                    required="1"
-                    options="{'no_create_edit': True}"
-                    context="{'branch_filter': True, 'filter_company_id': company_id}"
-                />
-            </xpath>
+            <field name="company_id" position="after">
+                <field name="branch_id" />
+            </field>
         </field>
     </record>
 
-    <!-- Stock Location form -->
+    <!-- Stock Location form view -->
     <record id="view_location_form_branch_inherit" model="ir.ui.view">
-        <field name="name">stock.location.form.branch.inherit</field>
+        <field name="name">stock.location.form.branch</field>
         <field name="model">stock.location</field>
-        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="inherit_id" ref="stock.view_location_form" />
         <field name="arch" type="xml">
-            <xpath expr="//form//field[@name='usage']" position="before">
+            <field name="usage" position="before">
                 <field
                     name="branch_id"
                     required="1"
                     options="{'no_create_edit': True}"
                     context="{'branch_filter': True, 'filter_company_id': company_id}"
                 />
-            </xpath>
+            </field>
         </field>
     </record>
 
-    <!-- Stock Move form -->
     <record id="view_move_form_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.form.branch.inherit</field>
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="inherit_id" ref="stock.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//form//field[@name='location_id']" position="after">
+            <field name="location_id" position="after">
                 <field
                     name="branch_id"
                     options="{'no_create_edit': True}"
                     context="{'branch_filter': True, 'filter_company_id': company_id}"
                 />
-            </xpath>
+            </field>
         </field>
     </record>
 
-    <!-- Stock Move search (añadimos campo y group_by de forma robusta) -->
     <record id="view_move_search_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.search.branch.inherit</field>
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="inherit_id" ref="stock.view_move_search" />
         <field name="arch" type="xml">
-            <xpath expr="//search" position="inside">
-                <field name="branch_id"/>
-                <filter name="group_by_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+            <xpath expr="//filter[@name='groupby_location_id']" position="attributes">
+                <attribute name="context">{'group_by': 'branch_id'}</attribute>
             </xpath>
         </field>
     </record>
 
-    <!-- Stock Move pivot (anclamos al contenedor pivot, no a location_dest_id) -->
     <record id="view_move_pivot_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.pivot.branch.inherit</field>
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_pivot"/>
+        <field name="inherit_id" ref="stock.view_move_pivot" />
         <field name="arch" type="xml">
-            <xpath expr="//pivot" position="inside">
-                <field name="branch_id" type="row"/>
+            <xpath expr="//field[@name='picking_type_id']" position="before">
+                <field name="branch_id" type="row" />
             </xpath>
         </field>
     </record>

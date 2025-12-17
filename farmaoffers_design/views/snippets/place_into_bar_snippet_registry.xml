@@ -1,9 +1,0 @@
-<odoo>
-  <template id="place_into_bar_snippet_registry" inherit_id="website.snippets">
-    <xpath expr="//snippets[@id='snippet_groups']//t[@t-snippet][last()]" position="after">
-      <t t-snippet="farmaoffers_design.place_into_bar_snippet"
-         data-name="Place Into Bar"
-         data-category="Structure"/>
-    </xpath>
-  </template>
-</odoo>

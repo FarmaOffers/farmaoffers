@@ -8,7 +8,11 @@ _logger = logging.getLogger(__name__)
 
 class Website(models.Model):
     _inherit = 'website'
-
+  
+    whatsapp_number = fields.Char(
+        string="Número de WhatsApp",
+        help="Número de WhatsApp en formato internacional, sin '+', ej: 50760000000",
+    )
     def get_price_filter(self):
         """Return price filter sequence."""
         return self.env['price.filter'].sudo().search([], limit=1, order='sequence')
@@ -33,9 +37,13 @@ class Website(models.Model):
             ('active_compound', '=', filter)
         ], limit=3)
 
-    def get_product_offers(self, type='banner'):
+    def get_product_offers(self, offer_type='banner'):
         """Return product offers filtered by type."""
-        return self.env['product.offers'].sudo().search([('type', '=', type)])
+        self.ensure_one()
+        return self.env['product.offers'].sudo().search([
+            ('type', '=', offer_type),
+            ('active', '=', True),
+        ], order="sequence, id")
 
     def get_branch_offices(self):
         """Return all branch offices."""
@@ -138,22 +146,6 @@ class ProductGeneralInfo(models.Model):
     product_tmpl_id = fields.Many2one("product.template", string="Product")
 
 
-class ProductOffers(models.Model):
-    _name = 'product.offers'
-    _description = "Special product offers"
-
-    title = fields.Char(string="Title", size=60)
-    description = fields.Text(string="Description")
-    link = fields.Char(string="Link")
-    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
-    top = fields.Boolean(default=True)
-    type = fields.Selection([
-        ('product', 'Producto'),
-        ('banner', 'Banner')
-    ], string='Tipo')
-    product_id = fields.Many2one('product.template', string='Producto')
-
-
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
@@ -186,30 +178,6 @@ class StockPicking(models.Model):
     ], string="Modo de entrega")
     branch_id = fields.Many2one("multi.branch", string="Branch")
 
-
-class BranchOffice(models.Model):
-    _name = 'branch.office'
-    _description = "Branch Offices"
-
-    name = fields.Char(string="Name", size=60)
-    description = fields.Text(string="Description")
-    address = fields.Text(string="Address")
-
-
-class Quote(models.Model):
-    _name = 'farmaoffers.quote'
-    _description = "Quotes"
-
-    name = fields.Char(string="Name", size=60)
-    lastname = fields.Char(string="Lastname", size=60)
-    city = fields.Char(string="City", size=60)
-    address = fields.Char(string="Address", size=60)
-    phone = fields.Char(string="Phone", size=60)
-    email = fields.Char(string="Email", size=60)
-    description = fields.Text(string="Description")
-    file = fields.Binary('File', help='Only PDFs', attachment=True)
-
-
 class FarmaOffersContactUs(models.Model):
     _name = 'farmaoffers.contactus'
     _description = "Contact Form Submissions"
@@ -219,68 +187,3 @@ class FarmaOffersContactUs(models.Model):
     company = fields.Char(string="Company", size=60)
     email = fields.Char(string="Email", size=60)
     message = fields.Text(string="Message")
-
-
-class Prescription(models.Model):
-    _name = 'farmaoffers.prescription'
-    _description = "Prescription Uploads"
-
-    name = fields.Char(string="Name", size=60)
-    lastname = fields.Char(string="Lastname", size=60)
-    city = fields.Char(string="City", size=60)
-    address = fields.Char(string="Address", size=60)
-    phone = fields.Char(string="Phone", size=60)
-    email = fields.Char(string="Email", size=60)
-    message = fields.Text(string="Message")
-    file = fields.Binary('File', help='Only PDFs', attachment=True)
-
-
-class ProductReviews(models.Model):
-    _name = 'fo.client.review'
-    _description = "Customer Reviews"
-
-    title = fields.Char(string="Title", size=60)
-    review = fields.Text(string="Review")
-    active = fields.Boolean(default=True)
-
-
-class OurTips(models.Model):
-    _name = 'fo.our.tips'
-    _description = "Website Tips"
-
-    text = fields.Char(string="Text", size=60)
-    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
-    active = fields.Boolean(default=True)
-
-
-class FrequentTips(models.Model):
-    _name = 'fo.frequent.tips'
-    _description = "Frequent Tips for Website"
-
-    title = fields.Char(string="Title", size=60)
-    description = fields.Text(string="Description")
-    active = fields.Boolean(default=True)
-
-
-class TopProduct(models.Model):
-    _name = 'fo.top.product'
-    _description = "Top products displayed on website"
-    _order = 'sequence'
-
-    product_tmpl_id = fields.Many2one(
-        'product.template',
-        string='Product',
-        required=True,
-        ondelete='cascade'
-    )
-    sequence = fields.Integer('Sequence', default=10)
-    active = fields.Boolean('Active', default=True)
-
-
-class TopSlider(models.Model):
-    _name = "fo.top.slider"
-    _description = "Top slider images"
-
-    name = fields.Char(size=60)
-    image = fields.Binary("Image")
-    active = fields.Boolean(default=True)

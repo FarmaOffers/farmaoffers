@@ -12,7 +12,7 @@
                         type="action"
                         string="Create Warehouse"
                         class="oe_highlight"
-                        modifiers="{'invisible': [('wh_available','!=',0)]}"
+                        invisible="wh_available != 0"
                         confirm="Are you sure! You want to create warehouse for this branch"
                     />
                 </header>
@@ -78,10 +78,10 @@
         <field name="name">multi.branch.tree.view</field>
         <field name="model">multi.branch</field>
         <field name="arch" type="xml">
-            <list string="Branch">
+            <list>
                 <field name="name" />
                 <field name="company_id" />
-                <field name="wh_available" invisible="1" />
+                <field name="wh_available" column_invisible="1" />
             </list>
         </field>
     </record>

@@ -4,7 +4,7 @@
     <record id="view_users_form_branch_inherit" model="ir.ui.view">
         <field name="name">res.users.form</field>
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="inherit_id" ref="base.view_users_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[2]" position="after">
                 <page name="multi_branches" string="Multi Branches">
@@ -12,13 +12,15 @@
                         <field
                             string="Allowed Branches"
                             name="branch_ids"
+                            domain="[('company_id','in',company_ids)]"
                             widget="many2many_tags"
                             options="{'no_create': True}"
-                            modifiers="{'invisible': [('branches_count', '&lt;=', 1)]}"
+                            invisible="branches_count &lt;= 1"
                         />
                         <field
                             name="branch_id"
                             string="Current Branch"
+                            domain="[('company_id','in',company_ids),('id','in',branch_ids)]"
                             required="1"
                             options="{'no_create_edit': True}"
                         />
@@ -36,7 +38,7 @@
     <record id="view_partner_form_branch_inherit" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="company_id" position="after">
                 <field
