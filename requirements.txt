@@ -1,3 +1,3 @@
 suds-py3==1.4.5.0
 pynpm
--e ./odoo-fe-panama/lib/intfiscal-python-library-main
+./odoo-fe-panama/lib/intfiscal-python-library-main
