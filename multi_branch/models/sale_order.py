@@ -23,11 +23,16 @@ class SaleOrder(models.Model):
         company = self.env.company.id
 
         warehouse_id = self.env["stock.warehouse"].search(
-            [("branch_id", "=", result.get("branch_id")), ("company_id", "=", company)],
+            ["|", ("branch_id", "=", self.branch_id.id), ("company_id", "=", company)],
             limit=1,
         )
-        result.update({"warehouse_id": warehouse_id and warehouse_id.id or False})
+        result.update({"warehouse_id": warehouse_id and warehouse_id.id})
         return result
+
+    @api.onchange("opportunity_id")
+    def opportunity_branch_id(self):
+        if self.opportunity_id:
+            self.branch_id = self.opportunity_id.branch_id
 
     @api.onchange("branch_id")
     def _onchange_branch_id(self):
@@ -77,9 +82,12 @@ class SaleReport(models.Model):
 
     branch_id = fields.Many2one("multi.branch", string="Branch Name")
 
-    def _query(self, with_clause="", fields=None, groupby="", from_clause=""):
-        if fields is None:
-            fields = {}
-        fields["branch_id"] = ", s.branch_id as branch_id"
-        groupby += ", s.branch_id"
-        return super(SaleReport, self)._query(with_clause, fields, groupby, from_clause)
+    def _group_by_sale(self):
+        groupby_ = super(SaleReport, self)._group_by_sale()
+        groupby_ += ", s.branch_id"
+        return groupby_
+
+    def _select_sale(self):
+        select_ = super(SaleReport, self)._select_sale()
+        select_ += ", s.branch_id as branch_id"
+        return select_

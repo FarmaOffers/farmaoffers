@@ -2,6 +2,7 @@
 """Purchase model."""
 
 from odoo import api, fields, models
+from odoo.tools import SQL
 
 
 class PurchaseOrder(models.Model):
@@ -38,9 +39,7 @@ class PurchaseOrder(models.Model):
     def _onchange_branch_id(self):
         """Onchange method to update the picking type in purchase order."""
         type_obj = self.env["stock.picking.type"]
-        company_id = (
-             self.env.company.id or False
-        )
+        company_id = self.env.company.id or False
         for purchase in self:
             branch_id = purchase.branch_id and purchase.branch_id.id or False
             company_id = purchase.company_id and purchase.company_id.id or company_id
@@ -62,8 +61,9 @@ class PurchaseOrder(models.Model):
 
     def action_view_invoice(self, invoices=False):
         """Method Action view invoice."""
-        if invoices:
-            invoices.write({"branch_id": self.branch_id and self.branch_id.id or False})
+        for po in self:
+            for invoice in po.invoice_ids:
+                invoice.write({"branch_id": po.branch_id and po.branch_id.id or False})
         return super(PurchaseOrder, self).action_view_invoice(invoices)
 
 
@@ -89,8 +89,8 @@ class PurchaseReport(models.Model):
 
     branch_id = fields.Many2one("multi.branch", string="Branch Name")
 
-    def _select(self):
-        return super(PurchaseReport, self)._select() + ", po.branch_id as branch_id"
+    def _select(self) -> SQL:
+        return SQL("%s, po.branch_id as branch_id", super()._select())
 
-    def _group_by(self):
-        return super(PurchaseReport, self)._group_by() + ", po.branch_id"
+    def _group_by(self) -> SQL:
+        return SQL("%s, po.branch_id", super()._group_by())

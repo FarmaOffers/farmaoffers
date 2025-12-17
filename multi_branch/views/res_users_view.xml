@@ -12,13 +12,15 @@
                         <field
                             string="Allowed Branches"
                             name="branch_ids"
+                            domain="[('company_id','in',company_ids)]"
                             widget="many2many_tags"
                             options="{'no_create': True}"
-                            attrs="{'invisible': [('branches_count', '&lt;=', 1)]}"
+                            invisible="branches_count &lt;= 1"
                         />
                         <field
                             name="branch_id"
                             string="Current Branch"
+                            domain="[('company_id','in',company_ids),('id','in',branch_ids)]"
                             required="1"
                             options="{'no_create_edit': True}"
                         />

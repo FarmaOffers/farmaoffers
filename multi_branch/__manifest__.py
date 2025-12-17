@@ -3,16 +3,15 @@
 {
     # Module information
     "name": "Multi Branch",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "LGPL-3",
-    "category": "Extra Tools",
-    "sequence": "1",
+    "category": "Extra Tools, Industry",
     "summary": """Multiple Branch Management for single company,
     Assign One Or Multiple Branch to user,
     Branch Management.""",
     # Author
     "author": "Serpent Consulting Services Pvt. Ltd.",
-    "website": "http://www.serpentcs.com",
+    "website": "https://www.serpentcs.com",
     # Dependencies
     "depends": ["sale_management", "crm", "sale_stock", "purchase_stock"],
     # Views
@@ -38,7 +37,6 @@
         "views/crm_lead_view.xml",
     ],
     # Odoo App Store Specific
-    "images": ["static/description/odoo-app-banner-multi-branch.jpg"],
     "live_test_url": "https://www.youtube.com/watch?v=mnbG1Lo0NGA",
     # Technical
     "installable": True,

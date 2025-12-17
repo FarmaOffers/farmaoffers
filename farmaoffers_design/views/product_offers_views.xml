@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Lista -->
+    <record id="view_product_offers_list" model="ir.ui.view">
+        <field name="name">product.offers.list</field>
+        <field name="model">product.offers</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence"/>
+                <field name="title"/>
+                <field name="type"/>
+                <field name="product_id"/>
+                <field name="top"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulario -->
+    <record id="view_product_offers_form" model="ir.ui.view">
+        <field name="name">product.offers.form</field>
+        <field name="model">product.offers</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="title"/>
+                        <field name="type"/>
+                        <field name="product_id"/>
+                        <field name="link"/>
+                        <field name="image" widget="image"/>
+                        <field name="sequence"/>
+                        <field name="top"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_product_offers" model="ir.actions.act_window">
+        <field name="name">Product Offers</field>
+        <field name="res_model">product.offers</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

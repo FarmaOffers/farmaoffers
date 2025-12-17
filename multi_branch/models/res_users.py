@@ -21,8 +21,7 @@ class ResUsers(models.Model):
     branch_id = fields.Many2one(
         "multi.branch",
         string="Branch",
-        help="The branch this user is currently \
-                                working for.",
+        help="The branch this user is currently working for.",
     )
 
     branch_ids = fields.Many2many(
@@ -38,13 +37,14 @@ class ResUsers(models.Model):
         default=_branches_count,
     )
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """Overridden create method to update branch in partner."""
-        user = super(ResUsers, self).create(vals)
-        if user and user.partner_id and user.branch_id:
-            user.partner_id.write({"branch_id": user.branch_id.id or False})
-        return user
+        users = super(ResUsers, self).create(vals)
+        for user in users:
+            if user and user.partner_id and user.branch_id:
+                user.partner_id.write({"branch_id": user.branch_id.id or False})
+        return users
 
     def write(self, vals):
         """Overridden write method to update branch in partner."""

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from . import controllers
-from . import portal
+from . import prescription
+from . import quote
+from . import contact

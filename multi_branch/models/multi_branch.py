@@ -16,9 +16,7 @@ class MultiBranch(models.Model):
     def default_get(self, fields):
         """Method to set default company in branch."""
         result = super(MultiBranch, self).default_get(fields)
-        company = (
-            self.env.company.id or False
-        )
+        company = self.env.company.id or False
         if self._context and self._context.get("allowed_company_ids", []):
             company = self._context["allowed_company_ids"][0]
         if company:
@@ -59,8 +57,9 @@ class MultiBranch(models.Model):
     )
 
     def _compute_wh_available(self):
+        warehouse_obj = self.env["stock.warehouse"]
         for branch in self:
-            branch.wh_available = self.env["stock.warehouse"].search_count(
+            branch.wh_available = warehouse_obj.search_count(
                 [("branch_id", "=", branch.id)]
             )
 
@@ -108,13 +107,15 @@ class MultiBranch(models.Model):
     @api.returns("self", lambda value: value.id)
     def copy(self):
         """Overridden copy method to restrict all users."""
-        super(MultiBranch, self).copy()
-        raise ValidationError(
-            _(
-                "User can not Duplicate the branch ! "
-                " Instead of duplicate, Create a New Branch."
+        res = super(MultiBranch, self).copy()
+        if res:
+            raise ValidationError(
+                _(
+                    "User can not Duplicate the branch ! "
+                    " Instead of duplicate, Create a New Branch."
+                )
             )
-        )
+        return res
 
     @api.model
     def create(self, vals):
@@ -149,11 +150,9 @@ class MultiBranch(models.Model):
         return new_branch
 
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
+    def _name_search(self, name, domain=None, operator="ilike", limit=None, order=None):
         """Method to select filtered branch id for different model."""
-        domain = args
+        domain = domain
         branch_obj = self.env["multi.branch"]
         if (
             self._context
@@ -164,20 +163,20 @@ class MultiBranch(models.Model):
             branch_ids = []
             if self._context.get("filter_company_id", False):
                 allow_branches = user.branch_ids
-                allow_branches |= user.branch_id
+                # allow_branches |= user.branch_id
                 domain += [("company_id", "=", self._context["filter_company_id"])]
                 if allow_branches:
                     domain += [("id", "in", allow_branches.ids)]
                 branch_ids = branch_obj.search(domain)
             if not branch_ids:
                 branch_ids = user.branch_ids
-                branch_ids |= user.branch_id
-                domain += [("id", "in", branch_ids and branch_ids.ids or args)]
+                # branch_ids |= user.branch_id
+                domain += [("id", "in", branch_ids and branch_ids.ids or [])]
                 if self._context.get("filter_company_id", False):
                     domain += [("company_id", "=", self._context["filter_company_id"])]
                 branch_ids = branch_obj.search(domain)
-            domain += [("id", "in", branch_ids and branch_ids.ids or args)]
-        return self._search(domain, limit=limit, access_rights_uid=name_get_uid)
+            domain += [("id", "in", branch_ids and branch_ids.ids or [])]
+        return self._search(domain, limit=limit, order=order)
 
     @api.constrains("name")
     def _check_branch_name(self):

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="section_faqs" name="Faqs">
+    <t t-set="faqs" t-value="request.env['fo.faqs'].search([('active', '=', True)])" />
+
+    <t t-call="farmaoffers_theme.accordion_snippet">
+      <t t-set="items" t-value="faqs"/>
+      <t t-set="title_p1" t-value="'Tips'" />
+      <t t-set="title_p2" t-value="'Frecuentes'" />
+    </t>
+
+  </template>
+</odoo>

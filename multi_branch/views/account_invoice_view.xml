@@ -1,4 +1,15 @@
 <odoo>
+    <!-- Inherited Customer Invoice Tree View -->
+    <record id="view_invoice_tree_branch_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.tree.branch.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="move_type" position="before">
+                <field name="branch_id" optional="hide" />
+            </field>
+        </field>
+    </record>
     <!-- Inherited Invoice Form view -->
     <record id="view_move_form_banch_inherit" model="ir.ui.view">
         <field name="name">account.move.form.branch.inherit</field>
@@ -11,10 +22,10 @@
                     required="1"
                     options="{'no_create_edit': True}"
                     context="{'branch_filter': True, 'filter_company_id': company_id}"
-                    attrs="{'readonly': [('state','not in', ['draft'])]}"
+                    readonly="state != 'draft'"
                 />
             </field>
-            <xpath expr="//field[@name='invoice_line_ids']/tree" position="inside">
+            <xpath expr="//field[@name='invoice_line_ids']/list" position="inside">
                 <field
                     name="branch_id"
                     required="1"
@@ -23,7 +34,10 @@
                     string="Branch"
                 />
             </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group[1]" position="inside">
+            <xpath
+                expr="//field[@name='invoice_line_ids']/form/sheet/group[1]"
+                position="inside"
+            >
                 <field
                     name="branch_id"
                     required="1"
@@ -60,18 +74,21 @@
             </field>
         </field>
     </record>
-
-    <!--Added group by filter in account invoice report-->
+    <!--Added group by branch filter in account invoice report-->
     <record id="account_inv_report_analysis_filter_branch_inherit" model="ir.ui.view">
         <field name="name">account.inv.report.analysis.branch.inherit</field>
         <field name="model">account.invoice.report</field>
         <field name="inherit_id" ref="account.view_account_invoice_report_search" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="branch_id"/>
+                <field name="branch_id" />
             </field>
             <xpath expr="//filter[@name='duemonth']" position="after">
-                <filter name="branches" string="Branch" context="{'group_by':'branch_id'}"/>
+                <filter
+                    name="branches"
+                    string="Branch"
+                    context="{'group_by':'branch_id'}"
+                />
             </xpath>
         </field>
     </record>

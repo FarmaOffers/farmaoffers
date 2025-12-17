@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="farmaoffers_theme_snippet_options" inherit_id="website.snippet_options">
+
+        <xpath expr="//we-select[@data-variable='header-template']/we-button[last()]" position="after">
+            <we-button title="FarmaOffers Header" data-customize-website-views="farmaoffers_theme.farmaoffers_header" data-customize-website-variable="'farmaoffers_header_style'" data-img="/farmaoffers_theme/static/src/img/header.png" />
+        </xpath>
+
+        <xpath expr="//we-select[@data-variable='footer-template']/we-button[last()]" position="after">
+            <we-button title="FarmaOffers Footer" data-customize-website-views="farmaoffers_theme.farmaoffers_footer" data-customize-website-variable="'farmaoffers_footer_style'" data-img="/farmaoffers_theme/static/src/img/footer.png" />
+        </xpath>
+    </template>
+
+    <template id="farmaoffers_theme_snippets" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="before">
+            <t t-snippet="farmaoffers_theme.s_top_offers" data-name="Top Offers" data-string="Top Offers" t-thumbnail="/farmaoffers_theme/static/src/img/s_top_offers_thumb.png">
+            </t>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.t_top_products" data-name="Top Products" data-string="Top Products" t-thumbnail="/farmaoffers_theme/static/src/img/top_products_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_our_tips" data-name="Our Tips" data-string="Our Tips" t-thumbnail="/farmaoffers_theme/static/src/img/our_tips_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_reviews" data-name="Client Reviews" data-string="Client Reviews" t-thumbnail="/farmaoffers_theme/static/src/img/client_reviews_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.section_faqs" data-name="Faqs" data-string="Faqs" t-thumbnail="/farmaoffers_theme/static/src/img/faqs_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_top_offers_banner" data-name="Top Offer Banner" data-string="Top Offer Banner" t-thumbnail="/farmaoffers_theme/static/src/img/top_offer_banner_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_prescription_form" data-name="Prescription Form" data-string="Prescription Form" t-thumbnail="/farmaoffers_theme/static/src/img/prescription_form_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_quote_form" data-name="Quote Form" data-string="Quote Form" t-thumbnail="/farmaoffers_theme/static/src/img/quote_form_thumb.png"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_contact_form" data-name="Contact Form" data-string="Contact Form" t-thumbnail="/farmaoffers_theme/static/src/img/contact_us_form_thumb.png"/>
+        </xpath>
+    </template>
+</odoo>

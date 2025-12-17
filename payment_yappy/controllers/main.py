@@ -16,7 +16,8 @@ class YappyController(http.Controller):
         '/payment/yappy/fail'
     ], type='http', auth='public', csrf=False)
     def yappy_return(self, **post):
-        _logger.info('Beginning Yappy form_feedback with post data %s',
-                     pprint.pformat(post))  # debug
-        request.env['payment.transaction'].sudo().form_feedback(post, 'yappy')
-        return werkzeug.utils.redirect('/payment/process')
+        """Handle Yappy return/fail callback in Odoo 18."""
+        _logger.info('Beginning Yappy notification with post data %s',
+                     pprint.pformat(post))
+        request.env['payment.transaction'].sudo()._handle_notification_data('yappy', post)
+        return werkzeug.utils.redirect('/payment/status')

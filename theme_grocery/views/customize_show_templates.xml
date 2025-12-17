@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
-  <!-- Switch option hide from customize_show menu -->
-  <record id="website_sale.products_description" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="False"/>
-  </record>
-  <record id="website_sale.products_add_to_cart" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="True"/>
-  </record>
-  <record id="website_sale_wishlist.add_to_wishlist" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="True"/>
-  </record>
-  <record id="website_sale_comparison.add_to_compare" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="True"/>
-  </record>
-  <record id="website_sale.products_attributes" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="False"/>
-  </record>
-  <record id="website_sale.option_collapse_products_categories" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="False"/>
-  </record>
-  <record id="website_sale.products_categories" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="False"/>
-  </record>
-  <record id="website_sale.search_count_box" model="ir.ui.view">
-    <field name="customize_show" eval="True"/>
-    <field name="active" eval="True"/>
-  </record>
-</data>
+    <!-- Product Description -->
+    <record id="website_sale.products_description" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Add to Cart -->
+    <record id="website_sale.products_add_to_cart" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Wishlist -->
+    <record id="website_sale_wishlist.add_to_wishlist" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Compare -->
+    <record id="website_sale_comparison.add_to_compare" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Product Attributes -->
+    <record id="website_sale.products_attributes" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Collapse Categories -->
+    <record id="website_sale.option_collapse_products_categories" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Categories -->
+    <record id="website_sale.products_categories" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Search Box -->
+    <record id="website.website_search_box" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
 </odoo>

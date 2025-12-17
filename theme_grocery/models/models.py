@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# Powered by Kanak Infosystems LLP.
+# © 2020 Kanak Infosystems LLP. (<https://www.kanakinfosystems.com>)
 
 import json
+
 from odoo import models, fields, api, SUPERUSER_ID
 
 
@@ -10,14 +13,6 @@ class website(models.Model):
     def get_categories(self):
         categories = self.env['product.public.category'].sudo().search([])
         return categories
-    
-    def get_main_categories(self):
-        domain = [
-            ('website_id', 'in', [False, self.id]),
-            ('parent_id', '=', False)
-        ]
-        return self.env['product.public.category'].sudo().search(domain)
-
 
     def get_homepage_categories(self):
         categories = self.env['homepage.categories'].sudo().search([], order='sequence')
@@ -77,7 +72,6 @@ class website(models.Model):
 
 class HomepageCategories(models.Model):
     _name = 'homepage.categories'
-    _description = "shows homepage categories details."
     _rec_name = 'category_id'
     _order = 'sequence'
 
@@ -87,7 +81,6 @@ class HomepageCategories(models.Model):
 
 class HomepageSlider(models.Model):
     _name = 'homepage.slider'
-    _description = "shows homepage slider details."
     _order = 'sequence'
 
     name = fields.Char('Name')
@@ -99,7 +92,6 @@ class HomepageSlider(models.Model):
 
 class HomepageHorizontalBanner(models.Model):
     _name = 'homepage.horizontal.banner'
-    _description = "shows homepage horizontal banner details."
     _order = 'sequence'
 
     name = fields.Char('Name (Label)')
@@ -112,7 +104,6 @@ class HomepageHorizontalBanner(models.Model):
 
 class BestsellerProduct(models.Model):
     _name = 'bestseller.product'
-    _description = "shows bestseller product in store."
     _order = 'sequence'
 
     product_tmpl_id = fields.Many2one('product.template', string='Product')
@@ -121,7 +112,6 @@ class BestsellerProduct(models.Model):
 
 class FeaturedProduct(models.Model):
     _name = 'featured.product'
-    _description = "shos featured product in store."
     _order = 'sequence'
 
     product_tmpl_id = fields.Many2one('product.template', string='Product')
@@ -130,7 +120,6 @@ class FeaturedProduct(models.Model):
 
 class LatestProduct(models.Model):
     _name = 'latest.product'
-    _description = "shows latest product in store."
     _order = 'sequence'
 
     product_tmpl_id = fields.Many2one('product.template', string='Product')
@@ -139,7 +128,6 @@ class LatestProduct(models.Model):
 
 class HomepageHorizontalFullBanner(models.Model):
     _name = 'homepage.horizontal.full.banner'
-    _description = "shows homepage horizontal full banner details."
 
     name = fields.Char('Name')
     link = fields.Char('Link')
@@ -149,7 +137,6 @@ class HomepageHorizontalFullBanner(models.Model):
 
 class HomepageHorizontalHalfBanner(models.Model):
     _name = 'homepage.horizontal.half.banner'
-    _description = "shows homepage horizontal half banner details."
 
     name = fields.Char('Name')
     link = fields.Char('Link')
@@ -159,7 +146,6 @@ class HomepageHorizontalHalfBanner(models.Model):
 
 class HomepageVerticalBanner(models.Model):
     _name = 'homepage.vertical.banner'
-    _description = "shows homepage vertical banner details."
 
     name = fields.Char('Name')
     link = fields.Char('Link')
@@ -169,7 +155,6 @@ class HomepageVerticalBanner(models.Model):
 
 class CustomerTestimonial(models.Model):
     _name = 'customer.testimonial'
-    _description = "show customers testimony about services."
     _order = 'sequence'
 
     name = fields.Char('Customer Name', required=True)
@@ -179,16 +164,31 @@ class CustomerTestimonial(models.Model):
 
 
 class IrModuleModule(models.Model):
-    _name = "ir.module.module"
-    _description = 'Module'
-    _inherit = _name
+    _inherit = "ir.module.module"
 
     @api.model
     def _theme_remove(self, website):
-        if website.theme_id.name == "theme_grocery":
-            # default homepage set when un-install theme grocery
-            env = api.Environment(self.env.cr, SUPERUSER_ID, {})
-            default_website = env.ref('website.default_website', raise_if_not_found=False)
-            default_homepage = env.ref('website.homepage_page', raise_if_not_found=False)
-            default_website.homepage_id = default_homepage.id
+        if website.theme_id and website.theme_id.name == "theme_grocery":
+            env = self.env(user=SUPERUSER_ID)
+            theme_pages = env['website.page'].search([
+                ('view_id.key', 'in', ['theme_grocery.homepage_products_item', 'website.grocery_homepage']),
+                ('website_id', '=', website.id)
+            ])
+            theme_pages.unlink()
+            theme_views = env['ir.ui.view'].search([
+                ('key', 'in', ['theme_grocery.homepage_products_item', 'website.grocery_homepage'])
+            ])
+            theme_views.unlink()
+            default_homepage = env.ref('website.default_homepage', raise_if_not_found=False)
+            if default_homepage:
+                env['website.page'].search([
+                    ('is_homepage', '=', True),
+                    ('website_id', '=', website.id)
+                ]).write({'is_homepage': False})
+
+                default_homepage.write({
+                    'is_homepage': True,
+                    'website_id': website.id,
+                })
+            website.homepage_url = '/'
         return super(IrModuleModule, self)._theme_remove(website)
