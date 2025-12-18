@@ -19,7 +19,7 @@
         "views/prescription_page.xml",
         "views/contact_page.xml",
         "views/thanks_page.xml",
-        "views/snippets.xml",
+        # "views/snippets.xml",
         "views/quote_page.xml",
         "views/snippets/top_offers_banner_snippet.xml",
         "views/snippets/accordion_snippet.xml",
