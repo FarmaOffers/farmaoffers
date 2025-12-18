@@ -39,7 +39,7 @@ class FarmaoffersContactController(http.Controller):
                 kw['error'] = errors
                 return request.render('farmaoffers_theme.contact_us', kw)
 
-            contact = request.env['fo.contactus'].sudo().create({
+            contact = request.env['farmaoffers.contactus'].sudo().create({
                 'name': (kw.get('name') or '').strip(),
                 'lastname': (kw.get('lastname') or '').strip(),
                 'company': (kw.get('company') or '').strip(),

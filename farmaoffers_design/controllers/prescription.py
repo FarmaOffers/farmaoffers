@@ -75,7 +75,7 @@ class Prescription(http.Controller):
                 kw['error'] = errors
                 return request.render('farmaoffers_theme.prescription', kw)
 
-            prescription = request.env['fo.prescription'].sudo().create({
+            prescription = request.env['farmaoffers.prescription'].sudo().create({
                 'name': kw.get('name'),
                 'lastname': kw.get('lastname'),
                 'city': kw.get('city'),
@@ -90,7 +90,7 @@ class Prescription(http.Controller):
                     'name': filename,
                     'type': 'binary',
                     'datas': base64.b64encode(file),
-                    'res_model': 'fo.prescription',
+                    'res_model': 'farmaoffers.prescription',
                     'res_id': prescription.id,
                     'res_field': 'file',
                     'mimetype': 'application/pdf',

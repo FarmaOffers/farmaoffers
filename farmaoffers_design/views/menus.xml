@@ -14,12 +14,12 @@
 
     <menuitem id="fo_menu_faqs" name="FAQs" parent="fo_menu_root" action="action_fo_faqs" sequence="6"/>
 
-    <menuitem id="fo_menu_prescriptions" name="Prescriptions" parent="fo_menu_root" action="action_fo_prescriptions" sequence="7" />
+    <menuitem id="fo_menu_prescriptions" name="Prescriptions" parent="fo_menu_root" action="action_farmaoffers_prescriptions" sequence="7" />
 
-    <menuitem id="fo_menu_quotes" name="Quotes" parent="fo_menu_root" action="action_fo_quotes" sequence="8" />
+    <menuitem id="fo_menu_quotes" name="Quotes" parent="fo_menu_root" action="action_farmaoffers_quotes" sequence="8" />
 
     <menuitem id="fo_menubranch_offices" name="Branch Offices" parent="fo_menu_root" action="action_fo_branch_offices" sequence="9" />
 
-    <menuitem id="fo_menu_contact" name="Contacts" parent="fo_menu_root" action="action_fo_contactus" sequence="10" />
+    <menuitem id="fo_menu_contact" name="Contacts" parent="fo_menu_root" action="action_farmaoffers_contactus" sequence="10" />
 
 </odoo>
