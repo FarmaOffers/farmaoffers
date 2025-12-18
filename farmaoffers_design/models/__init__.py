@@ -10,3 +10,9 @@ from . import branch_offices
 from . import contact
 from . import prescription
 from . import quote
+from . import pos_config
+from . import pos_order
+from . import account_journal_extension
+from . import account_move_extension
+from . import multi_branch_extension
+from . import odoo_fe_panama_extension
