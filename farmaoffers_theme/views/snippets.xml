@@ -17,9 +17,9 @@
             </t>
         </xpath> -->
 
-        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+        <!-- <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
             <t t-snippet="farmaoffers_theme.t_top_products" data-name="Top Products" data-string="Top Products" t-thumbnail="/farmaoffers_theme/static/src/img/top_products_thumb.png"/>
-        </xpath>
+        </xpath> -->
 
         <!-- <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
             <t t-snippet="farmaoffers_theme.s_our_tips" data-name="Our Tips" data-string="Our Tips" t-thumbnail="/farmaoffers_theme/static/src/img/our_tips_thumb.png"/>
