@@ -171,12 +171,12 @@ class IrModuleModule(models.Model):
         if website.theme_id and website.theme_id.name == "theme_grocery":
             env = self.env(user=SUPERUSER_ID)
             theme_pages = env['website.page'].search([
-                ('view_id.key', 'in', ['theme_grocery.homepage_products_item', 'website.grocery_homepage']),
+                ('view_id.key', 'in', ['theme_grocery.homepage_products_itemv18', 'website.grocery_homepage']),
                 ('website_id', '=', website.id)
             ])
             theme_pages.unlink()
             theme_views = env['ir.ui.view'].search([
-                ('key', 'in', ['theme_grocery.homepage_products_item', 'website.grocery_homepage'])
+                ('key', 'in', ['theme_grocery.homepage_products_itemv18', 'website.grocery_homepage'])
             ])
             theme_views.unlink()
             default_homepage = env.ref('website.default_homepage', raise_if_not_found=False)
