@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="res_config_settings_view_form_inherit_pos_branch" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.pos.branch</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+
+      <xpath expr="//block[@id='pos_inventory_section']//field[@name='pos_picking_type_id']/ancestor::setting[1]" position="after">
+        <setting string="Sucursal" help="Sucursal asociada al almacén del Punto de Venta.">
+          <field name="branch_id" readonly="1"/>
+        </setting>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>

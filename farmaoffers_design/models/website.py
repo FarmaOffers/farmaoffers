@@ -177,13 +177,3 @@ class StockPicking(models.Model):
         ('address', 'Enviar a domicilio')
     ], string="Modo de entrega")
     branch_id = fields.Many2one("multi.branch", string="Branch")
-
-class FarmaOffersContactUs(models.Model):
-    _name = 'farmaoffers.contactus'
-    _description = "Contact Form Submissions"
-
-    name = fields.Char(string="Name", size=60)
-    lastname = fields.Char(string="Lastname", size=60)
-    company = fields.Char(string="Company", size=60)
-    email = fields.Char(string="Email", size=60)
-    message = fields.Text(string="Message")
