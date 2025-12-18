@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="homepage_products_item" model="ir.ui.view">
+    <record id="homepage_products_itemv18" model="ir.ui.view">
         <field name="name">Grocery Product Item</field>
         <field name="type">qweb</field>
-        <field name="key">theme_grocery.homepage_products_item</field>
+        <field name="key">theme_grocery.homepage_products_itemv18</field>
         <field name="arch" type="xml">
-            <t t-name="homepage_products_item">
+            <t t-name="homepage_products_itemv18">
                 <t t-set="combination_info" t-value="product._get_combination_info()" />
                 <form action="/shop/cart/update" method="post">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
@@ -306,7 +306,7 @@
                                                                     <div class="row g-3">
                                                                         <t t-foreach="products[step:step+4]" t-as="product">
                                                                             <div class="col-6 col-md-3 col-sm-6 oe_product_18">
-                                                                                <t t-call="theme_grocery.homepage_products_item" />
+                                                                                <t t-call="theme_grocery.homepage_products_itemv18" />
                                                                             </div>
                                                                         </t>
                                                                     </div>
@@ -333,7 +333,7 @@
                                                                     <div class="row g-3">
                                                                         <t t-foreach="products[step:step+4]" t-as="product">
                                                                             <div class="col-md-3 col-sm-6 oe_product_18">
-                                                                                <t t-call="theme_grocery.homepage_products_item" />
+                                                                                <t t-call="theme_grocery.homepage_products_itemv18" />
                                                                             </div>
                                                                         </t>
                                                                     </div>
@@ -360,7 +360,7 @@
                                                                     <div class="row g-3">
                                                                         <t t-foreach="products[step:step+4]" t-as="product">
                                                                             <div class="col-md-3 col-sm-6 oe_product_18">
-                                                                                <t t-call="theme_grocery.homepage_products_item" />
+                                                                                <t t-call="theme_grocery.homepage_products_itemv18" />
                                                                             </div>
                                                                         </t>
                                                                     </div>
