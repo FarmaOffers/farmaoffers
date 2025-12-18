@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 class Prescription(models.Model):
-    _name = 'fo.prescription'
+    _name = 'farmaoffers.prescription'
     _description = "Prescriptions."
 
     name = fields.Char(string="Name", size=60)

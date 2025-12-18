@@ -20,8 +20,8 @@ access_fo_faqs_public,access_fo_faqs_public,model_fo_faqs,base.group_public,1,0,
 access_branch_office,access_branch_office,model_branch_office,base.group_user,1,1,1,1
 access_branch_office_public,access_branch_office_public,model_branch_office,base.group_public,1,0,0,0
 
-access_fo_contactus_user,access_fo_contactus_user,model_fo_contactus,base.group_user,1,1,1,1
-access_fo_contactus_public,access_fo_contactus_public,model_fo_contactus,base.group_public,1,0,0,0
+access_farmaoffers_contactus_user,access_farmaoffers_contactus_user,model_farmaoffers_contactus,base.group_user,1,1,1,1
+access_farmaoffers_contactus_public,access_farmaoffers_contactus_public,model_farmaoffers_contactus,base.group_public,1,0,0,0
 
-access_fo_prescription,access_fo_prescription,model_fo_prescription,base.group_user,1,1,1,1
-access_fo_quote,access_fo_quote,model_fo_quote,base.group_user,1,1,1,1
+access_farmaoffers_prescription,access_farmaoffers_prescription,model_farmaoffers_prescription,base.group_user,1,1,1,1
+access_farmaoffers_quote,access_farmaoffers_quote,model_farmaoffers_quote,base.group_user,1,1,1,1

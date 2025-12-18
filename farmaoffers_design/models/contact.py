@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 class ContactUs(models.Model):
-    _name = 'fo.contactus'
+    _name = 'farmaoffers.contactus'
     _description = "Contact Us"
 
     name = fields.Char(string="Name", required=True)

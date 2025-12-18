@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 class Quote(models.Model):
-    _name = 'fo.quote'
+    _name = 'farmaoffers.quote'
     _description = "Quotes"
 
     name = fields.Char(string="Name", size=60)

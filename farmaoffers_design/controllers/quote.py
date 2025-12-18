@@ -63,7 +63,7 @@ class QuoteController(http.Controller):
                 kw['error'] = errors
                 return request.render('farmaoffers_theme.quote', kw)
 
-            quote_rec = request.env['fo.quote'].sudo().create({
+            quote_rec = request.env['farmaoffers.quote'].sudo().create({
                 'name': kw.get('name'),
                 'lastname': kw.get('lastname'),
                 'city': kw.get('city'),
@@ -78,7 +78,7 @@ class QuoteController(http.Controller):
                     'name': filename,
                     'type': 'binary',
                     'datas': base64.b64encode(file),
-                    'res_model': 'fo.quote',
+                    'res_model': 'farmaoffers.quote',
                     'res_id': quote_rec.id,
                     'res_field': 'file',
                     'mimetype': 'application/pdf',
