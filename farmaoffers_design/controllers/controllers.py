@@ -4,6 +4,7 @@ from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.auth_signup.models.res_users import SignupError
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 import base64
 import logging
 import re

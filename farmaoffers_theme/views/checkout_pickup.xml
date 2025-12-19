@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <template id="checkout_pickup_toggle" inherit_id="website_sale.checkout" name="Checkout pickup toggle">
+    <!-- Insertamos el toggle justo antes del delivery_address_row -->
+    <xpath expr="//t[@t-call='website_sale.delivery_address_row']" position="before">
+
+      <!-- Estado por query param (sin backend por ahora) -->
+      <t t-set="is_pickup" t-value="request.params.get('pickup') in ('1', 'true', 'True')"/>
+
+      <div id="fo_pickup_toggle" class="mb-3">
+        <h4 class="text-uppercase small fs-6 fw-bold">Entrega</h4>
+
+        <div class="d-flex flex-wrap gap-3 mt-2">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="fo_delivery_mode" id="fo_mode_address" value="address" t-att-checked="not is_pickup"/>
+            <label class="form-check-label text-uppercase fw-bold" for="fo_mode_address">
+              Direccion
+            </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="fo_delivery_mode" id="fo_mode_pickup" value="pickup" t-att-checked="is_pickup"/>
+            <label class="form-check-label text-uppercase fw-bold" for="fo_mode_pickup">
+              Retiro en sucursal
+            </label>
+          </div>
+        </div>
+
+        <!-- Placeholder sucursal (solo se muestra si pickup) -->
+        <div id="fo_pickup_branch_wrap" class="mt-3" t-attf-class="#{'' if is_pickup else 'd-none'}">
+          <select id="fo_branch_select" class="form-select w-auto">
+            <option value="">-SUCURSAL-</option>
+          </select>
+        </div>
+      </div>
+
+    </xpath>
+  </template>
+
+  <template id="delivery_address_row_hide_on_pickup" inherit_id="website_sale.delivery_address_row" name="Hide delivery address on pickup">
+    <xpath expr="//div[@id='delivery_address_row']" position="attributes">
+      <attribute name="t-attf-class" add="#{ 'd-none' if request.params.get('pickup') in ('1','true','True') else '' }" separator=" " />
+    </xpath>
+  </template>
+
+</odoo>

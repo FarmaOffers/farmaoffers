@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="section_additional_info">
-        <t t-set="aditionals" t-value="product.aditional_info_ids"/>
+        <t t-set="aditionals" t-value="D"/>
 
         <section class="mb-4 pt-5" t-if="len(aditionals) &gt; 0">
             <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
