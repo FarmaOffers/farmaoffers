@@ -38,7 +38,17 @@
         "views/snippets/prescription_form_snippet.xml",
         "views/snippets/contact_form_snippet.xml",
         "views/snippets/quote_form_snippet.xml",
+        "views/snippets/section_banner_snippet.xml",
         "views/shop_templates.xml",
+        "views/web_login.xml",
+        "views/web_signup.xml",
+        "views/auth_signup_fields.xml",
+        "views/web_reset_password.xml",
+        "views/web_sale_shop.xml",
+        "views/web_product_page.xml",
+        "views/breadcrumb.xml",
+        "views/sections/section_general_info.xml",
+        "views/sections/section_product_resume.xml",
     ],
     "assets": {
         "web._assets_primary_variables": [

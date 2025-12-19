@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <template id="section_product_resume">
+    <!-- Si el método devuelve None, lo convertimos en lista vacía -->
+    <t t-set="items_resume" t-value="website.get_general_info_by_type(product.id, 'resume') or []"/>
+
+    <!-- Si combination_info no viene, que sea dict vacío -->
+    <t t-set="combination_info" t-value="combination_info or {}"/>
+
+    <section t-if="items_resume or combination_info.get('has_discounted_price')" class="mb-4 pt-5">
+      <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+        <span class="text-secondary">Resumen</span>
+        <span class="text-primary">Del producto</span>
+      </h3>
+      <hr class="mx-0 mt-1 mb-4" />
+
+      <div class="content-section">
+        <table class="table table-striped font-montserrat font-size-cards">
+          <tbody class="font-montserrat font-8-5 font-weight-bold">
+
+            <t t-if="combination_info.get('has_discounted_price')">
+              <tr>
+                <th scope="row">Oferta del producto</th>
+                <td class="text-right">
+                  <t t-esc="website.currency_id.symbol"/>
+                  <t t-esc="combination_info.get('price')"/>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Su ahorro</th>
+                <td class="text-right">
+                  <span class="text-secondary">
+                    <t t-esc="(combination_info.get('list_price', 0) - combination_info.get('price', 0))"
+                       t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <t t-if="combination_info.get('list_price', 0) &gt; 0">
+                      - <t t-esc="100 - (combination_info.get('price', 0) * 100) / combination_info.get('list_price', 1)"
+                           t-options="{'widget': 'float', 'precision': 0}"/> % OFF
+                    </t>
+                  </span>
+                </td>
+              </tr>
+            </t>
+
+            <t t-foreach="items_resume" t-as="item">
+              <tr>
+                <th scope="row"><t t-esc="item.title"/></th>
+                <td class="text-right"><t t-esc="item.description"/></td>
+              </tr>
+            </t>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </template>
+
+</odoo>

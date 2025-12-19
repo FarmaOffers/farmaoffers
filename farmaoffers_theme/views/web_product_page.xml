@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="product_page_customize" model="ir.ui.view">
+    <field name="name">product_page_customize</field>
+
+    <!-- Odoo 18: heredar el template real del theme -->
+    <field name="inherit_id" search="[('key', '=', 'theme_grocery.product_page')]"/>
+
+    <field name="type">qweb</field>
+    <field name="key">farmaoffers_theme.product_page_customize</field>
+
+    <field name="arch" type="xml">
+
+      <!-- Breadcrumb: agregar clases -->
+      <xpath expr="//div[hasclass('kanak_breadcrumb')]" position="attributes">
+        <attribute name="class" add="product-grid-breadcrumb bg-white" separator=" " />
+      </xpath>
+
+      <!-- Banner: insertar antes del container del breadcrumb -->
+      <xpath expr="//div[hasclass('kanak_breadcrumb')]/div[hasclass('container')]" position="before">
+        <div class="m-0 shop-banner">
+          <h2 class="text-uppercase font-weight-bold m-0">Producto</h2>
+        </div>
+      </xpath>
+
+      <!-- Breadcrumb: cambiar primer link a 'Productos' -->
+      <xpath expr="//ol[hasclass('breadcrumb')]/li[1]/a" position="replace">
+        <a t-att-href="keep(category=0)">Productos</a>
+      </xpath>
+
+      <!-- Remover texto muted -->
+      <xpath expr="//p[hasclass('text-muted')]" position="replace">
+      </xpath>
+
+      <!-- Reemplazar sección completa de descripción con tus secciones custom -->
+      <xpath expr="//section[hasclass('product_desc')]" position="replace">
+        <section class="product_desc product-grid-main mt32 mb32">
+          <!-- <t t-call="farmaoffers_theme.section_desc_disc"></t>
+          <t t-call="farmaoffers_theme.section_aditional_info"></t>
+          <t t-call="farmaoffers_theme.section_same_compound"></t>
+          <t t-call="farmaoffers_theme.section_bought_together"></t> -->
+          <t t-call="farmaoffers_theme.section_general_info"></t>
+
+          <!-- <t t-call="farmaoffers_theme.section_faqs">
+            <t t-set="title_p1" t-value="'Preguntas'"/>
+            <t t-set="title_p2" t-value="'Frecuentes'"/>
+            <t t-set="faqs" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
+          </t> -->
+
+          <t t-call="farmaoffers_theme.section_product_resume"></t>
+        </section>
+      </xpath>
+
+      <!-- Reemplazar el bloque de estrellas por header info -->
+      <xpath expr="//div[hasclass('star-rating')]" position="replace">
+        <div class="product-header-info">
+          <p>
+            <strong t-if="product.laboratory" class="text-primary">Laboratorio:</strong>
+            <t t-esc="product.laboratory"/>
+            <br/>
+            <strong class="text-primary">
+              <t t-esc="product.presentation"/>
+            </strong>
+          </p>
+          <p>
+            <t t-esc="product.short_description"/>
+          </p>
+        </div>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>

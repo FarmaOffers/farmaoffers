@@ -1,0 +1,22 @@
+<odoo>
+  <!-- 1) Reutilizable -->
+  <template id="section_banner" name="Section Banner (Reusable)">
+    <section class="s_breacumb_banner">
+      <div class="section_banner">
+        <div class="image">
+          <h1 class="text-uppercase"><t t-esc="banner_title or ''"/></h1>
+          <img class="img img-fluid mx-auto"
+               t-att-src="banner_image or '/farmaoffers_theme/static/src/img/bg-basic.png'"
+               alt="banner"/>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <!-- 2) Snippet para el editor -->
+  <template id="s_section_banner" name="Section Banner (Snippet)">
+    <t t-call="farmaoffers_theme.section_banner">
+      <t t-set="banner_title" t-value="'Farma Offers'"/>
+    </t>
+  </template>
+</odoo>

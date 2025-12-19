@@ -11,8 +11,8 @@
         </xpath>
     </template>
 
-    <!-- <template id="farmaoffers_theme_snippets" inherit_id="website.snippets">
-        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="before">
+    <template id="farmaoffers_theme_snippets" inherit_id="website.snippets">
+        <!-- <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="before">
             <t t-snippet="farmaoffers_theme.s_top_offers" data-name="Top Offers" data-string="Top Offers" t-thumbnail="/farmaoffers_theme/static/src/img/s_top_offers_thumb.png">
             </t>
         </xpath>
@@ -47,6 +47,10 @@
 
         <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
             <t t-snippet="farmaoffers_theme.s_contact_form" data-name="Contact Form" data-string="Contact Form" t-thumbnail="/farmaoffers_theme/static/src/img/contact_us_form_thumb.png"/>
+        </xpath> -->
+
+        <xpath expr="//snippets[@id='snippet_groups']//t[@snippet-group][last()]" position="inside">
+            <t t-snippet="farmaoffers_theme.s_section_banner" data-name="Section Banner" data-string="Section Banner" t-thumbnail="/farmaoffers_theme/static/src/img/section_banner_thumb.png"/>
         </xpath>
-    </template> -->
+    </template>
 </odoo>

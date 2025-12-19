@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <template id="farmaoffers_theme_signup_fields"
+              inherit_id="auth_signup.fields"
+              name="Custom Fields Sign Up">
+
+      <xpath expr="//input[@name='login']/ancestor::div[1]" position="replace">
+        <div class="form-group field-login">
+          <label class="text-dark-fo mb-0" for="login">Correo electrónico</label>
+          <input type="text"
+                 name="login"
+                 id="login"
+                 t-att-value="login"
+                 class="form-control form-control-sm"
+                 placeholder="micorreo@email.com"
+                 required="required"
+                 autocapitalize="off"
+                 t-att-readonly="'readonly' if only_passwords else None"/>
+        </div>
+      </xpath>
+
+      <xpath expr="//input[@name='name']/ancestor::div[1]" position="replace">
+        <div class="form-group field-name">
+          <label class="text-dark-fo mb-0" for="name">Nombre completo</label>
+          <input type="text"
+                 name="name"
+                 id="name"
+                 t-att-value="name"
+                 class="form-control form-control-sm"
+                 required="required"
+                 t-att-readonly="'readonly' if only_passwords else None"/>
+        </div>
+
+        <div t-if="not only_passwords" class="form-group field-address">
+          <label class="mb-0 d-flex align-items-center" for="address">
+            <span class="text-dark-fo">Dirección</span>
+            <span class="span-input-tip">( ciudad &gt; corregimiento &gt; barriada &gt; casa o apto )</span>
+          </label>
+          <input type="text"
+                 name="address"
+                 id="address"
+                 t-att-value="address"
+                 class="form-control form-control-sm"
+                 required="required"/>
+        </div>
+
+        <div t-if="not only_passwords" class="form-group field-phone">
+          <label class="text-dark-fo mb-0" for="phone">Teléfono móvil</label>
+          <input type="tel"
+                 name="phone"
+                 id="phone"
+                 t-att-value="phone"
+                 class="form-control form-control-sm"
+                 required="required"
+                 placeholder="1234567 o 12345678"/>
+        </div>
+      </xpath>
+
+      <xpath expr="//input[@name='password']/ancestor::div[1]" position="replace">
+        <div class="form-group field-password pt-2">
+          <label class="text-dark-fo mb-0" for="password">Contraseña</label>
+          <input type="password"
+                 name="password"
+                 id="password"
+                 class="form-control form-control-sm"
+                 required="required"/>
+        </div>
+      </xpath>
+
+      <xpath expr="//input[@name='confirm_password']/ancestor::div[1]" position="replace">
+        <div class="form-group field-confirm_password">
+          <label class="text-dark-fo mb-0" for="confirm_password">Confirmar contraseña</label>
+          <input type="password"
+                 name="confirm_password"
+                 id="confirm_password"
+                 class="form-control form-control-sm"
+                 required="required"/>
+        </div>
+      </xpath>
+
+    </template>
+
+  </data>
+</odoo>
