@@ -35,17 +35,17 @@
       <!-- Reemplazar sección completa de descripción con tus secciones custom -->
       <xpath expr="//section[hasclass('product_desc')]" position="replace">
         <section class="product_desc product-grid-main mt32 mb32">
-          <!-- <t t-call="farmaoffers_theme.section_desc_disc"></t>
-          <t t-call="farmaoffers_theme.section_aditional_info"></t>
+          <t t-call="farmaoffers_theme.section_desc_disc"></t>
+          <!-- <t t-call="farmaoffers_theme.section_additional_info"></t> -->
           <t t-call="farmaoffers_theme.section_same_compound"></t>
-          <t t-call="farmaoffers_theme.section_bought_together"></t> -->
+          <t t-call="farmaoffers_theme.section_bought_together"></t>
           <t t-call="farmaoffers_theme.section_general_info"></t>
 
-          <!-- <t t-call="farmaoffers_theme.section_faqs">
+          <t t-call="farmaoffers_theme.section_faqs">
             <t t-set="title_p1" t-value="'Preguntas'"/>
             <t t-set="title_p2" t-value="'Frecuentes'"/>
             <t t-set="faqs" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
-          </t> -->
+          </t>
 
           <t t-call="farmaoffers_theme.section_product_resume"></t>
         </section>

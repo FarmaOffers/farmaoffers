@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <template id="section_aditional_info">
+    <template id="section_additional_info">
         <t t-set="aditionals" t-value="product.aditional_info_ids"/>
 
         <section class="mb-4 pt-5" t-if="len(aditionals) &gt; 0">

@@ -49,6 +49,11 @@
         "views/breadcrumb.xml",
         "views/sections/section_general_info.xml",
         "views/sections/section_product_resume.xml",
+        "views/sections/section_desc_disc.xml",
+        "views/sections/section_additional_info.xml",
+        "views/sections/section_same_compound.xml",
+        "views/sections/section_bought_together.xml",
+        "views/sections/section_faqs.xml",
     ],
     "assets": {
         "web._assets_primary_variables": [
