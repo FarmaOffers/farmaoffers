@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <template id="breadcrumb_fo">
+      <div t-attf-class="col-12 #{classes if classes else ''}">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <ol class="breadcrumb bg-white px-0 mb-1">
+                <li class="breadcrumb-item">
+                  <a class="text-blue" t-attf-href="#{back_url if back_url else '/'}">Inicio</a>
+                </li>
+                <t t-if="breadcrumb_definition">
+                  <li class="breadcrumb-item active">
+                    <span t-esc="breadcrumb_definition" />
+                  </li>
+                </t>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="container">
+          <div class="row col-12">
+            <div class="oe_structure"/>
+          </div>
+        </div> -->
+      </div>
+    </template>
+
+  </data>
+</odoo>
