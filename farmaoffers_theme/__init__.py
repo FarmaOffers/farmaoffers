@@ -1,1 +1,1 @@
-# theme init
+from . import controllers

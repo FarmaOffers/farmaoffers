@@ -54,6 +54,7 @@
         "views/sections/section_same_compound.xml",
         "views/sections/section_bought_together.xml",
         "views/sections/section_faqs.xml",
+        "views/checkout_pickup.xml",
     ],
     "assets": {
         "web._assets_primary_variables": [
@@ -68,6 +69,7 @@
             "farmaoffers_theme/static/src/scss/styles.scss",
             "farmaoffers_theme/static/src/snippets/t_owl_carousel/style.scss",
             "farmaoffers_theme/static/src/snippets/t_owl_carousel/000.js",
+            "farmaoffers_theme/static/src/js/checkout_pickup_toggle.js",
         ],
     },
     "installable": True,
