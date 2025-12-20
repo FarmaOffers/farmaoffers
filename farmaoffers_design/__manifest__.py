@@ -36,6 +36,7 @@
         "views/sale_order.xml",
         "views/pos_config_view.xml",
         "views/multi_branch_extension_view.xml",
+        "views/sales_report_view.xml",
     ],
     "installable": True,
     "application": False,
