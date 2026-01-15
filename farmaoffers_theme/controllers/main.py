@@ -74,3 +74,9 @@ class FarmaoffersCheckoutShipping(http.Controller):
             json.dumps({'ok': True, 'mode': 'address'}),
             headers=[('Content-Type','application/json; charset=utf-8')]
         )
+        
+class FarmaoffersHomepage(http.Controller):
+
+    @http.route("/", type="http", auth="public", website=True, sitemap=False)
+    def farmaoffers_root_home(self, **kw):
+        return request.render("website.farmaoffers_homepage", {})
