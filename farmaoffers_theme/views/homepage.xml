@@ -28,7 +28,7 @@
                         </t>
                         <t t-if="not sliders">
                           <li class="splide__slide">
-                            <img class="d-block w-100 img-fluid" src="/theme_grocery/static/src/img/default.jpg" alt="Default Slide"/>
+                            <img class="d-block w-100 img-fluid" src="/farmaoffers_theme/static/src/img/slide1.jpeg" alt="Default Slide"/>
                           </li>
                         </t>
                       </ul>
