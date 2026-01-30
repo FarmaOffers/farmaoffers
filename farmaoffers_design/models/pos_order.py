@@ -12,27 +12,32 @@ class PosOrder(models.Model):
         help="Sucursal asociada al pedido de Punto de Venta."
     )
 
-    def _process_order(self, order_data, draft=False, existing_order=False):
+    @api.model
+    def _process_order(self, order, existing_order):
         """
         Sobrescribe _process_order para asignar branch_id al pedido y a la factura.
         El branch_id se obtiene directamente desde pos.config.
         """
         _logger.info("Interceptando _process_order: Procesando pedido...")
 
-        order = super(PosOrder, self)._process_order(order_data, draft, existing_order)
+        # Llamada correcta al método padre con la firma correcta
+        order_id = super(PosOrder, self)._process_order(order, existing_order)
 
-        if isinstance(order, int):
-            order = self.browse(order)
+        # Obtener el recordset del pedido
+        pos_order = self.browse(order_id)
 
-        branch_id = order.session_id.config_id.branch_id.id if order.session_id.config_id.branch_id else False
+        # Obtener branch_id desde la configuración de POS
+        branch_id = pos_order.session_id.config_id.branch_id.id if pos_order.session_id.config_id.branch_id else False
         _logger.info(f"Branch ID obtenido desde POS Config: {branch_id}")
 
         if branch_id:
-            order.write({'branch_id': branch_id})
-            _logger.info(f"Branch ID asignado al pedido: {branch_id}")
+            # Asignar branch_id al pedido
+            pos_order.write({'branch_id': branch_id})
+            _logger.info(f"Branch ID {branch_id} asignado al pedido: {pos_order.name}")
 
-        if order.account_move and branch_id:
-            order.account_move.write({'branch_id': branch_id})
-            _logger.info(f"Branch ID asignado a la factura: {order.account_move.name}")
+            # Asignar branch_id a la factura si existe
+            if pos_order.account_move:
+                pos_order.account_move.write({'branch_id': branch_id})
+                _logger.info(f"Branch ID {branch_id} asignado a la factura: {pos_order.account_move.name}")
 
-        return order.id
+        return order_id
