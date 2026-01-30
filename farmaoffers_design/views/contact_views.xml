@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- List -->
+  <record id="view_farmaoffers_contactus_list" model="ir.ui.view">
+    <field name="name">farmaoffers.contactus.list</field>
+    <field name="model">farmaoffers.contactus</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="submission_date"/>
+        <field name="name"/>
+        <field name="lastname"/>
+        <field name="company"/>
+        <field name="email"/>
+        <field name="message" widget="text"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form -->
+  <record id="view_farmaoffers_contactus_form" model="ir.ui.view">
+    <field name="name">farmaoffers.contactus.form</field>
+    <field name="model">farmaoffers.contactus</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group string="Customer Info">
+            <field name="submission_date" readonly="1"/>
+            <field name="name"/>
+            <field name="lastname"/>
+            <field name="company"/>
+            <field name="email"/>
+          </group>
+
+          <group string="Message">
+            <field name="message"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_farmaoffers_contactus" model="ir.actions.act_window">
+    <field name="name">Contact Us</field>
+    <field name="res_model">farmaoffers.contactus</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+</odoo>

@@ -1,0 +1,31 @@
+.t_owl_carousel {
+  background-color: #fff;
+
+  .splide__slide {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+  }
+
+  .splide__arrow {
+    background: #4cbb17;
+    color: #fff;
+    border: none;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .splide__pagination__page.is-active {
+    background: #4cbb17;
+  }
+}

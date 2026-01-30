@@ -1,0 +1,5 @@
+setuptools
+wheel
+suds-py3==1.4.5.0
+pynpm
+-e /home/odoo/src/user/odoo-fe-panama/lib/intfiscal-python-library-main

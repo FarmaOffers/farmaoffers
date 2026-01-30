@@ -6,15 +6,11 @@
         <field name="inherit_id" ref="stock.view_location_tree2" />
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field
-                    name="branch_id"
-                    required="1"
-                    options="{'no_create_edit': True}"
-                    context="{'branch_filter': True, 'filter_company_id': company_id}"
-                />
+                <field name="branch_id" />
             </field>
         </field>
     </record>
+
     <!-- Stock Location form view -->
     <record id="view_location_form_branch_inherit" model="ir.ui.view">
         <field name="name">stock.location.form.branch</field>
@@ -31,22 +27,7 @@
             </field>
         </field>
     </record>
-    <!-- Stock Inventory form view inherited -->
-    <record id="view_inventory_form_inherit" model="ir.ui.view">
-        <field name="name">stock.inventory.form.ingerit</field>
-        <field name="model">stock.inventory</field>
-        <field name="inherit_id" ref="stock.view_inventory_form" />
-        <field name="arch" type="xml">
-            <field name="company_id" position="after">
-                <field
-                    name="branch_id"
-                    required="1"
-                    options="{'no_create_edit': True}"
-                    context="{'branch_filter': True, 'filter_company_id': company_id}"
-                />
-            </field>
-        </field>
-    </record>
+
     <record id="view_move_form_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.form.branch.inherit</field>
         <field name="model">stock.move</field>
@@ -61,6 +42,7 @@
             </field>
         </field>
     </record>
+
     <record id="view_move_search_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.search.branch.inherit</field>
         <field name="model">stock.move</field>
@@ -71,30 +53,15 @@
             </xpath>
         </field>
     </record>
+
     <record id="view_move_pivot_branch_inherit" model="ir.ui.view">
         <field name="name">stock.move.pivot.branch.inherit</field>
         <field name="model">stock.move</field>
         <field name="inherit_id" ref="stock.view_move_pivot" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='location_dest_id']" position="after">
+            <xpath expr="//field[@name='picking_type_id']" position="before">
                 <field name="branch_id" type="row" />
             </xpath>
-        </field>
-    </record>
-    <!-- Inherited Stock Inventory Line Tree view -->
-    <record id="stock_inventory_line_tree" model="ir.ui.view">
-        <field name="name">stock.inventory.line.tree2.inherit</field>
-        <field name="model">stock.inventory.line</field>
-        <field name="inherit_id" ref="stock.stock_inventory_line_tree" />
-        <field name="arch" type="xml">
-            <field name="location_id" position="after">
-                <field
-                    name="branch_id"
-                    required="1"
-                    options="{'no_create_edit': True}"
-                    context="{'branch_filter': True, 'filter_company_id': company_id}"
-                />
-            </field>
         </field>
     </record>
 </odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="section_additional_info">
+        <t t-set="aditionals" t-value="D"/>
+
+        <section class="mb-4 pt-5" t-if="len(aditionals) &gt; 0">
+            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+                <span class="text-secondary">Datos</span>
+                <span class="text-primary">Adicionales</span>
+            </h3>
+
+            <hr class="mx-0 mt-1 mb-4"/>
+
+            <div class="content-section aditional-info">
+                <ul>
+                    <t t-foreach="aditionals" t-as="item">
+                        <li class="font-montserrat font-size-cards">
+                            <img t-attf-src="/website/image/product.aditional.info/{{ item.id }}/image"
+                                 t-att-alt="item.description"/>
+                            <p>
+                                <t t-esc="item.description"/>
+                            </p>
+                        </li>
+                        <hr class="hr-aditional-info"/>
+                    </t>
+                </ul>
+            </div>
+        </section>
+    </template>
+
+</odoo>

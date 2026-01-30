@@ -15,6 +15,28 @@
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
         />
     </record>
+
+    <!-- Multi branch Access for all-->
+    <record id="rule_access_multi_branch_admin" model="ir.rule">
+        <field name="name">Access Multi Branch Administrator</field>
+        <field name="model_id" ref="model_multi_branch" />
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+    <!-- Multi branch Access for all-->
+    <record id="rule_access_multi_branch" model="ir.rule">
+        <field name="name">Access Multi Branch</field>
+        <field name="model_id" ref="model_multi_branch" />
+        <field
+            name="domain_force"
+        >[('id', 'in', [branch.id for branch in user.branch_ids])]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
     <!-- Branch Manager Record rule for sale-->
     <record id="rule_sale_all_documents" model="ir.rule">
         <field name="name">Branch Sale All Documents</field>

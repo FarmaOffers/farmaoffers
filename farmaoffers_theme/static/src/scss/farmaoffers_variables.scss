@@ -1,0 +1,16 @@
+$o-color-palettes: map-merge($o-color-palettes,
+        ('farmaoffers_palette': ( // nombre de la paleta
+                'o-color-1': #000000,
+                'o-color-2': #4cbb17,
+                'o-color-3': #eceae4,
+                'o-color-4': #ffffff,
+                'o-color-5': #a49e9e,
+                'o-cc1-text': #6c757d,
+                'o-cc1-headings': 'o-color-5',
+
+                'menu': 1,
+                'footer': 1,
+            ),
+        ));
+
+$o-selected-color-palettes-names: append($o-selected-color-palettes-names, 'farmaoffers_palette');

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_prescription_form" name="Prescription Form">
+    <section class="s_prescription_form basic-bg basic-bg-login">
+      <div class="container-fo mx-auto my-0 py-1">
+
+        <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+          <div class="container s_allow_columns font-montserrat text-uppercase">
+            <h1 id="top_quote" class="m-0" style="text-align: center;">
+              <font class="text-white fw-bold font-montserrat" style="font-size: 32px;">
+                Formulario de prescripción
+              </font>
+            </h1>
+          </div>
+        </section>
+
+        <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text">
+          <div class="s_allow_columns o_container_small">
+            <p class="text-white font-montserrat m-0">
+              Completa el formulario
+              <b class="o_default_snippet_text">y adjunta tu prescripción de medicamentos</b>.
+            </p>
+
+            <section>
+              <div class="container">
+                <form action="/prescription" method="post" enctype="multipart/form-data" class="login-form-custom p-2 p-md-3 p-lg-5">
+
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
+                  <!-- Errores -->
+                  <t t-if="error and len(error) > 0">
+                    <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
+                      <i class="fa fa-exclamation" aria-hidden="false"></i>
+                      <t t-esc="err['error']"/>
+                    </div>
+                  </t>
+
+                  <div>
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="name">
+                        <span>Nombre</span>
+                        <span> *</span>
+                      </label>
+                      <input type="text" class="form-control" name="name" t-att-value="name" required="1" id="name"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0 " style="width: 200px" for="lastname">
+                        <span>Apellido</span>
+                        <span> *</span>
+                      </label>
+                      <input type="text" class="form-control" name="lastname" t-att-value="lastname" placeholder="" id="lastname" required="1"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="city">
+                        <span>Ciudad</span>
+                        <span> *</span>
+                      </label>
+                      <input type="text" class="form-control" name="city" t-att-value="city" required="true" id="city"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="address">
+                        <span>Dirección</span>
+                      </label>
+                      <input type="text" class="form-control" name="address" t-att-value="address" id="address"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="phone">
+                        <span>Teléfono</span>
+                        <span> *</span>
+                      </label>
+                      <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="1234567 o 12345678" id="phone"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="email">
+                        <span>Correo Electrónico</span>
+                        <span> *</span>
+                      </label>
+                      <input type="email" class="form-control" name="email" t-att-value="email" required="true" placeholder="micorreo@email.com" id="email"/>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="message">
+                        <span>Mensaje</span>
+                        <span> *</span>
+                      </label>
+                      <textarea class="form-control" name="message" required="1" id="message" rows="3">
+                        <t t-if="message" t-esc="message"/>
+                      </textarea>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <label class="text-dark-fo mb-0" style="width: 200px" for="upload">
+                        <span>Adjuntar receta</span>
+                        <span> *</span>
+                      </label>
+                      <input type="file" class="form-control-file" accept="application/pdf" name="upload" id="upload" required="1"/>
+                    </div>
+
+                    <div class="form-group col-12 text-right">
+                      <div style="width: 200px;" class="s_website_form_label"/>
+                      <button type="submit" role="button" class="btn btn-secondary">
+                        Enviar
+                      </button>
+                      <span id="form_result" class="d-block text-center"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </section>
+  </template>
+</odoo>

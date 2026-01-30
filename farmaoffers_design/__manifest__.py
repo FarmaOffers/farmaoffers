@@ -1,62 +1,43 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "FarmaOffers Module",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
-    """,
-
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '14.0.12',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'multi_branch', 'account'],
-
-    # always loaded
-    'data': [
-        'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-        'views/h_f_templates.xml',
-        'views/snippets.xml',
-        'views/inherit_templates.xml',
-        'views/homepage_templates.xml',
-        'views/delivery_carrier.xml',
-        'views/address_template.xml',
-        'views/sale_order.xml',
-        'views/res_country_state.xml',
-        'views/website_form_templates_inherit.xml',
-        'views/website_data_inherit.xml',
-        'views/res_config_settings_views.xml',
-        'data/res_country_data.xml',
-        'views/res_partner_view.xml',
-        'views/portal_templates.xml',
-        'views/multi_branch_extension_view.xml',
-        'views/website_top_slider_views.xml',
-        'views/sales_report_view.xml',
-        'views/pos_config_view.xml',
-        'views/point_of_sale_view.xml',
-        'views/stock_picking_view.xml',
-        'views/account_move_view.xml',
-
+    "name": "FarmaOffers Module",
+    "version": "18.0.1.0.0",
+    "author": "Rootstack, S.A.",
+    "category": "Website",
+    "summary": "Core models and helpers for FarmaOffers website",
+    "license": "LGPL-3",
+    "depends": [
+        "web",
+        "website",
+        "web_editor",
+        "website_sale",
+        "sale_management",
+        "sale_stock",
+        "stock",
+        "product",
+        "auth_signup",
+        "point_of_sale",
+        "theme_grocery",
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "views/fo_top_slider_views.xml",
+        "views/product_offers_views.xml",
+        "views/top_products_views.xml",
+        "views/our_tips_views.xml",
+        "views/client_reviews_views.xml",
+        "views/faqs_views.xml",
+        "views/prescription_views.xml",
+        "views/quote_view.xml",
+        "views/branch_offices_views.xml",
+        "views/contact_views.xml",
+        "views/menus.xml",
+        "views/account_move_view.xml",
+        "views/stock_picking_view.xml",
+        "views/sale_order.xml",
+        "views/pos_config_view.xml",
+        "views/multi_branch_extension_view.xml",
+        "views/sales_report_view.xml",
     ],
-    'qweb': [
-        'static/src/xml/*.xml',
-    ],
-    'installable': True,
-    'application': True,
+    "installable": True,
+    "application": False,
 }

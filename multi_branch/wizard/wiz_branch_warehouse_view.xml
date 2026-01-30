@@ -14,9 +14,11 @@
                         <field name="code" required="1" />
                     </group>
                 </group>
-                <group cols="4" colspan="4">
-                    <field name="note" readonly="1" nolabel="1"/>
-                </group>
+                <div class="col-md-8 row">
+                    <div class="col-12">
+                        <field name="note" readonly="1" nolabel="1" />
+                    </div>
+                </div>
                 <footer>
                     <button
                         name="action_confirm_warehouse"
