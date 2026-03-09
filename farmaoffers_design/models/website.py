@@ -64,14 +64,11 @@ class Website(models.Model):
         return self.env['fo.top.slider'].sudo().search([('active', '=', True)])
 
     def get_main_categories(self):
-        try:
-            return self.env['product.public.category'].sudo().search([
-                ('parent_id', '=', False),
-                ('website_id', '!=', False)
-            ])
-        except Exception as e:
-            _logger.error(f"Error obteniendo categorías principales: {e}")
-            return []
+        domain = [
+            ('website_id', 'in', [False, self.id]),
+            ('parent_id', '=', False)
+        ]
+        return self.env['product.public.category'].sudo().search(domain)
 
 
 class PriceFilter(models.Model):

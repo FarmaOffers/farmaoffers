@@ -22,6 +22,7 @@
         "views/snippets.xml",
         "views/quote_page.xml",
         "views/offers_page.xml",
+        "views/categories_menu.xml",
         "views/snippets/top_offers_banner_snippet.xml",
         "views/snippets/accordion_snippet.xml",
         "views/snippets/section_faqs_snippet.xml",
