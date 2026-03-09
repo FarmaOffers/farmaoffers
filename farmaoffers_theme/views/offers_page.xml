@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="all-offers" name="All Offers Page">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login basic-bg-all-offers">
+
+          <section class="pt8 pb0 mt-4" data-name="Title">
+            <div class="container s_allow_columns font-montserrat text-uppercase">
+              <h1 id="top_quote" class="m-0 text-center">
+                <span class="font-weight-bold font-montserrat" style="font-size: 32px;">
+                  Todas las ofertas
+                </span>
+              </h1>
+            </div>
+          </section>
+
+          <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text">
+            <div class="container">
+              <section>
+                <div class="container">
+
+                  <t t-set="product_offers" t-value="website.get_product_offers()"/>
+
+                  <div class="row">
+                    <t t-foreach="product_offers" t-as="offer">
+                      <div class="col-6 col-md-3 py-3 offer-card">
+                        <a t-att-href="offer.link">
+                          <img class="w-49 mx-auto alloffers-img"
+                               t-att-src="'/website/image/product.offers/%s/image' % offer.id"
+                               t-att-alt="offer.title"
+                               style="width:100%;object-fit:cover;"/>
+                        </a>
+                      </div>
+                    </t>
+                  </div>
+
+                </div>
+              </section>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="clearfix"/>
+        <div class="oe_structure"/>
+      </div>
+    </t>
+  </template>
+</odoo>

@@ -80,3 +80,9 @@ class FarmaoffersHomepage(http.Controller):
     @http.route("/", type="http", auth="public", website=True, sitemap=False)
     def farmaoffers_root_home(self, **kw):
         return request.render("website.farmaoffers_homepage", {})
+    
+class FarmaoffersAllOffers(http.Controller):
+
+    @http.route('/all-offers', auth='public', type='http', methods=['GET'], website=True, sitemap=False)
+    def allOffers(self, **kw):
+        return http.request.render('farmaoffers_theme.all-offers')

@@ -6,9 +6,13 @@ ul.category-nav.category-nav-mobile {
     display: block;
 }
 
-/* .category-main-option-menu:hover ul.category-nav {
+.category-main-option-menu:hover ul.category-nav {
     display: block;
-} */
+}
+
+.category-header:hover > ul.nav-child {
+    display: block !important;
+}
 
 .close-item {
     cursor: pointer;
