@@ -10,12 +10,10 @@
 
       <field name="arch" type="xml">
 
-        <!-- Breadcrumb (theme): agregar clases -->
         <xpath expr="//div[hasclass('kanak_breadcrumb')]" position="attributes">
           <attribute name="class" add="product-grid-breadcrumb bg-white" separator=" " />
         </xpath>
 
-        <!-- Banner: dentro de product_detail, antes del primer div -->
         <xpath expr="//*[@id='product_detail']/div[1]" position="before">
           <div class="m-0 shop-banner">
             <h2 class="text-uppercase font-weight-bold m-0">Producto</h2>
@@ -24,31 +22,16 @@
 
         <xpath expr="//*[@id='product_detail']/div[2]" position="replace"/>
 
-
-        <!-- Quitar el texto de delivery/shipping que mete el theme -->
         <xpath expr="//div[@id='product_details']/p[hasclass('text-muted')]" position="replace"/>
 
-        <!-- Reemplazar el bloque de descripción OG (description_ecommerce) por tus secciones custom -->
         <xpath expr="//section[hasclass('product_desc')]" position="replace">
-          <section class="product_desc oe_website_sale container my-3 my-lg-4">
-
-            <!-- <t t-call="farmaoffers_theme.section_desc_disc"/> -->
-            <!-- <t t-call="farmaoffers_theme.section_additional_info"/> -->
+          <section class="product_desc container my-3 my-lg-4">
             <t t-call="farmaoffers_theme.section_same_compound"/>
-            <!-- <t t-call="farmaoffers_theme.section_bought_together"/> -->
             <t t-call="farmaoffers_theme.section_general_info"/>
-
-            <!-- <t t-call="farmaoffers_theme.section_faqs">
-            <t t-set="title_p1" t-value="'Preguntas'"/>
-            <t t-set="title_p2" t-value="'Frecuentes'"/>
-            <t t-set="faqs" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
-          </t> -->
-
             <t t-call="farmaoffers_theme.section_product_resume"/>
           </section>
         </xpath>
 
-        <!-- Insertar header info después del h1 del producto -->
         <xpath expr="//div[@id='product_details']//h1[@itemprop='name']" position="after">
           <div class="product-header-info">
             <p>
@@ -77,34 +60,5 @@
       </field>
     </record>
 
-    <record id="product_page_add_laboratory_info" model="ir.ui.view">
-      <field name="name">Product Page - Add Laboratory Info</field>
-      <field name="inherit_id" ref="website_sale.product"/>
-      <field name="type">qweb</field>
-      <field name="key">farmaoffers_theme.product_page_add_laboratory_info</field>
-      <field name="priority">200</field>
-
-      <field name="arch" type="xml">
-        <xpath expr="//div[@id='product_details']/h1[@itemprop='name']" position="after">
-          <div class="product-header-info">
-            <p class="mb-2">
-              <strong t-if="product.laboratory" class="text-primary">Laboratorio:</strong>
-              <t t-esc="product.laboratory"/>
-              <br/>
-              <strong class="text-primary">
-                <t t-esc="product.presentation"/>
-              </strong>
-            </p>
-            <p class="mb-0">
-              <t t-esc="product.short_description"/>
-            </p>
-          </div>
-        </xpath>
-      </field>
-    </record>
-
   </data>
 </odoo>
-
-
-
