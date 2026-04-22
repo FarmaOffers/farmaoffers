@@ -102,3 +102,25 @@ class FarmaoffersAllOffers(http.Controller):
     @http.route('/all-offers', auth='public', type='http', methods=['GET'], website=True, sitemap=False)
     def allOffers(self, **kw):
         return http.request.render('farmaoffers_theme.all-offers')
+    
+class FarmaoffersCartHeaderController(http.Controller):
+
+    @http.route('/shop/cart/header_info', type='json', auth='public', website=True)
+    def cart_header_info(self):
+        order = request.website.sale_get_order()
+
+        if not order:
+            currency = request.website.currency_id
+            return {
+                'quantity': 0,
+                'amount_total': 0.0,
+                'amount_total_formatted': f'{currency.symbol} 0.00',
+            }
+
+        currency = order.pricelist_id.currency_id or request.website.currency_id
+
+        return {
+            'quantity': order.cart_quantity,
+            'amount_total': order.amount_total,
+            'amount_total_formatted': f'{currency.symbol} {order.amount_total:.2f}',
+        }
