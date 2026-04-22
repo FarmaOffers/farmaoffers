@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="option_collapse_categories_recursive_header_mobile" name="Category mobile">
+        <li class="nav-item category-header-mobile">
+
+            <t t-set="children" t-value="c.child_id"/>
+
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a t-attf-href="/shop/category/#{c.id}"
+                   class="nav-link nav-link-categ-mobile d-flex align-items-center flex-grow-1">
+
+                    <div class="d-flex flex-row gap-1 align-items-center">
+                        <t t-if="c.image_1920">
+                            <img class="fo-icon-category"
+                                 t-att-src="image_data_uri(c.image_1920)"/>
+                        </t>
+
+                        <span class="fo-category-name" t-field="c.name"/>
+                    </div>
+                </a>
+
+                <button t-if="children"
+                    type="button"
+                    class="mobile-menu-chevron btn btn-link pr-4 text-primary toggle-child-btn"
+                    aria-label="Expandir categoría">
+                <i class="fa fa-chevron-down toggle-child" role="img"/>
+            </button>
+            </div>
+
+            <ul t-if="children" class="nav flex-column nav-child-mobile">
+                <t t-foreach="c.child_id" t-as="c">
+                    <t t-call="farmaoffers_theme.option_collapse_categories_recursive_header_mobile"/>
+                </t>
+            </ul>
+
+        </li>
+    </template>
+
+</odoo>
