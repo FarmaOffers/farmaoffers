@@ -11,20 +11,21 @@ class StockWarehouse(models.Model):
 
     branch_id = fields.Many2one("multi.branch", string="Branch Name")
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """Overridden create to update the branch in location."""
-        warehouse = super(StockWarehouse, self).create(vals)
-        if (
-            warehouse
-            and warehouse.branch_id
-            and warehouse.view_location_id
-            and not warehouse.view_location_id.branch_id
-        ):
-            warehouse.view_location_id.write(
-                {"branch_id": warehouse.branch_id.id or False}
-            )
-        return warehouse
+        warehouses = super(StockWarehouse, self).create(vals)
+        for warehouse in warehouses:
+            if (
+                warehouse
+                and warehouse.branch_id
+                and warehouse.view_location_id
+                and not warehouse.view_location_id.branch_id
+            ):
+                warehouse.view_location_id.write(
+                    {"branch_id": warehouse.branch_id.id or False}
+                )
+        return warehouses
 
     def _get_locations_values(self, vals, code=False):
         """Overridden method to update the branch."""

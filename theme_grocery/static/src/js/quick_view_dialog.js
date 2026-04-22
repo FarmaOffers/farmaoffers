@@ -1,32 +1,34 @@
-odoo.define('theme_grocery.product_quick_view', function (require) {
-'use strict';
+/** @odoo-module **/
+import { _t } from "@web/core/l10n/translation";
+import publicWidget from "@web/legacy/js/public/public_widget";
+import { WebsiteSale } from "@website_sale/js/website_sale";
+import { rpc } from "@web/core/network/rpc";
 
-    var utils = require('web.utils');
-    var core = require('web.core');
-    var _t = core._t;
-    var ajax = require('web.ajax');
-    var sAnimations = require('website.content.snippets.animation');
-    require('website_sale.website_sale');
-
-
-    sAnimations.registry.WebsiteSale.include({
-        events: _.extend({}, sAnimations.registry.WebsiteSale.prototype.events || {}, {
-            'click .p_quick_view, .tp-product-quick-view-small-btn' : 'onQuickView',
-        }),
-        onQuickView: function(event){
-            var product_id = $(event.currentTarget).attr('data-product-id');
-            $.blockUI({
-                'message': '<h3 class="text-white"><img src="/web/static/src/img/spin.png" class="fa-pulse"/></h3>'
-            });
-            ajax.jsonRpc('/add/quick/views/popup', 'call', {
-                product_id: parseInt(product_id),
-            }).then(function(data) {
-                $('.quick_view_pop_up_p_detail').html(data.data);
-                $('.quick_view_pop_up_p_detail .js_main_product [data-attribute_exclusions]').trigger('change')
-                $("#product_quick_views_popup").modal('show');
-                $.unblockUI();
-            });
-        },
-    });
-
+publicWidget.registry.WebsiteSaleQuickView = publicWidget.Widget.extend({
+    selector: ".oe_website_sale",  // mantener para detectar clicks de quick view
+    events: {
+        "click .p_quick_view, .tp-product-quick-view-small-btn": "_onQuickView",
+    },
+    async _onQuickView(ev) {
+        ev.preventDefault();
+        const productId = parseInt(ev.currentTarget.dataset.productId);
+        const $target = $(".quick_view_pop_up_p_detail");
+        $target.html(`
+            <div class="d-flex justify-content-center align-items-center" style="height:200px;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `);
+        try {
+            const data = await rpc("/add/quick/views/popup", { product_id: productId });
+            $target.html(data.data);
+            $(".quick_view_pop_up_p_detail .js_main_product [data-attribute_exclusions]")
+                .trigger("change");
+            $("#product_quick_views_popup").modal("show");
+        } catch (err) {
+            console.error("Quick view failed:", err);
+            $target.html(`<div class="text-danger">Error loading product.</div>`);
+        }
+    },
 });

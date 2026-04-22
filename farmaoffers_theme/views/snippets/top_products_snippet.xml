@@ -1,0 +1,34 @@
+<odoo>
+  <template id="t_top_products" name="Top Products">
+
+    <t t-set="top_products" t-value="request.env['fo.top.product'].sudo().search([('active', '=', True)], order='sequence')" />
+
+    <section class="top_products py-5">
+      <section class="list-slider">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 fw-bold">
+          <span class="text-secondary">Productos</span>
+          <span class="text-primary">Top</span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-3"/>
+
+        <div class="t_owl_carousel top_products" data-carousel-type="products">
+          <div class="splide">
+            <div class="splide__track">
+              <ul class="splide__list">
+
+                <t t-if="top_products">
+                  <t t-call="farmaoffers_theme.t_body_categories">
+                    <t t-set="products" t-value="top_products"/>
+                  </t>
+                </t>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </section>
+
+  </template>
+</odoo>

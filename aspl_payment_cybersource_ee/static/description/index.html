@@ -7,11 +7,15 @@
         </div>
     </div>
 </section>
+<br/>
 <section class="oe_container oe_dark">
     <div class="oe_row">
         <div class="oe_span12" style="width:90%">
-            <h2 class="oe_slogan">Odoo 14 Odoo CyberSource Payment Gateway (Enterprise)</h2>
+            <h2 class="oe_slogan">Odoo 18 Odoo CyberSource Payment Gateway (Enterprise)</h2>
             <h3 class="oe_slogan">CyberSource Features for Enterprise Version</h3>
+            <div><font style="color:red;font-weight:bold;"><b>Note: </b>This module is tested and working in Odoo Enterprise edition but not tested in Community version. And we are supporting Ubuntu OS and not Windows OS.<br/>
+            This module doesn't support 3D secure payment authentication.
+            </font></div>
             <div>
                 <h3>
                     Features
@@ -20,35 +24,70 @@
             <ul>
               <li style="color:#30054D;font-weight:bold;">Ability to transact payments in over 190 countries and territories and fund in over 40 currencies</li>
               <li style="color:#30054D;font-weight:bold;">Acceptance of universal cards, regional cards, and local payment types to maximize sales</li>
-                   <li style="color:#30054D;font-weight:bold;">Connections to approximately 100 acquirers/processors worldwide</li>
+                   <li style="color:#30054D;font-weight:bold;">Connections to approximately 100 providers/processors worldwide</li>
                  <li style="color:#30054D;font-weight:bold;">Unparalleled processing scalability and security</li>
             </ul>
+            <div>
+                <h3>
+                    External Dependencies
+                </h3>
+            </div>
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">
+                        pip3.10 install suds-py3
+                    </li>
+                </ul>
+            <br/>
+<!--            <div class="oe_centeralign oe_websiteonly">-->
+<!--                <a href="https://apps.odoo.com/apps/modules/18.0/aspl_payment_cybersource/" target="new"-->
+<!--                   class="oe_button oe_big" style="background-color: #007a77;">Available for Community</a>-->
+<!--            </div>-->
+            <br/>
             <h4 class="oe_slogan">How to use</h4>
-            <br/>
-                <div class="oe_centeralign oe_websiteonly">
-                <a href="https://apps.odoo.com/apps/modules/14.0/aspl_payment_cybersource/" target="new"
-                   class="oe_button oe_big" style="background-color: #007a77;">Available for Community</a>
-                </div>
-            <br/>
             <div class="oe_screenshot" style="text-align: left;">
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Website > Configuration > Payment Transaction</li>
+                    <li style="color:#30054D;font-weight:bold;">From the list of payment provider select Cybersource</li>
+                </ul>
+                <img style="max-width: 100%;font-weight:bold;" src="odoo17_1_payment_provider_menu.png"><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Cybersource Credentials: Take Merchant ID & Cybersource Key and put it into Cybersource Payment Provider in Odoo.</li>
+                </ul>
+                <img style="max-width: 100%;font-weight:bold;" src="odoo17_2_cybersource_configuration.png"><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Here need to configure Journal</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_3_cybersource_payment_journal.png"/><br /><br />
+                 <ul>
+                    <li style="color:#30054D;font-weight:bold;">If you want to generate invoice at the time of online payment then you have to configure this settings</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_4_automatic_invoice.png"/><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Now let's do payment from website so open website and make order</li>
+                </ul>
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Select Cybersource from payment methods.</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_5_payment_method.png"/><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">User can see confirm order detail here</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_6_payment_successfull_done.png"/><br /><br />
 
-                <img style="max-width: 100%;font-weight:bold;" src="move_to_acquirer_v14.png"><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Transaction Record has been created in Payment Transaction</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_7_payment_transcation.png"/><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Here you can check sale order and invoice inside transaction</li>
+                </ul>
 
-                <img style="max-width: 100%;" src="fill_cybersource_detail_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="fill_configuration_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="automatic_invoice_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="payment_process_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="confirm_page_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="payment_transaction_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="sale_order_v14.png"/><br /><br />
-
-                <img style="max-width: 100%;" src="invoice_v14.png"/><br /><br />
+                 <img style="max-width: 100%;" src="odoo17_8_invoice_sale_order.png"/><br /><br />
+                <ul>
+                    <li style="color:#30054D;font-weight:bold;">Here you can check sale order and invoice in details</li>
+                </ul>
+                <img style="max-width: 100%;" src="odoo17_9_sale_order_invoice_link.png"/><br /><br />
+                 <img style="max-width: 100%;" src="odoo17_10_invoice_sale_order.png"/><br /><br />
            </div>
         </div>
     </div>
@@ -62,13 +101,10 @@
     <div class="release_note_container">
         <div class="release_note_details" style="border-bottom: 1px solid #c4c4c4;padding-top: 5px;">
             <div class="release_note_header" style="background: #c4c4c4;height: 47px;line-height: 20px;padding: 5px;border-radius: 3px;font-weight: bold;">
-                <span>Release Update - January 13, 2021</span>
+                <span>Release Update - September 11, 2025</span>
                 <br/>
-                <span>Version - 14.0.1.0</span>
+                <span>Version - 18.0.1.0.0</span>
             </div>
-<!--            <div class="release_note_type">-->
-<!--                <b>What's New</b>-->
-<!--            </div>-->
             <div class="release_note_body">
                 <ul>
                     <li>Initial Release</li>

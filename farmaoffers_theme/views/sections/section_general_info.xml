@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="section_general_info">
+        <t t-set="general_data" t-value="website.get_general_info_by_type(product.id)"/>
+
+        <section t-if="general_data and len(general_data) &gt; 0" class="mb-4 pt-5">
+            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+                <span class="text-secondary">Información</span>
+                <span class="text-primary">General</span>
+            </h3>
+
+            <hr class="mx-0 mt-1 mb-4"/>
+
+            <div class="content-section">
+                <ul>
+                    <t t-foreach="general_data" t-as="item">
+                        <li t-attf-id="general-info-#{item.id}"
+                            class="my-3 font-montserrat font-size-cards">
+
+                            <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">
+                                <t t-esc="item.title"/>
+                            </h4>
+
+                            <p>
+                                <t t-esc="item.description"/>
+                            </p>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </section>
+    </template>
+
+</odoo>

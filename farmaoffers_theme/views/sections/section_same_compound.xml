@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="section_same_compound">
+
+        <t t-if="product.active_compound">
+            <t t-set="product_items"
+               t-value="website.get_products_with_same_compound(product.id, product.active_compound)"/>
+        </t>
+
+        <section t-if="product.active_compound and product_items and len(product_items) &gt; 0"
+                 class="mb-4 pt-5">
+
+            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+                <span class="text-secondary">Productos</span>
+                <span class="text-primary">Con el mismo compuesto</span>
+            </h3>
+
+            <hr class="mx-0 mt-1 mb-4"/>
+
+            <div class="content-section same-compound">
+                <ul class="inner-img p-0">
+                    <img src="/farmaoffers_theme/static/src/img/icon-medicine.png"
+                         alt="Icon medicine"/>
+                </ul>
+
+                <ul id="ul-same-compound" class="inner-list">
+                    <li t-foreach="product_items"
+                        t-as="item"
+                        class="font-montserrat font-size-cards">
+
+                        <t t-set="product_href" t-value="keep(item.website_url)"/>
+                        <a itemprop="name"
+                           t-att-href="product_href"
+                           t-att-content="item.name"
+                           t-field="item.name"/>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-none" id="current_product_compound">
+                <t t-esc="product.active_compound"/>
+            </div>
+
+            <a id="show-more-with-same-compound"
+               class="show-more font-montserrat font-size-cards"
+               href="#"
+               title="Desplegar más">
+                Desplegar más
+            </a>
+
+        </section>
+    </template>
+
+</odoo>

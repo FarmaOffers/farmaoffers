@@ -11,16 +11,21 @@ class StockPicking(models.Model):
 
     branch_id = fields.Many2one("multi.branch", string="Branch Name")
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """Overridden method to update the operations lines."""
-        picking = super(StockPicking, self).create(vals)
-        if picking and picking.branch_id:
-            if picking.move_ids_without_package:
-                picking.move_ids_without_package.write(
-                    {"branch_id": picking.branch_id and picking.branch_id.id or False}
-                )
-        return picking
+        pickings = super(StockPicking, self).create(vals)
+        for picking in pickings:
+            if picking and picking.branch_id:
+                if picking.move_ids_without_package:
+                    picking.move_ids_without_package.write(
+                        {
+                            "branch_id": picking.branch_id
+                            and picking.branch_id.id
+                            or False
+                        }
+                    )
+        return pickings
 
     def write(self, vals):
         """Overridden method to update the operations lines."""
@@ -82,7 +87,7 @@ class StockRule(models.Model):
         product_id,
         product_qty,
         product_uom,
-        location_id,
+        location_dest_id,
         name,
         origin,
         company_id,
@@ -92,7 +97,7 @@ class StockRule(models.Model):
             product_id,
             product_qty,
             product_uom,
-            location_id,
+            location_dest_id,
             name,
             origin,
             company_id,

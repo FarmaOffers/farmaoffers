@@ -32,19 +32,3 @@ class Location(models.Model):
                         "as assigned on a warehouse configuration."
                     )
                 )
-
-
-class Inventory(models.Model):
-    """Stock Inventory Inherited."""
-
-    _inherit = "stock.inventory"
-
-    branch_id = fields.Many2one("multi.branch", string="Branch Name")
-
-
-class InventoryLine(models.Model):
-    """Stock Inventory Line Inherited."""
-
-    _inherit = "stock.inventory.line"
-
-    branch_id = fields.Many2one("multi.branch", string="Branch Name")

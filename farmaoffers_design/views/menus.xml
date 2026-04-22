@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="fo_menu_root" name="FarmaOffers" parent="website.menu_website_configuration" sequence="90"/>
+
+    <menuitem id="fo_menu_sliders" name="Top Sliders" parent="fo_menu_root" action="action_fo_top_slider" sequence="1"/>
+
+    <menuitem id="fo_menu_product_offers" name="Product Offers" parent="fo_menu_root" action="action_product_offers" sequence="2"/>
+
+    <menuitem id="fo_menu_top_products" name="Top Products" parent="fo_menu_root" action="action_top_product" sequence="3"/>
+
+    <menuitem id="fo_menu_our_tips" name="Our Tips" parent="fo_menu_root" action="action_fo_our_tips" sequence="4"/>
+
+    <menuitem id="fo_menu_client_reviews" name="Reviews" parent="fo_menu_root" action="action_fo_client_review" sequence="5"/>
+
+    <menuitem id="fo_menu_faqs" name="FAQs" parent="fo_menu_root" action="action_fo_faqs" sequence="6"/>
+
+    <menuitem id="fo_menu_prescriptions" name="Prescriptions" parent="fo_menu_root" action="action_farmaoffers_prescriptions" sequence="7" />
+
+    <menuitem id="fo_menu_quotes" name="Quotes" parent="fo_menu_root" action="action_farmaoffers_quotes" sequence="8" />
+
+    <menuitem id="fo_menubranch_offices" name="Branch Offices" parent="fo_menu_root" action="action_fo_branch_offices" sequence="9" />
+
+    <menuitem id="fo_menu_contact" name="Contacts" parent="fo_menu_root" action="action_farmaoffers_contactus" sequence="10" />
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="s_quote_form" name="Quote Form">
+    <section class="s_quote_form container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+
+      <section class="pt8 pb0">
+        <div class="container s_allow_columns font-montserrat text-uppercase">
+          <h1 id="top_quote" class="m-0 text-center">
+            <span class="text-white fw-bold font-montserrat" style="font-size: 32px;">
+              Cotizar productos de alto costo
+            </span>
+          </h1>
+        </div>
+      </section>
+
+      <section class="o_colored_level pb0 pt0">
+        <div class="s_allow_columns o_container_small">
+
+          <p class="text-white font-montserrat m-0"> 
+              Llena este formulario <b class="o_default_snippet_text">para poder cotizar tus productos.</b>
+          </p>
+
+          <div class="container mt-3">
+            <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom p-2 p-md-3 p-lg-5">
+
+              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+              <t t-if="error">
+                <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1">
+                  <i class="fa fa-exclamation"></i>
+                  <t t-esc="err['error']"/>
+                </div>
+              </t>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Nombre *</label>
+                <input type="text" class="form-control" name="name" t-att-value="name" required="1"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Apellido *</label>
+                <input type="text" class="form-control" name="lastname" t-att-value="lastname" required="1"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Ciudad *</label>
+                <input type="text" class="form-control" name="city" t-att-value="city" required="1"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Dirección</label>
+                <input type="text" class="form-control" name="address" t-att-value="address"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Teléfono *</label>
+                <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="1234567 o 12345678"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Correo Electrónico *</label>
+                <input type="email" class="form-control" name="email" t-att-value="email" required="1"/>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Descripción de la solicitud *</label>
+                <textarea class="form-control" name="description" required="1" rows="3">
+                  <t t-if="description" t-esc="description"/>
+                </textarea>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="text-dark-fo mb-0">Adjuntar receta médica (PDF)</label>
+                <input type="file" class="form-control-file" accept="application/pdf" name="upload"/>
+              </div>
+
+              <div class="form-group col-12 text-right">
+                <button type="submit" class="btn btn-secondary">Enviar</button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+  </template>
+</odoo>

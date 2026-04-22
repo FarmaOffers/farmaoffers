@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="section_desc_disc">
+        <section t-if="product.description or res_company.disclaimer"
+            class="info-section-dd font-montserrat font-size-cards mb-4">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li t-if="product.description" class="nav-item">
+                    <a class="nav-link active text-uppercase font-weight-bold"
+                       data-toggle="tab"
+                       href="#description">
+                        Descripción
+                    </a>
+                </li>
+                <li t-if="res_company.disclaimer" class="nav-item">
+                    <a t-attf-class="nav-link text-uppercase font-weight-bold #{ 'active' if not product.description else ''}"
+                       data-toggle="tab"
+                       href="#disclaimer">
+                        Disclaimer
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content mt-2 px-3 border rounded">
+                <div t-if="product.description"
+                     id="description"
+                     class="container tab-pane active">
+                    <br/>
+                    <p t-esc="product.description"/>
+                </div>
+
+                <div t-if="res_company.disclaimer"
+                     id="disclaimer"
+                     t-attf-class="container tab-pane #{ 'active' if not product.description else 'fade'}">
+                    <br/>
+                    <p t-esc="res_company.disclaimer"/>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

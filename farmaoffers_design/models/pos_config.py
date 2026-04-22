@@ -21,10 +21,13 @@ class PosConfig(models.Model):
 
     def _set_branch_id(self):
         """Permite asignar manualmente un branch_id"""
+        StockWarehouse = self.env['stock.warehouse']
         for config in self:
-            if config.branch_id:
-                warehouses = self.env['stock.warehouse'].search([
-                    ('branch_id', '=', config.branch_id.id)
-                ])
-                if warehouses:
-                    config.picking_type_id = warehouses[0].pick_type_id
+            if not config.branch_id:
+                continue
+            warehouses = StockWarehouse.search(
+                [('branch_id', '=', config.branch_id.id)],
+                limit=1
+            )
+            if warehouses:
+                config.picking_type_id = warehouses.pick_type_id

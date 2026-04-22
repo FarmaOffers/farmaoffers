@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="section_bought_together">
+        <t t-set="optional_products" t-value="product.optional_product_ids"/>
+        <t t-set="add_qty_safe" t-value="add_qty or 1"/>
+
+        <section t-if="optional_products and len(optional_products) &gt; 0" class="mb-4 pt-5">
+            <section class="list-slider bought-together">
+
+                <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+                    <span class="text-secondary">Productos</span>
+                    <span class="text-primary">Comprados juntos</span>
+                </h3>
+
+                <hr class="mx-0 mt-1 mb-4"/>
+
+                <div class="owl-carousel">
+                    <t t-foreach="range(0, len(optional_products), 1)" t-as="step">
+                        <div class="item">
+                            <ul class="widget-products">
+                                <li t-foreach="optional_products[step:step+1]"
+                                    t-as="optional_product"
+                                    class="d-flex flex-column align-items-center">
+
+                                    <span class="img">
+                                        <img class="img-thumbnail"
+                                             t-attf-src="/website/image/product.template/{{ optional_product.id }}/image_512"
+                                             t-att-title="optional_product.name"/>
+                                    </span>
+
+                                    <span class="product m-0 font-montserrat">
+                                        <t t-set="combination_info"
+                                           t-value="optional_product._get_combination_info(only_template=True, add_qty=add_qty_safe, pricelist=pricelist)"/>
+
+                                        <div class="price product_price mb-2" style="white-space: nowrap;">
+                                            <span t-if="combination_info.get('price')"
+                                                  t-esc="combination_info['price']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                            <span itemprop="price" style="display:none;" t-esc="combination_info.get('price')"/>
+                                            <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
+                                        </div>
+
+                                        <a t-att-href="'/shop/product/' + slug(optional_product)"
+                                           t-att-title="optional_product.name">
+                                            <span class="name mb-1 d-inline-block text-uppercase font-montserrat text-primary w-100 font-weight-bold font-8-5">
+                                                <t t-esc="optional_product.name"/>
+                                            </span>
+                                        </a>
+
+                                        <t t-if="len(optional_product.product_variant_ids) == 1">
+                                            <form action="/shop/cart/update" class="js_add_cart_variants" method="POST">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="product_id" t-att-value="optional_product.product_variant_id.id"/>
+                                                <a class="add-cart-btn a-submit text-uppercase font-montserrat">Agregar al carrito</a>
+                                            </form>
+                                        </t>
+
+                                        <t t-if="len(optional_product.product_variant_ids) &gt; 1">
+                                            <a class="add-cart-btn text-uppercase"
+                                               t-att-href="'/shop/product/%s' % slug(optional_product)">
+                                                Agregar al carrito
+                                            </a>
+                                        </t>
+                                    </span>
+
+                                    <div class="clearfix"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </t>
+                </div>
+
+            </section>
+        </section>
+    </template>
+
+</odoo>

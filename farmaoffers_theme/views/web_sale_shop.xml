@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================= SHOP PAGE ================= -->
+
+    <template id="shop_customize" inherit_id="website_sale.products" name="Shop page FarmaOffers">
+
+        <xpath expr="//div[@id='wrap']//div[hasclass('container')]/div[hasclass('row')][1]" position="before">
+            <t t-call="farmaoffers_theme.breadcrumb_fo">
+                <t t-set="bg_title" t-value="'Listado de productos'"/>
+                <t t-set="breadcrumb_definition" t-value="'Productos'"/>
+            </t>
+            <div class="oe_structure"/>
+        </xpath>
+
+        <!-- <xpath expr="//div[hasclass('products_pager')]" position="replace"/> -->
+
+    </template>
+
+    <!-- ================= ATRIBUTOS ================= -->
+
+    <!-- <template id="shop_attributes_customize" inherit_id="website_sale.products_attributes" name="Shop attributes FarmaOffers">
+
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="attributes">
+            <attribute name="class" add="d-block" separator=" "/>
+            <attribute name="class" remove="d-lg-block" separator=" "/>
+        </xpath>
+
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']/form" position="replace">
+            <form class="js_attributes position-relative mb-2" method="get">
+                <input t-if="category" type="hidden" name="category" t-att-value="category.id"/>
+                <input type="hidden" name="search" t-att-value="search"/>
+                <input type="hidden" name="order" t-att-value="order"/>
+            </form>
+        </xpath>
+
+    </template> -->
+
+    <!-- ================= CATEGORÍAS ================= -->
+
+    <!-- <template id="shop_customize_categories" inherit_id="website_sale.products_categories_list" name="Categories FarmaOffers (Odoo 18)">
+
+        <xpath expr="//div[@name='wsale_products_categories_list']" position="attributes">
+            <attribute name="t-attf-class" add="filter-mobile-product fo-side-list mb-4" separator=" "/>
+        </xpath>
+
+        <xpath expr="//div[@name='wsale_products_categories_list']//ul" position="before">
+            <div class="d-flex">
+                <h3 class="text-uppercase">Categorías</h3>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@name='wsale_products_categories_list']//ul/li[1]/a" position="replace">
+            <a t-att-href="keep('/shop', category=0)" t-attf-class="{{not category and 'text-decoration-underline'}} p-0 o_not_editable">
+          Todos los productos
+            </a>
+        </xpath>
+
+    </template> -->
+
+
+
+    <!-- ================= PRODUCT ITEM ================= -->
+    
+    <!-- <template id="products_item_customize" inherit_id="website_sale.products_item" name="Product Item FarmaOffers">
+
+        <xpath expr="//form[hasclass('oe_product_cart')]" position="attributes">
+            <attribute name="class" add="border-0" separator=" "/>
+        </xpath>
+
+        <xpath expr="//div[hasclass('oe_product_image')]" position="attributes">
+            <attribute name="class" add="rounded p-1 border-product-item" separator=" "/>
+        </xpath>
+    </template> -->
+
+</odoo>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>FarmaOffers Module</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        color: #333;
+        padding: 24px;
+        max-width: 900px;
+      }
+      .hero {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+      }
+      h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+      h2 {
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hero">
+      <img src="/farmaoffers_design/static/description/icon.png" alt="Farmaoffers logo"/>
+      <div>
+        <h1>FarmaOffers Module</h1>
+        <p>Core backend models, views, and controllers for FarmaOffers.</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Overview</h2>
+      <p>
+        <strong>FarmaOffers Module</strong> provides the core backend structure used by the
+        FarmaOffers platform. It includes administrative models, business logic,
+        controllers, and backend views required to manage website content and user submissions.
+      </p>
+    </section>
+
+    <section>
+      <h2>Main Features</h2>
+      <ul>
+        <li>Backend models for prescriptions, quotes, contact requests, FAQs, tips, banners, and sliders</li>
+        <li>Administrative list and form views for managing user-submitted data</li>
+        <li>Controllers handling public website forms and data persistence</li>
+        <li>Menu entries and actions integrated into the Odoo backend</li>
+        <li>Reusable backend logic supporting FarmaOffers website flows</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Technical Scope</h2>
+      <p>
+        This module is intended to be installed as a backend dependency.
+        It does not provide a standalone theme, but rather supports the
+        FarmaOffers website and sales ecosystem by exposing structured backend components.
+      </p>
+    </section>
+  </body>
+</html>

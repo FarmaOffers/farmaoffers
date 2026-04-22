@@ -17,7 +17,7 @@
         id="report_purchasequotation_document_inherit_multi_branch"
         inherit_id="purchase.report_purchasequotation_document"
     >
-        <xpath expr="//h2" position="after">
+        <xpath expr="//t[@t-set='layout_document_title']" position="after">
             <h4>Branch: <span t-field="o.branch_id.name" /></h4>
         </xpath>
     </template>

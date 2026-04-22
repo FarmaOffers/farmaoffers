@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="select_body_item_snippet" name="Body Selector">
+    <t t-if="client_review">
+      <t t-call="farmaoffers_theme.card_client_reviews" />
+    </t>
+    <t t-if="top_offers">
+      <t t-call="farmaoffers_theme.card_top_offers" />
+    </t>
+    <t t-if="our_tips">
+      <t t-call="farmaoffers_theme.card_our_tips" />
+    </t>
+  </template>
+</odoo>
+
