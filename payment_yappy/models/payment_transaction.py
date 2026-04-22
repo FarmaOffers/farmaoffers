@@ -2,7 +2,7 @@
 import json
 import logging
 import os
-from subprocess import check_output
+from subprocess import run, CalledProcessError
 
 import chardet
 from cryptography.fernet import Fernet
@@ -73,10 +73,18 @@ class PaymentTransaction(models.Model):
         node_script = os.path.join(module_root, 'node_sdk', 'dist', 'index.js')
 
         try:
-            content = check_output(['node', node_script, json.dumps(data)])
-        except Exception as e:
+            result = run(
+                ['node', node_script, json.dumps(data)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            content = result.stdout.encode('utf-8')
+        except CalledProcessError as e:
+            _logger.error("YAPPY node_sdk stdout: %s", e.stdout)
+            _logger.error("YAPPY node_sdk stderr: %s", e.stderr)
             _logger.exception("YAPPY node_sdk error")
-            raise ValidationError(_("Error al generar el link de pago de Yappy: %s") % e)
+            raise ValidationError(_("Error al generar el link de pago de Yappy: %s") % (e.stderr or e))
 
         enc_info = chardet.detect(content) or {}
         encoding = (enc_info.get('encoding') or 'utf-8').lower()
@@ -98,14 +106,14 @@ class PaymentTransaction(models.Model):
         pay_url = response['url']
         
         if isinstance(pay_url, bytes):
-          pay_url = pay_url.decode("utf-8")
+            pay_url = pay_url.decode("utf-8")
           
         parsed_url = urls.url_parse(pay_url)
         
         def _to_str(x):
-          if isinstance(x, bytes):
-            return x.decode("utf-8")
-          return x or ""
+            if isinstance(x, bytes):
+                return x.decode("utf-8")
+            return x or ""
         
         scheme = _to_str(parsed_url.scheme)
         netloc = _to_str(parsed_url.netloc)
@@ -115,7 +123,6 @@ class PaymentTransaction(models.Model):
         api_url = f"{scheme}://{netloc}{path}"
         url_params = urls.url_decode(query) if query else {}
         
-
         rendering_values = {
             'api_url': api_url,
             "url_params": url_params,
@@ -159,3 +166,4 @@ class PaymentTransaction(models.Model):
         else:
             _logger.info("YAPPY: notificación de éxito para tx %s", self.reference)
             self._set_done()
+            
