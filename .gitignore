@@ -510,3 +510,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,windows,macos,linux,python,node
 .vscode/settings.json
+!payment_yappy/node_sdk/node_modules/
+!payment_yappy/node_sdk/node_modules/**
+!payment_yappy/node_sdk/dist/
+!payment_yappy/node_sdk/dist/**
