@@ -9,6 +9,9 @@ import base64
 import logging
 import re
 import werkzeug
+from odoo.addons.web.controllers.home import Home
+from odoo.addons.theme_grocery.controllers.controllers import website_sale as ThemeGroceryWebsiteSale
+
 
 # Make a regular expression
 # for validating an Email
@@ -162,3 +165,71 @@ def validator(data, onlypaswords=False):
                     {'field': key, 'error': f'La contraseña debe contener 6 o más dígitos, debe contener al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo ($, @, #, %).'})
 
     return errors
+
+class HomeRedirect(Home):
+
+    @http.route()
+    def web_login(self, redirect=None, **kw):
+        if request.session.uid:
+            return request.redirect('/')
+        return super().web_login(redirect=redirect, **kw)
+    
+from odoo.http import request, route
+from odoo.addons.theme_grocery.controllers.controllers import website_sale as ThemeGroceryWebsiteSale
+from odoo.osv import expression
+from odoo.addons.website_sale.controllers.main import TableCompute
+from odoo.tools import lazy
+
+class WebsiteSalePriceFix(ThemeGroceryWebsiteSale):
+
+    def _safe_float(self, val):
+        try:
+            return float(val)
+        except (TypeError, ValueError):
+            return False
+
+    @route([
+        '/shop',
+        '/shop/page/<int:page>',
+        '/shop/category/<model("product.public.category"):category>',
+        '/shop/category/<model("product.public.category"):category>/page/<int:page>',
+    ], type='http', auth="public", website=True, sitemap=ThemeGroceryWebsiteSale.sitemap_shop)
+    def shop(self, page=0, category=None, search='', min_price=0.0, max_price=0.0, ppg=False, **post):
+
+        res = super().shop(
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            **post
+        )
+
+        min_price = self._safe_float(request.params.get('min_price'))
+        max_price = self._safe_float(request.params.get('max_price'))
+        res.qcontext['min_price'] = min_price if min_price is not False else res.qcontext.get('available_min_price')
+        res.qcontext['max_price'] = max_price if max_price is not False else res.qcontext.get('available_max_price')
+
+        products = res.qcontext.get('products')
+        if products:
+            filtered_products = products
+
+            if min_price is not False:
+                filtered_products = filtered_products.filtered(lambda p: p.list_price >= min_price)
+
+            if max_price is not False:
+                filtered_products = filtered_products.filtered(lambda p: p.list_price <= max_price)
+
+            res.qcontext['products'] = filtered_products
+            res.qcontext['search_product'] = filtered_products
+            res.qcontext['search_count'] = len(filtered_products)
+
+            ppg = res.qcontext.get('ppg') or ppg or 20
+            ppr = res.qcontext.get('ppr') or 4
+
+            res.qcontext['bins'] = lazy(
+                lambda: TableCompute().process(filtered_products, ppg, ppr)
+            )
+
+        return res

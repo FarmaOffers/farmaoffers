@@ -3,7 +3,9 @@
   <template id="card_top_offers" name="Card Top Offers">
     <div class="top_offers w-100">
       <div class="img-offer d-flex align-items-center">
-        <img t-att-src="'/web/image/product.offers/%s/image' % item.id" t-att-alt="item.title or ''" style="object-fit: contain;" class="p-1"/>
+        <a t-att-href="item.product_id and ('/shop/product/' + slug(item.product_id)) or (item.link or '#')" t-att-title="item.title" class="d-block w-100">
+          <img t-att-src="'/web/image/product.offers/%s/image' % item.id" t-att-alt="item.title or ''" style="object-fit: contain;" class="p-1"/>
+        </a>
       </div>
       <div class="title-offer">
         <t t-esc="item.title"/>
