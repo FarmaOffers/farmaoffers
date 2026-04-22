@@ -188,7 +188,7 @@
                                                     <span>ítem</span>
                                                     <hr class="hr-price" />
                                                     <span class="price-minicart fw-bold">
-                                                        <span class="price">
+                                                        <span class="price my_cart_total">
                                                             <t t-if="website_sale_order.amount_total > 0">
                                                                 <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}' />
                                                             </t>
@@ -311,7 +311,7 @@
                                                         <span>ítem</span>
                                                         <hr class="hr-price" />
                                                         <span class="price-minicart fw-bold">
-                                                            <span class="price">
+                                                            <span class="price my_cart_total">
                                                                 <t t-if="website_sale_order.amount_total > 0">
                                                                     <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}' />
                                                                 </t>
@@ -370,7 +370,7 @@
                                                         </div>
                                                         <hr class="hr-price" />
                                                         <span class="price-minicart">
-                                                            <span class="price">
+                                                            <span class="price my_cart_total">
                                                                 <t t-if="website_sale_order.amount_total > 0">
                                                                     <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}' />
                                                                 </t>
