@@ -39,7 +39,7 @@ class PaymentTransaction(models.Model):
         total = tx.amount
         subtotal = sale_order.amount_untaxed if sale_order else tx.amount
         shipping = getattr(sale_order, 'amount_delivery', 0.0) if sale_order else 0.0
-        taxes = sale_order.amount_tax if sale_order else 0.0
+        taxes = sale_order.amount_tax if sale_order else "0.00"
 
         base_url = self.provider_id._get_yappy_base_url()
 
@@ -52,7 +52,7 @@ class PaymentTransaction(models.Model):
                 'subtotal': subtotal,
                 'shipping': shipping,
                 'discount': 0.00,
-                'taxes': taxes or 0.00,
+                'taxes': taxes or "0.00",
                 'orderId': tx.reference,
                 'successUrl': urls.url_join(
                     base_url,
