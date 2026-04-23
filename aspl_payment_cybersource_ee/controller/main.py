@@ -211,7 +211,6 @@ class CyberSourceController(http.Controller):
             resp = self.client.service.runTransaction(**data)
         except Exception as e:
             resp = None
-            5/0
         return resp
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
