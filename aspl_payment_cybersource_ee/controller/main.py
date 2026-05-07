@@ -128,7 +128,10 @@ class CyberSourceController(http.Controller):
                         'verified': True,
                     }
                 else:
-                    raise Warning(reason_code.get(data.get('reasonCode')))
+                    code = data.get('reasonCode')
+                    msg = reason_code.get(code) or 'Error de pago (código: {})'.format(code)
+                    raise Warning(msg)
+
         else:
             raise Warning('Please Enter valid card details')
 
