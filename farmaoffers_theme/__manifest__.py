@@ -50,6 +50,7 @@
         "views/web_sale_shop.xml",
         "views/web_product_page.xml",
         "views/breadcrumb.xml",
+        "views/checkout_address_required.xml",
         "views/sections/section_general_info.xml",
         "views/sections/section_product_resume.xml",
         "views/sections/section_desc_disc.xml",
